@@ -1,65 +1,245 @@
 import type { PrayerPosition } from './types';
 
+// Each position is a complete side-view silhouette of a person praying.
+// Designed in a 200x200 viewBox, facing right.
+// Built with multiple sub-shapes combined into one path for crossfade.
+
 export const positions: PrayerPosition[] = [
   {
     id: 'qiyam',
     name: 'Debout (Qiyam)',
     nameAr: 'قيام',
-    svgPath: 'M100 20 C94 20 89 25 89 31 C89 37 94 42 100 42 C106 42 111 37 111 31 C111 25 106 20 100 20 Z M92 46 L92 110 L82 145 L78 158 L85 160 L100 125 L115 160 L122 158 L118 145 L108 110 L108 46 Z',
+    // Standing straight, arms at sides
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm
+      'M88 52 l-4 2 l-2 38 l-2 6 h6 l1-6 l3-34 Z',
+      // Right arm
+      'M112 52 l4 2 l2 38 l2 6 h-6 l-1-6 l-3-34 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
   },
   {
     id: 'takbir',
     name: 'Takbir al-Ihram',
     nameAr: 'تكبيرة الإحرام',
-    svgPath: 'M100 20 C94 20 89 25 89 31 C89 37 94 42 100 42 C106 42 111 37 111 31 C111 25 106 20 100 20 Z M92 46 L92 110 L82 145 L78 158 L85 160 L100 125 L115 160 L122 158 L118 145 L108 110 L108 46 Z M78 52 L72 46 L68 48 L78 60 Z M122 52 L128 46 L132 48 L122 60 Z',
+    // Standing with hands raised to ear level
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm raised
+      'M88 52 l-6-2 l-4-14 l-2-8 h6 l2 10 l3 10 Z',
+      // Right arm raised
+      'M112 52 l6-2 l4-14 l2-8 h-6 l-2 10 l-3 10 Z',
+      // Left hand
+      'M74 26 a3 4 0 1 1 6 2 a3 4 0 1 1-6-2 Z',
+      // Right hand
+      'M120 26 a3 4 0 1 1 6 2 a3 4 0 1 1-6-2 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
   },
   {
     id: 'qiyam-hands',
     name: 'Debout mains croisées',
     nameAr: 'وضع اليدين',
-    svgPath: 'M100 20 C94 20 89 25 89 31 C89 37 94 42 100 42 C106 42 111 37 111 31 C111 25 106 20 100 20 Z M92 46 L92 110 L82 145 L78 158 L85 160 L100 125 L115 160 L122 158 L118 145 L108 110 L108 46 Z M88 68 L84 74 L100 78 L116 74 L112 68 Z',
+    // Standing with hands folded on chest
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Arms folded on chest area
+      'M86 56 l-4 6 l6 8 l12 2 l12-2 l6-8 l-4-6 l-6 4 l-8 2 l-8-2 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
   },
   {
     id: 'ruku',
     name: 'Inclinaison (Ruku)',
     nameAr: 'ركوع',
-    svgPath: 'M70 50 C64 50 59 55 59 61 C59 67 64 72 70 72 C76 72 81 67 81 61 C81 55 76 50 70 50 Z M82 72 L140 72 L140 80 L82 80 Z M130 80 L130 120 L140 155 L134 158 L122 125 L118 120 L118 80 Z M92 80 L92 120 L82 155 L76 152 L88 125 L92 120 Z',
+    // Bowing at 90°, back flat, hands on knees
+    svgPath: [
+      // Head (forward)
+      'M54 58 a10 10 0 1 1 0 20 a10 10 0 1 1 0-20 Z',
+      // Back (horizontal)
+      'M64 64 l56 0 l4 4 l0 10 l-4 4 l-56 0 l-4-4 l0-10 Z',
+      // Arms going down to knees
+      'M110 78 l4 8 l4 22 l4 4 h-8 l-2-4 l-4-20 Z',
+      'M80 78 l-4 8 l-4 22 l-4 4 h8 l2-4 l4-20 Z',
+      // Left leg
+      'M108 78 l-2 44 l-4 20 l-6 12 h8 l4-10 l4-18 l2-42 Z',
+      // Right leg
+      'M124 78 l2 44 l4 20 l6 12 h-8 l-4-10 l-4-18 l-2-42 Z',
+    ].join(' '),
   },
   {
     id: 'itidal',
     name: 'Redressement (I\'tidal)',
     nameAr: 'اعتدال',
-    svgPath: 'M100 20 C94 20 89 25 89 31 C89 37 94 42 100 42 C106 42 111 37 111 31 C111 25 106 20 100 20 Z M92 46 L92 110 L82 145 L78 158 L85 160 L100 125 L115 160 L122 158 L118 145 L108 110 L108 46 Z M86 50 L80 80 L86 82 L92 52 Z M114 50 L120 80 L114 82 L108 52 Z',
+    // Standing straight, arms relaxed at sides (same as qiyam but slightly different arms)
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm (relaxed, slightly away)
+      'M88 52 l-6 4 l-1 36 l-2 6 h6 l1-6 l2-34 Z',
+      // Right arm (relaxed, slightly away)
+      'M112 52 l6 4 l1 36 l2 6 h-6 l-1-6 l-2-34 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
   },
   {
     id: 'sujud',
     name: 'Prosternation (Sujud)',
     nameAr: 'سجود',
-    svgPath: 'M50 130 C50 124 55 120 60 120 L65 120 L80 100 L115 100 L130 120 L145 120 L155 140 L150 145 L140 130 L130 130 L115 145 L80 145 L65 130 L55 130 L50 140 Z M60 120 L55 110 C52 105 55 100 60 102 L70 108 Z',
+    // Full prostration: forehead on ground, body forming a triangle
+    svgPath: [
+      // Head (on ground, face down)
+      'M42 128 a9 8 0 1 1 18 0 a9 8 0 1 1-18 0 Z',
+      // Arms on ground
+      'M58 124 l10-4 l4 2 l0 8 l-4 2 l-10-4 Z',
+      'M38 124 l-10-4 l-4 2 l0 8 l4 2 l10-4 Z',
+      // Back (angled up from head)
+      'M58 120 l42-30 l14 0 l4 6 l-14 4 l-40 30 Z',
+      // Hips
+      'M114 90 a10 8 0 1 1 0 16 a10 8 0 1 1 0-16 Z',
+      // Left shin (folded, knees on ground)
+      'M108 102 l6 14 l12 12 l8 6 l-2 6 l-10-6 l-12-14 l-6-12 Z',
+      // Right shin
+      'M120 102 l6 14 l12 12 l8 6 l-2 6 l-10-6 l-12-14 l-6-12 Z',
+      // Toes
+      'M140 138 l4-2 l4 4 l-4 4 l-4-2 Z',
+      'M152 138 l4-2 l4 4 l-4 4 l-4-2 Z',
+    ].join(' '),
   },
   {
     id: 'julus',
     name: 'Assis (Julus)',
     nameAr: 'جلوس',
-    svgPath: 'M100 30 C94 30 89 35 89 41 C89 47 94 52 100 52 C106 52 111 47 111 41 C111 35 106 30 100 30 Z M92 56 L92 100 L70 130 L65 155 L72 157 L80 135 L92 110 L92 100 Z M108 56 L108 100 L120 115 L140 125 L140 118 L125 110 L108 100 Z M88 78 L84 84 L100 88 L116 84 L112 78 Z',
+    // Sitting between two prostrations, upright torso, hands on thighs
+    svgPath: [
+      // Head
+      'M100 28 a11 11 0 1 1 0 22 a11 11 0 1 1 0-22 Z',
+      // Neck
+      'M96 50 h8 v5 h-8 Z',
+      // Torso (upright)
+      'M88 55 h24 l2 40 h-28 Z',
+      // Left arm on thigh
+      'M88 60 l-6 6 l-6 26 l-2 10 h6 l2-10 l4-22 Z',
+      // Right arm on thigh
+      'M112 60 l6 6 l6 26 l2 10 h-6 l-2-10 l-4-22 Z',
+      // Left leg folded under (sitting on it)
+      'M86 95 l-16 10 l-20 8 l-8 4 l-2-6 l10-6 l20-8 l14-8 Z',
+      // Right shin on ground
+      'M114 95 l16 10 l20 8 l8 4 l2-6 l-10-6 l-20-8 l-14-8 Z',
+      // Foot (tucked)
+      'M38 114 a4 3 0 1 1 8 0 a4 3 0 1 1-8 0 Z',
+      'M154 114 a4 3 0 1 1 8 0 a4 3 0 1 1-8 0 Z',
+    ].join(' '),
   },
   {
     id: 'tashahud',
     name: 'Tashahud',
     nameAr: 'تشهد',
-    svgPath: 'M100 30 C94 30 89 35 89 41 C89 47 94 52 100 52 C106 52 111 47 111 41 C111 35 106 30 100 30 Z M92 56 L92 100 L70 130 L65 155 L72 157 L80 135 L92 110 Z M108 56 L108 100 L120 115 L140 125 L140 118 L125 110 L108 100 Z M96 80 L90 84 L96 90 L104 84 Z',
+    // Sitting for tashahud, right index finger pointed
+    svgPath: [
+      // Head
+      'M100 28 a11 11 0 1 1 0 22 a11 11 0 1 1 0-22 Z',
+      // Neck
+      'M96 50 h8 v5 h-8 Z',
+      // Torso (upright)
+      'M88 55 h24 l2 40 h-28 Z',
+      // Left arm resting on thigh
+      'M88 60 l-6 6 l-6 26 l-2 10 h6 l2-10 l4-22 Z',
+      // Right arm with index pointed
+      'M112 60 l6 6 l8 20 l14 0 l1-3 l-12-1 l-6-16 l-5-4 Z',
+      // Pointed finger detail
+      'M141 83 l6 0 l2-1 l-2-2 l-6 0 Z',
+      // Left leg folded under
+      'M86 95 l-16 10 l-20 8 l-8 4 l-2-6 l10-6 l20-8 l14-8 Z',
+      // Right shin
+      'M114 95 l16 10 l20 8 l8 4 l2-6 l-10-6 l-20-8 l-14-8 Z',
+      // Feet
+      'M38 114 a4 3 0 1 1 8 0 a4 3 0 1 1-8 0 Z',
+      'M154 114 a4 3 0 1 1 8 0 a4 3 0 1 1-8 0 Z',
+    ].join(' '),
   },
   {
     id: 'salam',
     name: 'Salutations (Salam)',
     nameAr: 'سلام',
-    svgPath: 'M100 30 C94 30 89 35 89 41 C89 47 94 52 100 52 C106 52 111 47 111 41 C111 35 106 30 100 30 Z M92 56 L92 100 L70 130 L65 155 L72 157 L80 135 L92 110 Z M108 56 L108 100 L120 115 L140 125 L140 118 L125 110 L108 100 Z M85 41 L75 38 Z M115 41 L125 38 Z M88 78 L84 84 L100 88 L116 84 L112 78 Z',
+    // Sitting, head turned to the right (shown as head slightly shifted)
+    svgPath: [
+      // Head turned right
+      'M108 28 a11 11 0 1 1 0 22 a11 11 0 1 1 0-22 Z',
+      // Neck (slightly angled)
+      'M98 50 l10-2 l2 6 l-10 2 Z',
+      // Torso (upright)
+      'M88 55 h24 l2 40 h-28 Z',
+      // Left arm
+      'M88 60 l-6 6 l-6 26 l-2 10 h6 l2-10 l4-22 Z',
+      // Right arm
+      'M112 60 l6 6 l6 26 l2 10 h-6 l-2-10 l-4-22 Z',
+      // Left leg folded
+      'M86 95 l-16 10 l-20 8 l-8 4 l-2-6 l10-6 l20-8 l14-8 Z',
+      // Right shin
+      'M114 95 l16 10 l20 8 l8 4 l2-6 l-10-6 l-20-8 l-14-8 Z',
+      // Feet
+      'M38 114 a4 3 0 1 1 8 0 a4 3 0 1 1-8 0 Z',
+      'M154 114 a4 3 0 1 1 8 0 a4 3 0 1 1-8 0 Z',
+    ].join(' '),
   },
   {
     id: 'qunut',
     name: 'Qunut',
     nameAr: 'قنوت',
-    svgPath: 'M100 20 C94 20 89 25 89 31 C89 37 94 42 100 42 C106 42 111 37 111 31 C111 25 106 20 100 20 Z M92 46 L92 110 L82 145 L78 158 L85 160 L100 125 L115 160 L122 158 L118 145 L108 110 L108 46 Z M80 52 L70 48 L65 55 L78 65 Z M120 52 L130 48 L135 55 L122 65 Z',
+    // Standing with hands raised in supplication (palms up, chest level)
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm raised in du'a
+      'M88 52 l-8-2 l-10 6 l-6 16 l2 4 h6 l4-14 l8-4 Z',
+      // Right arm raised in du'a
+      'M112 52 l8-2 l10 6 l6 16 l-2 4 h-6 l-4-14 l-8-4 Z',
+      // Left palm (open, facing up)
+      'M64 70 l-8 1 l-1 5 l10 0 Z',
+      // Right palm (open, facing up)
+      'M136 70 l8 1 l1 5 l-10 0 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
   },
 ];
 
