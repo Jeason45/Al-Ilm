@@ -96,11 +96,12 @@ export default function HorairesPage() {
   }, []);
 
   const fetchByCity = useCallback(async (city: string) => {
+    if (!city.trim()) return;
     setLoading(true);
     setError(null);
     try {
       const date = formatDate(new Date());
-      const res = await fetch(`${API_BASE}/timingsByCity/${date}?city=${encodeURIComponent(city)}&country=&method=12`);
+      const res = await fetch(`${API_BASE}/timingsByCity/${date}?city=${encodeURIComponent(city)}&method=12`);
       const data = await res.json();
       if (data.code === 200) {
         setTimes(data.data.timings);

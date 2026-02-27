@@ -3,7 +3,17 @@
 import { useState, useMemo } from 'react';
 import { Search, BookOpen, Star, Users, BookMarked, Heart } from 'lucide-react';
 import Link from 'next/link';
+import { ScrollReveal } from '@/components/ScrollReveal';
 import { unifiedSearch, type SearchCategory, type SearchResult } from '@/lib/search';
+
+const center: React.CSSProperties = {
+  width: '100%',
+  maxWidth: '800px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  paddingLeft: '24px',
+  paddingRight: '24px',
+};
 
 const CATEGORIES: { id: SearchCategory; label: string; icon: typeof BookOpen }[] = [
   { id: 'all', label: 'Tout', icon: Search },
@@ -25,11 +35,11 @@ const CATEGORY_COLORS: Record<string, string> = {
 function CategoryBadge({ category }: { category: string }) {
   const cat = CATEGORIES.find(c => c.id === category);
   if (!cat) return null;
+  const color = CATEGORY_COLORS[category] || 'var(--color-muted)';
   return (
     <span style={{
-      fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '6px',
-      background: `color-mix(in srgb, ${CATEGORY_COLORS[category] || 'var(--color-muted)'} 15%, transparent)`,
-      color: CATEGORY_COLORS[category] || 'var(--color-muted)',
+      fontSize: '0.6875rem', fontWeight: 600, padding: '2px 8px', borderRadius: '6px',
+      background: `color-mix(in srgb, ${color} 15%, transparent)`, color, flexShrink: 0,
     }}>
       {cat.label}
     </span>
@@ -40,24 +50,26 @@ function ResultCard({ result }: { result: SearchResult }) {
   return (
     <Link
       href={result.href}
-      className="card card-hover"
-      style={{ display: 'block', padding: '16px 20px', textDecoration: 'none', color: 'inherit' }}
+      className="surah-card group"
+      style={{ display: 'block', padding: '1rem 1.25rem', textDecoration: 'none', color: 'inherit' }}
     >
-      <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', gap: '12px', marginBottom: '4px' }}>
-        <h3 className="text-[15px] font-medium font-outfit" style={{ flex: 1 }}>{result.title}</h3>
+      <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', gap: '12px', marginBottom: '0.25rem' }}>
+        <h3 className="font-outfit font-semibold" style={{ fontSize: '0.9375rem', flex: 1 }}>{result.title}</h3>
         <CategoryBadge category={result.category} />
       </div>
 
       {result.arabic && (
-        <p className="font-amiri text-gold text-right text-[16px] mb-2" dir="rtl" style={{ opacity: 0.8 }}>
+        <p className="font-amiri text-gold" dir="rtl" style={{ fontSize: '1rem', opacity: 0.7, marginBottom: '0.5rem' }}>
           {result.arabic}
         </p>
       )}
 
-      <p className="text-[13px] text-muted">{result.subtitle}</p>
+      <p className="text-muted" style={{ fontSize: '0.8125rem' }}>{result.subtitle}</p>
 
       {result.detail && (
-        <p className="text-[13px] text-foreground/60 mt-1" style={{ lineHeight: 1.5 }}>{result.detail}</p>
+        <p style={{ fontSize: '0.8125rem', color: 'var(--color-foreground)', opacity: 0.5, marginTop: '0.25rem', lineHeight: 1.5 }}>
+          {result.detail}
+        </p>
       )}
     </Link>
   );
@@ -73,88 +85,98 @@ export default function RecherchePage() {
   }, [query, category]);
 
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[800px] mx-auto px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <p className="font-amiri text-2xl text-gold mb-4">البحث</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight mb-4">
-            Recherche.
-          </h1>
-          <p className="text-[17px] text-muted max-w-md mx-auto">
-            Recherchez dans les sourates, les Noms d&apos;Allah, les prophètes, le glossaire et les invocations.
-          </p>
-        </div>
-
-        {/* Search input */}
-        <div className="max-w-xl mx-auto mb-6">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-muted" />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Tapez au moins 2 caractères..."
-              className="w-full pl-12 pr-6 py-3.5 rounded-xl bg-surface border border-border text-[15px] text-foreground placeholder:text-muted/50 focus:outline-none focus:border-gold/30 transition-colors duration-200"
-              autoFocus
-            />
+    <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+      <div style={center}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>
+              البحث
+            </p>
+            <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+              Recherche.
+            </h1>
+            <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '30rem', margin: '0 auto' }}>
+              Recherchez dans les sourates, les Noms d&apos;Allah, les prophètes, le glossaire et les invocations.
+            </p>
           </div>
-        </div>
+        </ScrollReveal>
 
-        {/* Category filters */}
-        <div style={{
-          display: 'flex', gap: '6px', justifyContent: 'center', flexWrap: 'wrap',
-          marginBottom: '32px',
-        }}>
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            const active = category === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setCategory(cat.id)}
+        <ScrollReveal delay={80}>
+          {/* Search input */}
+          <div style={{ maxWidth: '560px', margin: '0 auto 1.25rem' }}>
+            <div style={{ position: 'relative' }}>
+              <Search style={{
+                position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)',
+                width: '18px', height: '18px', color: 'var(--color-muted)', pointerEvents: 'none',
+              }} />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Tapez au moins 2 caractères..."
+                autoFocus
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '6px',
-                  padding: '6px 14px', fontSize: '13px', fontWeight: 500,
-                  borderRadius: '20px', cursor: 'pointer',
-                  border: `1px solid ${active ? 'var(--color-gold)' : 'var(--color-border)'}`,
-                  background: active ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
-                  color: active ? 'var(--color-gold)' : 'var(--color-muted)',
-                  transition: 'all 0.2s',
+                  width: '100%', padding: '14px 16px 14px 44px', fontSize: '0.9375rem',
+                  borderRadius: '12px', border: '1px solid var(--color-border)',
+                  background: 'var(--color-surface-elevated)', color: 'var(--color-foreground)',
+                  outline: 'none',
                 }}
-              >
-                <Icon size={14} />
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
+              />
+            </div>
+          </div>
 
-        {/* Results */}
+          {/* Category filters */}
+          <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem' }}>
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const active = category === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setCategory(cat.id)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    padding: '6px 14px', fontSize: '0.8125rem', fontWeight: 500,
+                    borderRadius: '20px', cursor: 'pointer',
+                    border: `1px solid ${active ? 'var(--color-gold)' : 'var(--color-border)'}`,
+                    background: active ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
+                    color: active ? 'var(--color-gold)' : 'var(--color-muted)',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <Icon size={14} />
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+        </ScrollReveal>
+
         {query.length >= 2 && (
           <>
-            <p className="text-[13px] text-muted mb-4">
+            <p className="text-muted" style={{ fontSize: '0.8125rem', marginBottom: '1rem' }}>
               {results.length} résultat{results.length > 1 ? 's' : ''} pour &laquo; {query} &raquo;
               {category !== 'all' && ` dans ${CATEGORIES.find(c => c.id === category)?.label}`}
             </p>
 
             {results.length > 0 ? (
-              <div className="space-y-3">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {results.map((result, idx) => (
                   <ResultCard key={`${result.category}-${result.title}-${idx}`} result={result} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20">
-                <p className="text-lg text-muted mb-2">Aucun résultat.</p>
-                <p className="text-[13px] text-muted/60">Essayez un autre terme ou changez de catégorie.</p>
+              <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+                <p className="text-muted" style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>Aucun résultat.</p>
+                <p className="text-muted" style={{ fontSize: '0.8125rem', opacity: 0.5 }}>Essayez un autre terme ou changez de catégorie.</p>
               </div>
             )}
           </>
         )}
 
         {query.length < 2 && (
-          <div className="text-center py-20">
-            <Search className="w-12 h-12 text-border mx-auto mb-4" />
+          <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+            <Search style={{ width: '48px', height: '48px', color: 'var(--color-border)', margin: '0 auto 1rem' }} />
             <p className="text-muted">Commencez à taper pour rechercher.</p>
           </div>
         )}

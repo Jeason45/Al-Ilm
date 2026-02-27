@@ -7,6 +7,7 @@ import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { useReciterPreference } from '@/hooks/useReciterPreference';
 import { fetchAudio, RECITERS } from '@/lib/quran-api';
 import { Play, Pause, Volume2 } from 'lucide-react';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 /* ── Parse reference → chapter + verse range ── */
 function parseReference(ref: string): { chapter: number; verseStart: number; verseEnd: number } | null {
@@ -88,100 +89,106 @@ export default function InvocationsPage() {
   };
 
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="font-amiri text-2xl text-gold mb-4">الدعاء</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight mb-4">
-            Invocations coraniques.
-          </h1>
-          <p className="text-[17px] text-muted max-w-lg mx-auto mb-6">
-            Les plus belles invocations du Coran pour chaque moment de la vie.
-          </p>
+    <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>
+              الدعاء
+            </p>
+            <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+              Invocations coraniques.
+            </h1>
+            <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '32rem', margin: '0 auto 1.5rem' }}>
+              Les plus belles invocations du Coran pour chaque moment de la vie.
+            </p>
 
-          {/* Reciter selector */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-            <Volume2 size={16} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
-            <select
-              value={reciterId}
-              onChange={(e) => handleReciterChange(Number(e.target.value))}
-              style={{
-                background: 'var(--color-card)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '8px',
-                padding: '6px 12px',
-                fontSize: '13px',
-                color: 'var(--color-foreground)',
-                cursor: 'pointer',
-              }}
-            >
-              {RECITERS.map((r) => (
-                <option key={r.id} value={r.id}>{r.name}</option>
-              ))}
-            </select>
+            {/* Reciter selector */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <Volume2 size={16} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
+              <select
+                value={reciterId}
+                onChange={(e) => handleReciterChange(Number(e.target.value))}
+                style={{
+                  background: 'var(--color-surface-elevated)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '8px',
+                  padding: '6px 12px',
+                  fontSize: '0.8125rem',
+                  color: 'var(--color-foreground)',
+                  cursor: 'pointer',
+                }}
+              >
+                {RECITERS.map((r) => (
+                  <option key={r.id} value={r.id}>{r.name}</option>
+                ))}
+              </select>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {invocations.map((dua, index) => {
             const isThisPlaying = playingIndex === index && isCurrentlyPlaying;
             const isThisLoading = loadingIndex === index;
 
             return (
-              <div key={index} className="card p-6">
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    {/* Play button */}
-                    <button
-                      onClick={() => handlePlay(index)}
-                      disabled={isThisLoading}
-                      aria-label={isThisPlaying ? 'Mettre en pause' : 'Écouter cette invocation'}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '50%',
-                        border: `1px solid ${isThisPlaying ? 'var(--color-gold)' : 'var(--color-border)'}`,
-                        background: isThisPlaying ? 'rgba(201, 168, 76, 0.15)' : 'transparent',
-                        cursor: isThisLoading ? 'wait' : 'pointer',
-                        color: isThisPlaying ? 'var(--color-gold)' : 'var(--color-muted)',
-                        transition: 'all 0.2s',
-                        flexShrink: 0,
-                      }}
-                    >
-                      {isThisLoading ? (
-                        <span style={{
-                          width: '14px', height: '14px', border: '2px solid var(--color-muted)',
-                          borderTopColor: 'transparent', borderRadius: '50%',
-                          animation: 'spin 0.8s linear infinite', display: 'block',
-                        }} />
-                      ) : isThisPlaying ? (
-                        <Pause size={14} />
-                      ) : (
-                        <Play size={14} style={{ marginLeft: '2px' }} />
-                      )}
-                    </button>
-                    <h3 className="text-[15px] font-medium font-outfit">{dua.titre}</h3>
+              <ScrollReveal key={index} delay={index * 40}>
+                <div className="surah-card" style={{ padding: 'clamp(1.25rem, 2.5vw, 1.75rem)' }}>
+                  <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', gap: '12px', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <button
+                        onClick={() => handlePlay(index)}
+                        disabled={isThisLoading}
+                        aria-label={isThisPlaying ? 'Mettre en pause' : 'Écouter cette invocation'}
+                        style={{
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0,
+                          border: `1px solid ${isThisPlaying ? 'var(--color-gold)' : 'var(--color-border)'}`,
+                          background: isThisPlaying ? 'rgba(201, 168, 76, 0.15)' : 'transparent',
+                          cursor: isThisLoading ? 'wait' : 'pointer',
+                          color: isThisPlaying ? 'var(--color-gold)' : 'var(--color-muted)',
+                          transition: 'all 0.2s',
+                        }}
+                      >
+                        {isThisLoading ? (
+                          <span style={{
+                            width: '14px', height: '14px', border: '2px solid var(--color-muted)',
+                            borderTopColor: 'transparent', borderRadius: '50%',
+                            animation: 'spin 0.8s linear infinite', display: 'block',
+                          }} />
+                        ) : isThisPlaying ? (
+                          <Pause size={14} />
+                        ) : (
+                          <Play size={14} style={{ marginLeft: '2px' }} />
+                        )}
+                      </button>
+                      <h3 className="font-outfit font-semibold" style={{ fontSize: '0.9375rem' }}>{dua.titre}</h3>
+                    </div>
+                    <Badge variant="gold">{dua.reference}</Badge>
                   </div>
-                  <Badge variant="gold">{dua.reference}</Badge>
+
+                  <p
+                    className="font-amiri text-gold"
+                    dir="rtl"
+                    style={{
+                      fontSize: '1.25rem', lineHeight: 2, marginBottom: '1rem', paddingBottom: '1rem',
+                      borderBottom: '1px solid var(--color-border)',
+                      textShadow: isThisPlaying ? '0 0 20px rgba(201, 168, 76, 0.3)' : 'none',
+                    }}
+                  >
+                    {dua.arabe}
+                  </p>
+
+                  <p style={{ fontSize: '0.9375rem', color: 'var(--color-foreground)', opacity: 0.9, fontStyle: 'italic', marginBottom: '0.75rem' }}>
+                    &laquo; {dua.traduction} &raquo;
+                  </p>
+
+                  <p className="text-muted" style={{ fontSize: '0.8125rem' }}>
+                    <span style={{ color: 'var(--color-gold)', fontWeight: 500 }}>Occasion :</span> {dua.occasion}
+                  </p>
                 </div>
-
-                <p
-                  className="font-amiri text-xl text-gold text-right leading-loose mb-4 pb-4 border-b border-border"
-                  dir="rtl"
-                  style={isThisPlaying ? { textShadow: '0 0 20px rgba(201, 168, 76, 0.3)' } : undefined}
-                >
-                  {dua.arabe}
-                </p>
-
-                <p className="text-[15px] text-foreground/90 italic mb-3">&laquo; {dua.traduction} &raquo;</p>
-
-                <p className="text-[13px] text-muted">
-                  <span className="text-gold font-medium">Occasion :</span> {dua.occasion}
-                </p>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

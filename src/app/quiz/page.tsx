@@ -2,9 +2,19 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import { Trophy, RotateCcw, ChevronRight, Check, X, Zap, BookOpen, Star, Users } from 'lucide-react';
+import { ScrollReveal } from '@/components/ScrollReveal';
 import { surahsMeta } from '@/data/metadata';
 import { nomsAllah } from '@/data/annexes/noms-allah';
 import { prophetes } from '@/data/annexes/prophetes';
+
+const center: React.CSSProperties = {
+  width: '100%',
+  maxWidth: '800px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  paddingLeft: '24px',
+  paddingRight: '24px',
+};
 
 /* ── Types ── */
 type Category = 'sourates' | 'noms-allah' | 'prophetes' | 'mixte';
@@ -34,19 +44,15 @@ function generateSurahQuestions(): Question[] {
   const questions: Question[] = [];
   const surahs = shuffle(surahsMeta);
 
-  // Type 1: Quel est le nom arabe de la sourate X ?
   for (const s of surahs.slice(0, 3)) {
     const wrong = pick(surahsMeta.filter(x => x.numero !== s.numero), 3).map(x => x.nomArabe);
     const opts = shuffle([s.nomArabe, ...wrong]);
     questions.push({
       question: `Quel est le nom arabe de la sourate "${s.nomFrancais}" ?`,
-      options: opts,
-      correctIndex: opts.indexOf(s.nomArabe),
-      category: 'sourates',
+      options: opts, correctIndex: opts.indexOf(s.nomArabe), category: 'sourates',
     });
   }
 
-  // Type 2: Combien de versets dans la sourate X ?
   for (const s of surahs.slice(3, 6)) {
     const correct = String(s.nombreVersets);
     const wrongs = [
@@ -57,37 +63,26 @@ function generateSurahQuestions(): Question[] {
     const opts = shuffle([correct, ...wrongs]);
     questions.push({
       question: `Combien de versets contient la sourate ${s.nom} ?`,
-      options: opts,
-      correctIndex: opts.indexOf(correct),
-      category: 'sourates',
+      options: opts, correctIndex: opts.indexOf(correct), category: 'sourates',
     });
   }
 
-  // Type 3: Mecquoise ou Médinoise ?
   for (const s of surahs.slice(6, 9)) {
     const correct = s.type === 'mecquoise' ? 'Mecquoise' : 'Médinoise';
     const opts = ['Mecquoise', 'Médinoise'];
     questions.push({
       question: `La sourate ${s.nom} est-elle mecquoise ou médinoise ?`,
-      options: opts,
-      correctIndex: opts.indexOf(correct),
-      category: 'sourates',
+      options: opts, correctIndex: opts.indexOf(correct), category: 'sourates',
     });
   }
 
-  // Type 4: Quel numéro pour cette sourate ?
   for (const s of surahs.slice(9, 12)) {
     const correct = String(s.numero);
-    const wrongs = pick(
-      surahsMeta.filter(x => x.numero !== s.numero).map(x => String(x.numero)),
-      3
-    );
+    const wrongs = pick(surahsMeta.filter(x => x.numero !== s.numero).map(x => String(x.numero)), 3);
     const opts = shuffle([correct, ...wrongs]);
     questions.push({
       question: `Quel est le numéro de la sourate ${s.nom} ?`,
-      options: opts,
-      correctIndex: opts.indexOf(correct),
-      category: 'sourates',
+      options: opts, correctIndex: opts.indexOf(correct), category: 'sourates',
     });
   }
 
@@ -98,27 +93,21 @@ function generateNomsAllahQuestions(): Question[] {
   const questions: Question[] = [];
   const noms = shuffle(nomsAllah);
 
-  // Type 1: Quelle est la signification de X ?
   for (const n of noms.slice(0, 5)) {
     const wrong = pick(nomsAllah.filter(x => x.numero !== n.numero), 3).map(x => x.signification);
     const opts = shuffle([n.signification, ...wrong]);
     questions.push({
       question: `Quelle est la signification de "${n.nom}" (${n.arabe}) ?`,
-      options: opts,
-      correctIndex: opts.indexOf(n.signification),
-      category: 'noms-allah',
+      options: opts, correctIndex: opts.indexOf(n.signification), category: 'noms-allah',
     });
   }
 
-  // Type 2: Quel nom correspond à cette signification ?
   for (const n of noms.slice(5, 10)) {
-    const wrong = pick(nomsAllah.filter(x => x.numero !== n.numero), 3).map(x => n.arabe ? x.nom : x.nom);
+    const wrong = pick(nomsAllah.filter(x => x.numero !== n.numero), 3).map(x => x.nom);
     const opts = shuffle([n.nom, ...wrong]);
     questions.push({
       question: `Quel nom d'Allah signifie "${n.signification}" ?`,
-      options: opts,
-      correctIndex: opts.indexOf(n.nom),
-      category: 'noms-allah',
+      options: opts, correctIndex: opts.indexOf(n.nom), category: 'noms-allah',
     });
   }
 
@@ -129,27 +118,21 @@ function generateProphetesQuestions(): Question[] {
   const questions: Question[] = [];
   const props = shuffle(prophetes);
 
-  // Type 1: Quel est le titre de ce prophète ?
   for (const p of props.slice(0, 5)) {
     const wrong = pick(prophetes.filter(x => x.nom !== p.nom), 3).map(x => x.titre);
     const opts = shuffle([p.titre, ...wrong]);
     questions.push({
       question: `Quel est le titre du prophète ${p.nom} ?`,
-      options: opts,
-      correctIndex: opts.indexOf(p.titre),
-      category: 'prophetes',
+      options: opts, correctIndex: opts.indexOf(p.titre), category: 'prophetes',
     });
   }
 
-  // Type 2: Quel prophète porte ce titre ?
   for (const p of props.slice(5, 10)) {
     const wrong = pick(prophetes.filter(x => x.nom !== p.nom), 3).map(x => x.nom);
     const opts = shuffle([p.nom, ...wrong]);
     questions.push({
       question: `Quel prophète est connu comme "${p.titre}" ?`,
-      options: opts,
-      correctIndex: opts.indexOf(p.nom),
-      category: 'prophetes',
+      options: opts, correctIndex: opts.indexOf(p.nom), category: 'prophetes',
     });
   }
 
@@ -158,21 +141,12 @@ function generateProphetesQuestions(): Question[] {
 
 function generateQuestions(category: Category, count: number): Question[] {
   let pool: Question[] = [];
-
-  if (category === 'sourates' || category === 'mixte') {
-    pool = [...pool, ...generateSurahQuestions()];
-  }
-  if (category === 'noms-allah' || category === 'mixte') {
-    pool = [...pool, ...generateNomsAllahQuestions()];
-  }
-  if (category === 'prophetes' || category === 'mixte') {
-    pool = [...pool, ...generateProphetesQuestions()];
-  }
-
+  if (category === 'sourates' || category === 'mixte') pool = [...pool, ...generateSurahQuestions()];
+  if (category === 'noms-allah' || category === 'mixte') pool = [...pool, ...generateNomsAllahQuestions()];
+  if (category === 'prophetes' || category === 'mixte') pool = [...pool, ...generateProphetesQuestions()];
   return shuffle(pool).slice(0, count);
 }
 
-/* ── Categories config ── */
 const CATEGORIES: { id: Category; label: string; labelAr: string; icon: typeof BookOpen; description: string }[] = [
   { id: 'sourates', label: 'Sourates', labelAr: 'السور', icon: BookOpen, description: 'Noms, numéros, versets, types' },
   { id: 'noms-allah', label: "Noms d'Allah", labelAr: 'أسماء الله', icon: Star, description: '99 Noms et leurs significations' },
@@ -182,7 +156,6 @@ const CATEGORIES: { id: Category; label: string; labelAr: string; icon: typeof B
 
 const QUESTION_COUNT = 10;
 
-/* ── Component ── */
 export default function QuizPage() {
   const [category, setCategory] = useState<Category | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -195,83 +168,76 @@ export default function QuizPage() {
   const startQuiz = useCallback((cat: Category) => {
     setCategory(cat);
     setQuestions(generateQuestions(cat, QUESTION_COUNT));
-    setCurrentIdx(0);
-    setSelected(null);
-    setScore(0);
-    setAnswered(false);
-    setFinished(false);
+    setCurrentIdx(0); setSelected(null); setScore(0); setAnswered(false); setFinished(false);
   }, []);
 
   const handleAnswer = useCallback((optionIdx: number) => {
     if (answered) return;
     setSelected(optionIdx);
     setAnswered(true);
-    if (optionIdx === questions[currentIdx].correctIndex) {
-      setScore(prev => prev + 1);
-    }
+    if (optionIdx === questions[currentIdx].correctIndex) setScore(prev => prev + 1);
   }, [answered, questions, currentIdx]);
 
   const nextQuestion = useCallback(() => {
-    if (currentIdx + 1 >= questions.length) {
-      setFinished(true);
-    } else {
-      setCurrentIdx(prev => prev + 1);
-      setSelected(null);
-      setAnswered(false);
-    }
+    if (currentIdx + 1 >= questions.length) setFinished(true);
+    else { setCurrentIdx(prev => prev + 1); setSelected(null); setAnswered(false); }
   }, [currentIdx, questions.length]);
 
-  const reset = useCallback(() => {
-    setCategory(null);
-    setQuestions([]);
-    setFinished(false);
-  }, []);
+  const reset = useCallback(() => { setCategory(null); setQuestions([]); setFinished(false); }, []);
 
   const scorePercent = useMemo(() => Math.round((score / QUESTION_COUNT) * 100), [score]);
 
-  // Category selection screen
+  // ── Category selection ──
   if (!category) {
     return (
-      <div className="pt-32 pb-24">
-        <div className="max-w-[800px] mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="font-amiri text-2xl text-gold mb-4">اختبار</p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight mb-4">
-              Quiz islamique.
-            </h1>
-            <p className="text-[17px] text-muted max-w-lg mx-auto">
-              Testez vos connaissances sur le Coran, les Noms d&apos;Allah et les Prophètes.
-            </p>
-          </div>
+      <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+        <div style={{ ...center, maxWidth: '900px' }}>
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>
+                اختبار
+              </p>
+              <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+                Quiz islamique.
+              </h1>
+              <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '32rem', margin: '0 auto' }}>
+                Testez vos connaissances sur le Coran, les Noms d&apos;Allah et les Prophètes.
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid-features">
-            {CATEGORIES.map((cat) => {
+            {CATEGORIES.map((cat, i) => {
               const Icon = cat.icon;
               return (
-                <button
-                  key={cat.id}
-                  onClick={() => startQuiz(cat.id)}
-                  className="card card-hover p-6 text-left"
-                  style={{ cursor: 'pointer', border: 'none', width: '100%' }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                    <div style={{
-                      width: '40px', height: '40px', borderRadius: '10px',
-                      background: 'rgba(201, 168, 76, 0.1)', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center',
+                <ScrollReveal key={cat.id} delay={i * 60}>
+                  <button
+                    onClick={() => startQuiz(cat.id)}
+                    className="group surah-card"
+                    style={{ display: 'block', width: '100%', padding: 'clamp(1.25rem, 2.5vw, 2rem)', cursor: 'pointer', textAlign: 'left', border: 'none' }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '0.75rem' }}>
+                      <div style={{
+                        width: '40px', height: '40px', borderRadius: '10px', flexShrink: 0,
+                        background: 'rgba(201, 168, 76, 0.1)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      }}>
+                        <Icon size={20} style={{ color: 'var(--color-gold)' }} />
+                      </div>
+                      <div>
+                        <p className="font-outfit font-semibold" style={{ fontSize: '1.0625rem' }}>{cat.label}</p>
+                        <p className="font-amiri text-gold" style={{ fontSize: '0.9375rem', opacity: 0.6 }}>{cat.labelAr}</p>
+                      </div>
+                    </div>
+                    <p className="text-muted" style={{ fontSize: '0.8125rem', marginBottom: '1rem' }}>{cat.description}</p>
+                    <span className="text-muted group-hover:text-gold" style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '4px',
+                      fontSize: '0.8125rem', fontWeight: 500, transition: 'color 0.2s',
                     }}>
-                      <Icon size={20} style={{ color: 'var(--color-gold)' }} />
-                    </div>
-                    <div>
-                      <p className="font-outfit font-semibold text-[15px]">{cat.label}</p>
-                      <p className="font-amiri text-gold text-[14px]">{cat.labelAr}</p>
-                    </div>
-                  </div>
-                  <p className="text-[13px] text-muted">{cat.description}</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '12px', fontSize: '13px', color: 'var(--color-gold)' }}>
-                    Commencer <ChevronRight size={14} />
-                  </div>
-                </button>
+                      Commencer <ChevronRight size={14} />
+                    </span>
+                  </button>
+                </ScrollReveal>
               );
             })}
           </div>
@@ -280,9 +246,8 @@ export default function QuizPage() {
     );
   }
 
-  // Results screen
+  // ── Results ──
   if (finished) {
-    const emoji = scorePercent >= 80 ? '🏆' : scorePercent >= 50 ? '👍' : '📖';
     const message = scorePercent >= 80
       ? 'Excellent ! Masha Allah !'
       : scorePercent >= 50
@@ -290,76 +255,85 @@ export default function QuizPage() {
         : 'Continuez vos efforts, la connaissance est un chemin.';
 
     return (
-      <div className="pt-32 pb-24">
-        <div className="max-w-[500px] mx-auto px-6 text-center">
-          <div style={{ fontSize: '64px', marginBottom: '16px' }}>{emoji}</div>
-          <h2 className="text-3xl font-outfit font-bold mb-2">
-            {score} / {QUESTION_COUNT}
-          </h2>
-          <p className="text-[17px] text-muted mb-2">{scorePercent}% de bonnes réponses</p>
-          <p className="text-[15px] text-foreground/80 mb-8">{message}</p>
+      <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+        <div style={{ ...center, maxWidth: '500px', textAlign: 'center' }}>
+          <ScrollReveal>
+            <div className="surah-card" style={{ padding: 'clamp(2rem, 4vw, 3rem)' }}>
+              <p className="font-amiri text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>
+                {scorePercent >= 80 ? '🏆' : scorePercent >= 50 ? '👍' : '📖'}
+              </p>
+              <h2 className="font-outfit font-bold" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
+                {score} / {QUESTION_COUNT}
+              </h2>
+              <p className="text-muted" style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>
+                {scorePercent}% de bonnes réponses
+              </p>
+              <p style={{ fontSize: '0.9375rem', color: 'var(--color-foreground)', opacity: 0.8, marginBottom: '1.5rem' }}>
+                {message}
+              </p>
 
-          <div style={{
-            width: '100%', height: '8px', borderRadius: '4px',
-            background: 'var(--color-card)', marginBottom: '32px', overflow: 'hidden',
-          }}>
-            <div style={{
-              width: `${scorePercent}%`, height: '100%', borderRadius: '4px',
-              background: scorePercent >= 80 ? 'var(--color-emerald)' : scorePercent >= 50 ? 'var(--color-gold)' : 'var(--color-rose)',
-              transition: 'width 1s ease',
-            }} />
-          </div>
+              {/* Progress bar */}
+              <div style={{
+                width: '100%', height: '6px', borderRadius: '3px',
+                background: 'var(--color-surface-elevated)', marginBottom: '2rem', overflow: 'hidden',
+              }}>
+                <div style={{
+                  width: `${scorePercent}%`, height: '100%', borderRadius: '3px',
+                  background: scorePercent >= 80 ? 'var(--color-emerald)' : scorePercent >= 50 ? 'var(--color-gold)' : 'var(--color-rose)',
+                  transition: 'width 1s ease',
+                }} />
+              </div>
 
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-            <button onClick={() => startQuiz(category)} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <RotateCcw size={16} />
-              Rejouer
-            </button>
-            <button onClick={reset} className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              Catégories
-            </button>
-          </div>
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                <button onClick={() => startQuiz(category)} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <RotateCcw size={16} /> Rejouer
+                </button>
+                <button onClick={reset} className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  Catégories
+                </button>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     );
   }
 
-  // Question screen
+  // ── Question ──
   const q = questions[currentIdx];
   if (!q) return null;
 
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[600px] mx-auto px-6">
+    <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+      <div style={{ ...center, maxWidth: '600px' }}>
         {/* Progress */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-          <span className="text-[13px] text-muted">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+          <span className="text-muted" style={{ fontSize: '0.8125rem' }}>
             Question {currentIdx + 1} / {QUESTION_COUNT}
           </span>
-          <span className="text-[13px] font-medium" style={{ color: 'var(--color-gold)' }}>
+          <span className="font-outfit font-semibold" style={{ fontSize: '0.8125rem', color: 'var(--color-gold)' }}>
             Score : {score}
           </span>
         </div>
         <div style={{
-          width: '100%', height: '4px', borderRadius: '2px',
-          background: 'var(--color-card)', marginBottom: '32px', overflow: 'hidden',
+          width: '100%', height: '3px', borderRadius: '2px',
+          background: 'var(--color-surface-elevated)', marginBottom: '2rem', overflow: 'hidden',
         }}>
           <div style={{
             width: `${((currentIdx + 1) / QUESTION_COUNT) * 100}%`,
-            height: '100%', borderRadius: '2px', background: 'var(--color-gold)',
-            transition: 'width 0.3s ease',
+            height: '100%', borderRadius: '2px', background: 'var(--color-gold)', transition: 'width 0.3s ease',
           }} />
         </div>
 
-        {/* Question */}
-        <div className="card p-6 mb-6">
-          <p className="text-[17px] font-medium font-outfit leading-relaxed">
+        {/* Question card */}
+        <div className="surah-card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
+          <p className="font-outfit font-semibold" style={{ fontSize: '1.0625rem', lineHeight: 1.6 }}>
             {q.question}
           </p>
         </div>
 
         {/* Options */}
-        <div className="space-y-3">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {q.options.map((opt, idx) => {
             const isCorrect = idx === q.correctIndex;
             const isSelected = idx === selected;
@@ -371,11 +345,11 @@ export default function QuizPage() {
             if (answered) {
               if (isCorrect) {
                 borderColor = 'var(--color-emerald)';
-                bgColor = 'rgba(16, 185, 129, 0.1)';
+                bgColor = 'rgba(52, 211, 153, 0.08)';
                 icon = <Check size={16} style={{ color: 'var(--color-emerald)' }} />;
               } else if (isSelected && !isCorrect) {
                 borderColor = 'var(--color-rose)';
-                bgColor = 'rgba(244, 63, 94, 0.1)';
+                bgColor = 'rgba(251, 113, 133, 0.08)';
                 icon = <X size={16} style={{ color: 'var(--color-rose)' }} />;
               }
             }
@@ -385,46 +359,37 @@ export default function QuizPage() {
                 key={idx}
                 onClick={() => handleAnswer(idx)}
                 disabled={answered}
+                className="surah-card"
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '12px', width: '100%',
-                  padding: '14px 16px', borderRadius: '12px', textAlign: 'left',
-                  border: `1px solid ${borderColor}`, background: bgColor,
-                  cursor: answered ? 'default' : 'pointer', fontSize: '15px',
-                  color: 'var(--color-foreground)', transition: 'all 0.2s',
+                  display: 'flex', alignItems: 'center', gap: '14px', width: '100%',
+                  padding: '1rem 1.25rem', textAlign: 'left', cursor: answered ? 'default' : 'pointer',
+                  borderColor, background: bgColor, transition: 'all 0.2s',
                 }}
               >
                 <span style={{
                   width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
-                  border: `1px solid ${borderColor}`,
-                  background: isSelected && answered ? bgColor : 'transparent',
+                  border: `1px solid ${borderColor}`, background: answered && (isCorrect || isSelected) ? bgColor : 'transparent',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '13px', fontWeight: 600, color: 'var(--color-muted)',
+                  fontSize: '0.8125rem', fontWeight: 600, color: 'var(--color-muted)',
                 }}>
                   {icon || String.fromCharCode(65 + idx)}
                 </span>
-                {opt}
+                <span style={{ fontSize: '0.9375rem' }}>{opt}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Next button */}
         {answered && (
           <button
             onClick={nextQuestion}
             className="btn-primary"
-            style={{ width: '100%', marginTop: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+            style={{ width: '100%', marginTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
           >
             {currentIdx + 1 >= QUESTION_COUNT ? (
-              <>
-                <Trophy size={16} />
-                Voir les résultats
-              </>
+              <><Trophy size={16} /> Voir les résultats</>
             ) : (
-              <>
-                Question suivante
-                <ChevronRight size={16} />
-              </>
+              <>Question suivante <ChevronRight size={16} /></>
             )}
           </button>
         )}

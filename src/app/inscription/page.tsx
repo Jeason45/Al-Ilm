@@ -5,6 +5,18 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { UserPlus, Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { ScrollReveal } from '@/components/ScrollReveal';
+
+const inputStyle: React.CSSProperties = {
+  width: '100%', padding: '12px 14px 12px 40px', fontSize: '0.875rem',
+  borderRadius: '8px', border: '1px solid var(--color-border)',
+  background: 'var(--color-surface-elevated)', color: 'var(--color-foreground)', outline: 'none',
+};
+
+const iconStyle: React.CSSProperties = {
+  position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)',
+  width: '16px', height: '16px', color: 'var(--color-muted)', pointerEvents: 'none',
+};
 
 export default function InscriptionPage() {
   const router = useRouter();
@@ -34,13 +46,7 @@ export default function InscriptionPage() {
         return;
       }
 
-      // Auto-login after registration
-      const loginRes = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-      });
-
+      const loginRes = await signIn('credentials', { email, password, redirect: false });
       setLoading(false);
 
       if (loginRes?.error) {
@@ -55,101 +61,79 @@ export default function InscriptionPage() {
     }
   };
 
-  const inputStyle = {
-    width: '100%', padding: '10px 12px 10px 38px', fontSize: '14px',
-    background: 'var(--color-background)', border: '1px solid var(--color-border)',
-    borderRadius: '8px', color: 'var(--color-foreground)', outline: 'none',
-  };
-
-  const iconStyle = {
-    position: 'absolute' as const, left: '12px', top: '50%',
-    transform: 'translateY(-50%)', color: 'var(--color-muted)',
-  };
-
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[420px] mx-auto px-6">
-        <div className="text-center mb-8">
-          <p className="font-amiri text-2xl text-gold mb-3">إنشاء حساب</p>
-          <h1 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight mb-2">
-            Créer un compte
-          </h1>
-          <p className="text-[15px] text-muted">
-            Sauvegardez vos favoris et suivez votre progression.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="card p-6 space-y-4">
-          {error && (
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px',
-              borderRadius: '8px', background: 'rgba(239, 68, 68, 0.1)',
-              border: '1px solid rgba(239, 68, 68, 0.2)', fontSize: '13px', color: '#ef4444',
-            }}>
-              <AlertCircle size={16} />
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label htmlFor="name" className="text-[13px] font-medium text-muted" style={{ display: 'block', marginBottom: '6px' }}>
-              Nom
-            </label>
-            <div style={{ position: 'relative' }}>
-              <User size={16} style={iconStyle} />
-              <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                required placeholder="Votre nom" style={inputStyle} />
-            </div>
+    <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '420px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '0.75rem', opacity: 0.5 }}>
+              إنشاء حساب
+            </p>
+            <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', letterSpacing: '-0.03em', marginBottom: '0.5rem' }}>
+              Créer un compte.
+            </h1>
+            <p className="text-muted" style={{ fontSize: '0.9375rem' }}>
+              Sauvegardez vos favoris et suivez votre progression.
+            </p>
           </div>
+        </ScrollReveal>
 
-          <div>
-            <label htmlFor="email" className="text-[13px] font-medium text-muted" style={{ display: 'block', marginBottom: '6px' }}>
-              Email
-            </label>
-            <div style={{ position: 'relative' }}>
-              <Mail size={16} style={iconStyle} />
-              <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                required placeholder="votre@email.com" style={inputStyle} />
+        <ScrollReveal delay={80}>
+          <form onSubmit={handleSubmit} className="surah-card" style={{ padding: 'clamp(1.5rem, 3vw, 2rem)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {error && (
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px',
+                  borderRadius: '8px', background: 'rgba(251, 113, 133, 0.08)',
+                  border: '1px solid rgba(251, 113, 133, 0.2)', fontSize: '0.8125rem', color: 'var(--color-rose)',
+                }}>
+                  <AlertCircle size={16} style={{ flexShrink: 0 }} /> {error}
+                </div>
+              )}
+
+              <div>
+                <label htmlFor="name" className="text-muted" style={{ display: 'block', marginBottom: '6px', fontSize: '0.8125rem', fontWeight: 500 }}>Nom</label>
+                <div style={{ position: 'relative' }}>
+                  <User style={iconStyle} />
+                  <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)}
+                    required placeholder="Votre nom" style={inputStyle} />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="email" className="text-muted" style={{ display: 'block', marginBottom: '6px', fontSize: '0.8125rem', fontWeight: 500 }}>Email</label>
+                <div style={{ position: 'relative' }}>
+                  <Mail style={iconStyle} />
+                  <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                    required placeholder="votre@email.com" style={inputStyle} />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="password" className="text-muted" style={{ display: 'block', marginBottom: '6px', fontSize: '0.8125rem', fontWeight: 500 }}>Mot de passe</label>
+                <div style={{ position: 'relative' }}>
+                  <Lock style={iconStyle} />
+                  <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                    required minLength={6} placeholder="6 caractères minimum" style={inputStyle} />
+                </div>
+              </div>
+
+              <button type="submit" disabled={loading} className="btn-primary"
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: loading ? 0.7 : 1 }}>
+                {loading ? (
+                  <span style={{ width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite', display: 'block' }} />
+                ) : (
+                  <><UserPlus size={16} /> Créer mon compte</>
+                )}
+              </button>
+
+              <p className="text-muted" style={{ fontSize: '0.8125rem', textAlign: 'center', paddingTop: '0.25rem' }}>
+                Déjà un compte ?{' '}
+                <Link href="/connexion" style={{ color: 'var(--color-gold)', textDecoration: 'underline' }}>Se connecter</Link>
+              </p>
             </div>
-          </div>
-
-          <div>
-            <label htmlFor="password" className="text-[13px] font-medium text-muted" style={{ display: 'block', marginBottom: '6px' }}>
-              Mot de passe
-            </label>
-            <div style={{ position: 'relative' }}>
-              <Lock size={16} style={iconStyle} />
-              <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                required minLength={6} placeholder="6 caractères minimum" style={inputStyle} />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn-primary"
-            style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: loading ? 0.7 : 1 }}
-          >
-            {loading ? (
-              <span style={{
-                width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.3)',
-                borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite', display: 'block',
-              }} />
-            ) : (
-              <>
-                <UserPlus size={16} />
-                Créer mon compte
-              </>
-            )}
-          </button>
-
-          <p className="text-[13px] text-muted text-center" style={{ paddingTop: '4px' }}>
-            Déjà un compte ?{' '}
-            <Link href="/connexion" style={{ color: 'var(--color-gold)', textDecoration: 'underline' }}>
-              Se connecter
-            </Link>
-          </p>
-        </form>
+          </form>
+        </ScrollReveal>
       </div>
     </div>
   );
