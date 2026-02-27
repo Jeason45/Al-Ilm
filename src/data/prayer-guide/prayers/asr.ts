@@ -181,7 +181,7 @@ export const asr: PrayerDefinition = {
       steps: [
         {
           id: 'asr-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir pour se relever',
           nameAr: 'تكبيرة القيام',
@@ -460,7 +460,7 @@ export const asr: PrayerDefinition = {
       steps: [
         {
           id: 'asr-r4-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir pour se relever',
           nameAr: 'تكبيرة القيام',

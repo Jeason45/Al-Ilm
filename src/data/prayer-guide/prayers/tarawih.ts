@@ -149,7 +149,7 @@ export const tarawih: PrayerDefinition = {
       steps: [
         {
           id: 'tarawih-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'fard',
           name: 'Takbir de transition',
           nameAr: 'تكبيرة الانتقال',

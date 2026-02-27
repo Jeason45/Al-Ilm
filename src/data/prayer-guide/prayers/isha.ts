@@ -135,7 +135,7 @@ export const isha: PrayerDefinition = {
       steps: [
         {
           id: 'isha-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition',
           nameAr: 'تكبير الانتقال',
@@ -386,7 +386,7 @@ export const isha: PrayerDefinition = {
       steps: [
         {
           id: 'isha-r4-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition',
           nameAr: 'تكبير الانتقال',

@@ -135,7 +135,7 @@ export const witr: PrayerDefinition = {
       steps: [
         {
           id: 'witr-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition',
           nameAr: 'تكبير الانتقال',

@@ -181,7 +181,7 @@ export const maghrib: PrayerDefinition = {
       steps: [
         {
           id: 'maghrib-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir pour se relever',
           nameAr: 'تكبيرة القيام',

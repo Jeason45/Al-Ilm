@@ -149,7 +149,7 @@ export const dhuhr: PrayerDefinition = {
       steps: [
         {
           id: 'dhuhr-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'fard',
           name: 'Takbir de transition',
           nameAr: 'تكبيرة الانتقال',
@@ -414,7 +414,7 @@ export const dhuhr: PrayerDefinition = {
       steps: [
         {
           id: 'dhuhr-r4-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'fard',
           name: 'Takbir de transition',
           nameAr: 'تكبيرة الانتقال',

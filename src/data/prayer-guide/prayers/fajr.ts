@@ -149,7 +149,7 @@ export const fajr: PrayerDefinition = {
       steps: [
         {
           id: 'fajr-r2-takbir',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'fard',
           name: 'Takbir de transition',
           nameAr: 'تكبيرة الانتقال',
