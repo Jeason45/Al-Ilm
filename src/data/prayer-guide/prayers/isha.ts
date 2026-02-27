@@ -56,7 +56,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r1-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -66,7 +66,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r1-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -176,7 +176,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r2-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -186,7 +186,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r2-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -307,7 +307,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r3-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -317,7 +317,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r3-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -427,7 +427,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r4-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -437,7 +437,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r4-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',

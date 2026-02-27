@@ -66,7 +66,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r1-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -77,7 +77,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r1-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -200,7 +200,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r2-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -210,7 +210,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r2-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -334,7 +334,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r3-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -344,7 +344,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r3-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -457,7 +457,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r4-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -467,7 +467,7 @@ export const dhuhr: PrayerDefinition = {
         },
         {
           id: 'dhuhr-r4-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',

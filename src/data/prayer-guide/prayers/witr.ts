@@ -56,7 +56,7 @@ export const witr: PrayerDefinition = {
         },
         {
           id: 'witr-r1-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -66,7 +66,7 @@ export const witr: PrayerDefinition = {
         },
         {
           id: 'witr-r1-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -176,7 +176,7 @@ export const witr: PrayerDefinition = {
         },
         {
           id: 'witr-r2-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -186,7 +186,7 @@ export const witr: PrayerDefinition = {
         },
         {
           id: 'witr-r2-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -318,7 +318,7 @@ export const witr: PrayerDefinition = {
         },
         {
           id: 'witr-r3-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'I\'tidal (redressement)',
           nameAr: 'اعتدال',
@@ -328,7 +328,7 @@ export const witr: PrayerDefinition = {
         },
         {
           id: 'witr-r3-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',

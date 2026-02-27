@@ -66,7 +66,7 @@ export const fajr: PrayerDefinition = {
         },
         {
           id: 'fajr-r1-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -77,7 +77,7 @@ export const fajr: PrayerDefinition = {
         },
         {
           id: 'fajr-r1-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -200,7 +200,7 @@ export const fajr: PrayerDefinition = {
         },
         {
           id: 'fajr-r2-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'wajib',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -210,7 +210,7 @@ export const fajr: PrayerDefinition = {
         },
         {
           id: 'fajr-r2-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',

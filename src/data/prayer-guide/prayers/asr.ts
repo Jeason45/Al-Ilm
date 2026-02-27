@@ -100,7 +100,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r1-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'fard',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -111,7 +111,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r1-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -241,7 +241,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r2-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'fard',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -251,7 +251,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r2-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -382,7 +382,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r3-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'fard',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -392,7 +392,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r3-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -512,7 +512,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r4-itidal',
-          position: 'itidal',
+          position: 'takbir',
           ruling: 'fard',
           name: 'Redressement (I\'tidal)',
           nameAr: 'الاعتدال',
@@ -522,7 +522,7 @@ export const asr: PrayerDefinition = {
         },
         {
           id: 'asr-r4-takbir-sujud1',
-          position: 'itidal',
+          position: 'qiyam',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
