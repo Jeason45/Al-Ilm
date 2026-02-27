@@ -13,8 +13,8 @@ const center: React.CSSProperties = {
 export function Footer() {
   return (
     <footer style={{ width: '100%', borderTop: '1px solid var(--color-border)' }}>
-      <div style={{ ...center, paddingTop: '4rem', paddingBottom: '5rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3rem' }}>
+      <div style={{ ...center, paddingTop: 'clamp(2.5rem, 5vw, 4rem)', paddingBottom: 'clamp(3rem, 5vw, 5rem)' }}>
+        <div className="footer-grid">
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '1rem' }}>
               <span className="font-outfit font-semibold" style={{ fontSize: '17px', letterSpacing: '-0.01em' }}>{SITE_NAME}</span>
@@ -52,7 +52,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid var(--color-border)', textAlign: 'center' }}>
+        <div style={{ marginTop: 'clamp(2.5rem, 4vw, 4rem)', paddingTop: '2rem', borderTop: '1px solid var(--color-border)', textAlign: 'center' }}>
           <p className="font-amiri" style={{ color: 'rgba(201, 168, 76, 0.4)', fontSize: '1.125rem', marginBottom: '0.75rem' }}>
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </p>

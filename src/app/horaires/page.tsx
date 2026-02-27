@@ -37,6 +37,10 @@ const PRAYERS = [
 
 const API_BASE = 'https://api.aladhan.com/v1';
 
+// Fallback coordinates when geolocation is denied
+const PARIS_LAT = 48.8566;
+const PARIS_LON = 2.3522;
+
 function formatDate(d: Date): string {
   return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
 }
@@ -100,20 +104,28 @@ export default function HorairesPage() {
     setLoading(true);
     setError(null);
     try {
+      // First geocode the city name to coordinates via Nominatim
+      const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&accept-language=fr`);
+      const geoData = await geoRes.json();
+      if (!geoData.length) {
+        setError('Ville introuvable. Essayez avec un autre nom.');
+        setLoading(false);
+        return;
+      }
+      const lat = parseFloat(geoData[0].lat);
+      const lon = parseFloat(geoData[0].lon);
+      const cityName = geoData[0].display_name?.split(',')[0] || city;
+
+      // Then fetch prayer times by coordinates (more reliable than timingsByCity)
       const date = formatDate(new Date());
-      const res = await fetch(`${API_BASE}/timingsByCity/${date}?city=${encodeURIComponent(city)}&method=12`);
+      const res = await fetch(`${API_BASE}/timings/${date}?latitude=${lat}&longitude=${lon}&method=12`);
       const data = await res.json();
       if (data.code === 200) {
         setTimes(data.data.timings);
         setHijri(data.data.date.hijri);
-        setLocation({
-          city,
-          country: '',
-          latitude: parseFloat(data.data.meta.latitude),
-          longitude: parseFloat(data.data.meta.longitude),
-        });
+        setLocation({ city: cityName, country: '', latitude: lat, longitude: lon });
       } else {
-        setError('Ville introuvable. Essayez avec un autre nom.');
+        setError('Impossible de récupérer les horaires pour cette ville.');
       }
     } catch {
       setError('Erreur de connexion. Vérifiez votre réseau.');
@@ -128,17 +140,17 @@ export default function HorairesPage() {
       navigator.geolocation.getCurrentPosition(
         (pos) => fetchByCoords(pos.coords.latitude, pos.coords.longitude),
         () => {
-          // Geolocation denied — fallback to Paris
-          fetchByCity('Paris');
+          // Geolocation denied — fallback to Paris coordinates
+          fetchByCoords(PARIS_LAT, PARIS_LON);
           setManualMode(true);
         },
         { timeout: 8000 }
       );
     } else {
-      fetchByCity('Paris');
+      fetchByCoords(PARIS_LAT, PARIS_LON);
       setManualMode(true);
     }
-  }, [fetchByCoords, fetchByCity]);
+  }, [fetchByCoords]);
 
   const handleCitySubmit = (e: React.FormEvent) => {
     e.preventDefault();

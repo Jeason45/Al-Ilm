@@ -418,6 +418,11 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -427,12 +432,14 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
   .grid-surahs { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .grid-preview { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 
 @media (max-width: 480px) {
   .grid-surahs { grid-template-columns: 1fr; }
   .grid-features { grid-template-columns: 1fr; }
   .grid-preview { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 /* ─── Responsive Spacing ─── */

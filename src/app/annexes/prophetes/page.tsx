@@ -20,45 +20,50 @@ export default function ProphetesPage() {
   }, [query]);
 
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
+    <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '1100px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
         <ScrollReveal>
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight mb-4">
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>
+              الأنبياء
+            </p>
+            <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
               Les 25 Prophètes.
             </h1>
-            <p className="text-[17px] text-muted max-w-lg mx-auto">
+            <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '30rem', margin: '0 auto' }}>
               Les prophètes mentionnés dans le Coran et leurs enseignements.
             </p>
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={100}>
-          <div className="max-w-md mx-auto mb-10">
+        <ScrollReveal delay={80}>
+          <div style={{ maxWidth: '28rem', margin: '0 auto 2.5rem' }}>
             <SearchInput value={query} onChange={setQuery} placeholder="Rechercher un prophète..." />
           </div>
         </ScrollReveal>
 
-        <div className="space-y-4">
-          {filtered.map((prophete) => (
-            <div key={prophete.nom} className="card p-6">
-              <div className="flex items-baseline gap-3 mb-1">
-                <h3 className="text-lg font-medium font-outfit">{prophete.nom}</h3>
-                <span className="font-amiri text-lg text-gold">{prophete.nomArabe}</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          {filtered.map((prophete, i) => (
+            <ScrollReveal key={prophete.nom} delay={i < 10 ? i * 40 : 0}>
+              <div className="surah-card" style={{ padding: 'clamp(1.25rem, 2.5vw, 1.75rem)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '0.25rem' }}>
+                  <h3 className="font-outfit font-semibold" style={{ fontSize: '1.0625rem' }}>{prophete.nom}</h3>
+                  <span className="font-amiri text-gold" style={{ fontSize: '1.125rem' }}>{prophete.nomArabe}</span>
+                </div>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--color-gold)', marginBottom: '0.75rem' }}>{prophete.titre}</p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.7, marginBottom: '1rem' }}>{prophete.histoire}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {prophete.sourates.map(s => (
+                    <Badge key={s} variant="muted">{s}</Badge>
+                  ))}
+                </div>
               </div>
-              <p className="text-[13px] text-gold mb-3">{prophete.titre}</p>
-              <p className="text-[15px] text-foreground leading-relaxed mb-4">{prophete.histoire}</p>
-              <div className="flex flex-wrap gap-2">
-                {prophete.sourates.map(s => (
-                  <Badge key={s} variant="muted">{s}</Badge>
-                ))}
-              </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <p className="text-center text-muted py-20">Aucun prophète trouvé.</p>
+          <p className="text-muted" style={{ textAlign: 'center', padding: '5rem 0' }}>Aucun prophète trouvé.</p>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { compilation } from '@/data/annexes/compilation';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
   title: 'Compilation du Coran',
@@ -8,37 +9,56 @@ export const metadata: Metadata = {
 
 export default function CompilationPage() {
   return (
-    <div className="pt-32 pb-24">
-      <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight mb-4">
-            Compilation du Coran.
-          </h1>
-          <p className="text-[17px] text-muted max-w-lg mx-auto">
-            {compilation.introduction}
-          </p>
-        </div>
+    <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '1100px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>
+              جمع القرآن
+            </p>
+            <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
+              Compilation du Coran.
+            </h1>
+            <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '32rem', margin: '0 auto' }}>
+              {compilation.introduction}
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="max-w-2xl mx-auto">
+        <div style={{ maxWidth: '40rem', margin: '0 auto' }}>
           {compilation.etapes.map((etape, index) => (
-            <div key={index} className="relative pl-10 pb-10 last:pb-0">
-              {index < compilation.etapes.length - 1 && (
-                <div className="absolute left-[7px] top-3 bottom-0 w-px bg-border" />
-              )}
-              <div className="absolute left-0 top-[6px] w-[15px] h-[15px] rounded-full bg-gold" />
+            <ScrollReveal key={index} delay={index * 60}>
+              <div style={{ position: 'relative', paddingLeft: '2.5rem', paddingBottom: index < compilation.etapes.length - 1 ? '2.5rem' : 0 }}>
+                {index < compilation.etapes.length - 1 && (
+                  <div style={{
+                    position: 'absolute', left: '7px', top: '12px', bottom: 0, width: '1px',
+                    background: 'var(--color-border)',
+                  }} />
+                )}
+                <div style={{
+                  position: 'absolute', left: 0, top: '6px', width: '15px', height: '15px',
+                  borderRadius: '50%', background: 'var(--color-gold)',
+                }} />
 
-              <div className="card p-6">
-                <span className="text-[12px] text-gold font-medium uppercase tracking-wider mb-2 block">{etape.periode}</span>
-                <h3 className="text-lg font-medium font-outfit mb-2">{etape.titre}</h3>
-                <p className="text-[15px] text-muted leading-relaxed">{etape.description}</p>
+                <div className="surah-card" style={{ padding: 'clamp(1.25rem, 2.5vw, 1.75rem)' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--color-gold)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.5rem' }}>
+                    {etape.periode}
+                  </span>
+                  <h3 className="font-outfit font-semibold" style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>{etape.titre}</h3>
+                  <p className="text-muted" style={{ fontSize: '0.9375rem', lineHeight: 1.7 }}>{etape.description}</p>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-[17px] text-muted max-w-xl mx-auto leading-relaxed">{compilation.conclusion}</p>
-        </div>
+        <ScrollReveal delay={200}>
+          <div style={{ marginTop: '4rem', textAlign: 'center' }}>
+            <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '32rem', margin: '0 auto', lineHeight: 1.7 }}>
+              {compilation.conclusion}
+            </p>
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   );
