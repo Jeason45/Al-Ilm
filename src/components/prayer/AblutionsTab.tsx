@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import type { AblutionTypeId, AblutionStep } from '@/data/ablutions/types';
+import { useState, useMemo } from 'react';
+import type { AblutionTypeId } from '@/data/ablutions/types';
 import { getAblutionById } from '@/data/ablutions';
 import { ablutionErrors } from '@/data/ablutions/common-errors';
 import { ablutionSpecialCases } from '@/data/ablutions/special-cases';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { AblutionSelector } from './AblutionSelector';
-import { AblutionStepCard } from './AblutionStepCard';
-import { PrayerPositionImage } from './PrayerPositionImage';
+import { PrayerCarousel } from './PrayerCarousel';
+import type { CarouselStep } from './PrayerCarousel';
 import { WuduInvalidatorsSection } from './WuduInvalidatorsSection';
 import { WuduDuaSection } from './WuduDuaSection';
 import { CommonErrorsCard } from './CommonErrorsCard';
@@ -17,20 +17,29 @@ import { ChevronDown } from 'lucide-react';
 
 export function AblutionsTab() {
   const [activeAblutionId, setActiveAblutionId] = useState<AblutionTypeId>('wudu');
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const ablution = getAblutionById(activeAblutionId);
 
   const handleAblutionChange = (id: AblutionTypeId) => {
     setActiveAblutionId(id);
-    setActiveStepIndex(0);
   };
 
   if (!ablution) return null;
 
-  const activeStep: AblutionStep | undefined = ablution.steps[activeStepIndex];
   const isWudu = activeAblutionId === 'wudu';
-  const avatarPosition = activeStep?.position ?? (isWudu ? 'wudu-hands' : undefined);
+
+  const carouselSteps: CarouselStep[] = ablution.steps
+    .filter(s => s.position) // only steps with an image position
+    .map(s => ({
+      position: s.position!,
+      ruling: s.ruling,
+      name: s.name,
+      nameAr: s.nameAr,
+      notes: s.description,
+      repetitions: s.repetitions,
+    }));
+
+  const hasCarouselSteps = carouselSteps.length > 0;
 
   return (
     <div>
@@ -65,50 +74,15 @@ export function AblutionsTab() {
         </ScrollReveal>
       )}
 
-      {/* Position image + step indicator (for wudu) */}
-      {isWudu && avatarPosition && (
+      {/* Wudu carousel */}
+      {isWudu && hasCarouselSteps && (
         <ScrollReveal delay={160}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', gap: '10px' }}>
-            <PrayerPositionImage activePosition={avatarPosition} showLabel={false} />
-
-            {/* Step indicator below image */}
-            {activeStep && (
-              <div style={{ textAlign: 'center', maxWidth: '320px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <span style={{
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    width: '22px', height: '22px', borderRadius: '6px', fontSize: '0.6875rem',
-                    fontWeight: 600, background: 'rgba(201, 168, 76, 0.15)',
-                    border: '1px solid rgba(201, 168, 76, 0.3)', color: 'var(--color-gold)',
-                  }}>
-                    {activeStep.order}
-                  </span>
-                  <span className="font-outfit" style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-foreground)' }}>
-                    {activeStep.name}
-                  </span>
-                </div>
-                <p style={{ fontSize: '0.75rem', color: 'var(--color-muted)', lineHeight: 1.5 }}>
-                  {activeStep.description}
-                </p>
-              </div>
-            )}
-          </div>
+          <PrayerCarousel
+            key={activeAblutionId}
+            steps={carouselSteps}
+          />
         </ScrollReveal>
       )}
-
-      {/* Steps list */}
-      <ScrollReveal delay={200}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {ablution.steps.map((step, index) => (
-            <AblutionStepCard
-              key={step.id}
-              step={step}
-              isActive={index === activeStepIndex}
-              onClick={() => setActiveStepIndex(index)}
-            />
-          ))}
-        </div>
-      </ScrollReveal>
 
       {/* Wudu-specific sections */}
       {activeAblutionId === 'wudu' && (

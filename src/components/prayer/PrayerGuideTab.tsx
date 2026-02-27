@@ -1,38 +1,52 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import type { PrayerId, PrayerStep } from '@/data/prayer-guide/types';
+import type { PrayerId } from '@/data/prayer-guide/types';
 import { getPrayerById } from '@/data/prayer-guide/prayers';
-import { classifications } from '@/data/prayer-guide/classifications';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { PrayerSelector } from './PrayerSelector';
-import { PrayerPositionImage } from './PrayerPositionImage';
-import { PrayerStepCard } from './PrayerStepCard';
+import { PrayerCarousel } from './PrayerCarousel';
+import type { CarouselStep } from './PrayerCarousel';
 import { ClassificationBadge } from './ClassificationBadge';
 import { CommonErrorsCard } from './CommonErrorsCard';
 import { SpecialCasesSection } from './SpecialCasesSection';
 
 export function PrayerGuideTab() {
   const [activePrayerId, setActivePrayerId] = useState<PrayerId>('fajr');
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const prayer = getPrayerById(activePrayerId);
 
-  const allSteps = useMemo(() => {
-    if (!prayer) return [];
-    return prayer.rakaat.flatMap(r => r.steps);
-  }, [prayer]);
+  const { carouselSteps, rakaatBoundaries } = useMemo(() => {
+    if (!prayer) return { carouselSteps: [] as CarouselStep[], rakaatBoundaries: [] as number[] };
 
-  const activeStep: PrayerStep | undefined = allSteps[activeStepIndex];
+    const steps: CarouselStep[] = [];
+    const boundaries: number[] = [];
+
+    for (const rakaa of prayer.rakaat) {
+      boundaries.push(steps.length);
+      for (const s of rakaa.steps) {
+        steps.push({
+          position: s.position,
+          ruling: s.ruling,
+          name: s.name,
+          nameAr: s.nameAr,
+          dhikr: s.dhikr,
+          dhikrAr: s.dhikrAr,
+          dhikrTranslit: s.dhikrTranslit,
+          repetitions: s.repetitions,
+          notes: s.notes,
+        });
+      }
+    }
+
+    return { carouselSteps: steps, rakaatBoundaries: boundaries };
+  }, [prayer]);
 
   const handlePrayerChange = (id: PrayerId) => {
     setActivePrayerId(id);
-    setActiveStepIndex(0);
   };
 
   if (!prayer) return null;
-
-  const meta = classifications[prayer.ruling];
 
   return (
     <div>
@@ -66,57 +80,13 @@ export function PrayerGuideTab() {
         </div>
       </ScrollReveal>
 
-      {/* Position image */}
+      {/* Prayer carousel */}
       <ScrollReveal delay={160}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
-          {activeStep && (
-            <PrayerPositionImage activePosition={activeStep.position} />
-          )}
-        </div>
-      </ScrollReveal>
-
-      {/* Steps list */}
-      <ScrollReveal delay={200}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {prayer.rakaat.map((rakaa) => (
-            <div key={rakaa.number}>
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '8px',
-                marginBottom: '8px', marginTop: rakaa.number > 1 ? '1.25rem' : 0,
-              }}>
-                <div style={{
-                  height: '1px', flex: 1,
-                  background: 'linear-gradient(to right, transparent, var(--color-border))',
-                }} />
-                <span style={{
-                  fontSize: '0.6875rem', fontWeight: 600, color: 'var(--color-gold)',
-                  textTransform: 'uppercase', letterSpacing: '0.08em',
-                }}>
-                  Rak'a {rakaa.number}
-                </span>
-                <div style={{
-                  height: '1px', flex: 1,
-                  background: 'linear-gradient(to left, transparent, var(--color-border))',
-                }} />
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {rakaa.steps.map((step) => {
-                  const globalIndex = allSteps.indexOf(step);
-                  return (
-                    <PrayerStepCard
-                      key={step.id}
-                      step={step}
-                      stepNumber={globalIndex + 1}
-                      isActive={globalIndex === activeStepIndex}
-                      onClick={() => setActiveStepIndex(globalIndex)}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
+        <PrayerCarousel
+          key={activePrayerId}
+          steps={carouselSteps}
+          rakaatBoundaries={rakaatBoundaries}
+        />
       </ScrollReveal>
 
       {/* Common errors */}
