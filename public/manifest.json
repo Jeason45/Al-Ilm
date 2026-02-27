@@ -1,0 +1,23 @@
+{
+  "name": "Al-Ilm — Apprendre l'Islam",
+  "short_name": "Al-Ilm",
+  "description": "Explorez les 114 sourates du Coran, les 99 Noms d'Allah, les 25 Prophètes et bien plus.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#C8963E",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
