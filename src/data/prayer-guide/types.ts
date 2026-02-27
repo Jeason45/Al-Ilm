@@ -10,7 +10,15 @@ export type PrayerPositionId =
   | 'julus'
   | 'tashahud'
   | 'salam'
-  | 'qunut';
+  | 'qunut'
+  | 'wudu-hands'
+  | 'wudu-mouth'
+  | 'wudu-nose'
+  | 'wudu-face'
+  | 'wudu-arms'
+  | 'wudu-head'
+  | 'wudu-ears'
+  | 'wudu-feet';
 
 export interface PrayerPosition {
   id: PrayerPositionId;

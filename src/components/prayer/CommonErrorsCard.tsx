@@ -2,22 +2,29 @@
 
 import { useState } from 'react';
 import { AlertTriangle, ChevronDown } from 'lucide-react';
-import { commonErrors } from '@/data/prayer-guide/common-errors';
+import { commonErrors as defaultErrors } from '@/data/prayer-guide/common-errors';
+import type { CommonError } from '@/data/prayer-guide/types';
 
-export function CommonErrorsCard() {
+interface CommonErrorsCardProps {
+  errors?: CommonError[];
+  title?: string;
+}
+
+export function CommonErrorsCard({ errors, title }: CommonErrorsCardProps = {}) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const items = errors ?? defaultErrors;
 
   return (
     <div style={{ marginTop: '2.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
         <AlertTriangle style={{ width: '16px', height: '16px', color: 'var(--color-amber)' }} />
         <h3 className="font-outfit font-semibold" style={{ fontSize: '1.125rem' }}>
-          Erreurs courantes
+          {title ?? 'Erreurs courantes'}
         </h3>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {commonErrors.map((error) => {
+        {items.map((error) => {
           const isExpanded = expandedId === error.id;
           return (
             <div

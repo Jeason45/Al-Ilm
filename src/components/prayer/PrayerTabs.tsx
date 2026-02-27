@@ -1,6 +1,6 @@
 'use client';
 
-export type PrayerTab = 'horaires' | 'guide' | 'adhan';
+export type PrayerTab = 'horaires' | 'guide' | 'adhan' | 'ablutions';
 
 interface PrayerTabsProps {
   activeTab: PrayerTab;
@@ -11,6 +11,7 @@ const tabs: { id: PrayerTab; label: string }[] = [
   { id: 'horaires', label: 'Horaires' },
   { id: 'guide', label: 'Guide' },
   { id: 'adhan', label: 'Adhan' },
+  { id: 'ablutions', label: 'Ablutions' },
 ];
 
 export function PrayerTabs({ activeTab, onTabChange }: PrayerTabsProps) {
@@ -29,7 +30,7 @@ export function PrayerTabs({ activeTab, onTabChange }: PrayerTabsProps) {
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           style={{
-            padding: '8px 20px',
+            padding: '8px 14px',
             fontSize: '13px',
             fontWeight: 500,
             borderRadius: '8px',

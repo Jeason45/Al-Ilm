@@ -2,22 +2,29 @@
 
 import { useState } from 'react';
 import { BookOpen, ChevronDown } from 'lucide-react';
-import { specialCases } from '@/data/prayer-guide/special-cases';
+import { specialCases as defaultCases } from '@/data/prayer-guide/special-cases';
+import type { SpecialCase } from '@/data/prayer-guide/types';
 
-export function SpecialCasesSection() {
+interface SpecialCasesSectionProps {
+  cases?: SpecialCase[];
+  title?: string;
+}
+
+export function SpecialCasesSection({ cases, title }: SpecialCasesSectionProps = {}) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const items = cases ?? defaultCases;
 
   return (
     <div style={{ marginTop: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
         <BookOpen style={{ width: '16px', height: '16px', color: 'var(--color-blue)' }} />
         <h3 className="font-outfit font-semibold" style={{ fontSize: '1.125rem' }}>
-          Cas particuliers
+          {title ?? 'Cas particuliers'}
         </h3>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        {specialCases.map((sc) => {
+        {items.map((sc) => {
           const isExpanded = expandedId === sc.id;
           return (
             <div

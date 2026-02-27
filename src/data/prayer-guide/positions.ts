@@ -241,6 +241,202 @@ export const positions: PrayerPosition[] = [
       'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
     ].join(' '),
   },
+  // ─── Wudu positions ───
+  {
+    id: 'wudu-hands',
+    name: 'Lavage des mains',
+    nameAr: 'غسل اليدين',
+    // Standing, hands extended forward under water
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm extended forward
+      'M88 54 l-6 2 l-14 16 l-4 2 h6 l12-14 l4-2 Z',
+      // Right arm extended forward
+      'M112 54 l6 2 l14 16 l4 2 h-6 l-12-14 l-4-2 Z',
+      // Hands together with water drops
+      'M68 74 a5 4 0 1 1 10 0 a5 4 0 1 1-10 0 Z',
+      'M122 74 a5 4 0 1 1 10 0 a5 4 0 1 1-10 0 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-mouth',
+    name: 'Rinçage de la bouche',
+    nameAr: 'المضمضة',
+    // Standing, right hand raised to mouth
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm at side
+      'M88 52 l-4 2 l-2 38 l-2 6 h6 l1-6 l3-34 Z',
+      // Right arm raised to mouth
+      'M112 52 l4-2 l4-10 l-2-8 h-6 l1 8 l-2 8 Z',
+      // Right hand near mouth
+      'M116 28 a4 5 0 1 1 8 2 a4 5 0 1 1-8-2 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-nose',
+    name: 'Rinçage du nez',
+    nameAr: 'الاستنشاق',
+    // Standing, right hand raised to nose
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm at side
+      'M88 52 l-4 2 l-2 38 l-2 6 h6 l1-6 l3-34 Z',
+      // Right arm raised to nose
+      'M112 52 l6-4 l2-14 l-2-6 h-6 l2 8 l-3 12 Z',
+      // Right hand near nose
+      'M114 24 a4 4 0 1 1 8 0 a4 4 0 1 1-8 0 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-face',
+    name: 'Lavage du visage',
+    nameAr: 'غسل الوجه',
+    // Standing, both hands on face
+    svgPath: [
+      // Head (partially covered by hands)
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left hand on face
+      'M84 20 l-2 8 l4 14 l8-2 l0-14 l-4-8 Z',
+      // Right hand on face
+      'M116 20 l2 8 l-4 14 l-8-2 l0-14 l4-8 Z',
+      // Left arm reaching up
+      'M88 52 l-6-4 l-2-18 l4-8 l4 6 l1 16 l2 6 Z',
+      // Right arm reaching up
+      'M112 52 l6-4 l2-18 l-4-8 l-4 6 l-1 16 l-2 6 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-arms',
+    name: 'Lavage des bras',
+    nameAr: 'غسل اليدين إلى المرفقين',
+    // Standing, left arm extended, right hand washing forearm
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm extended forward
+      'M88 56 l-8 0 l-20 6 l-8 2 l0 6 l10-2 l20-6 l6 0 Z',
+      // Right hand on left forearm
+      'M72 58 a5 6 0 1 1 10 2 a5 6 0 1 1-10-2 Z',
+      // Right arm reaching to left
+      'M112 54 l-4 4 l-20 4 l-8 0 l0-6 l10-2 l16-4 l4-2 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-head',
+    name: 'Essuyage de la tête',
+    nameAr: 'مسح الرأس',
+    // Standing, both hands on top of head
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Hands on head
+      'M82 16 l4-4 l28 0 l4 4 l-2 6 l-32 0 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left arm raised to head
+      'M88 52 l-6-6 l-2-16 l2-10 l6-2 l2 12 l2 16 Z',
+      // Right arm raised to head
+      'M112 52 l6-6 l2-16 l-2-10 l-6-2 l-2 12 l-2 16 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-ears',
+    name: 'Essuyage des oreilles',
+    nameAr: 'مسح الأذنين',
+    // Standing, hands at ears
+    svgPath: [
+      // Head
+      'M100 18 a12 12 0 1 1 0 24 a12 12 0 1 1 0-24 Z',
+      // Neck
+      'M96 42 h8 v6 h-8 Z',
+      // Torso
+      'M88 48 h24 l2 52 h-28 Z',
+      // Left hand at left ear
+      'M82 24 a4 5 0 1 1 6 1 a4 5 0 1 1-6-1 Z',
+      // Right hand at right ear
+      'M112 24 a4 5 0 1 1 6 1 a4 5 0 1 1-6-1 Z',
+      // Left arm raised to ear
+      'M88 52 l-6-4 l-2-14 l4-8 l4 4 l1 14 l2 6 Z',
+      // Right arm raised to ear
+      'M112 52 l6-4 l2-14 l-4-8 l-4 4 l-1 14 l-2 6 Z',
+      // Left leg
+      'M90 100 l-2 50 l-4 16 h8 l1-14 l3-46 Z',
+      // Right leg
+      'M110 100 l2 50 l4 16 h-8 l-1-14 l-3-46 Z',
+    ].join(' '),
+  },
+  {
+    id: 'wudu-feet',
+    name: 'Lavage des pieds',
+    nameAr: 'غسل القدمين',
+    // Bent over, washing feet
+    svgPath: [
+      // Head (lower, bent over)
+      'M72 48 a10 10 0 1 1 0 20 a10 10 0 1 1 0-20 Z',
+      // Neck/back angled
+      'M82 54 l28 4 l4 4 l0 10 l-4 4 l-28-6 l-4-4 l0-8 Z',
+      // Arms reaching down to feet
+      'M82 62 l-6 14 l-6 30 l-4 12 h6 l4-12 l4-28 l4-12 Z',
+      'M106 68 l6 14 l6 30 l4 12 h-6 l-4-12 l-4-28 l-4-12 Z',
+      // Left leg
+      'M108 72 l-4 40 l-6 20 l-8 10 h8 l6-10 l6-18 l4-36 Z',
+      // Right leg
+      'M118 72 l4 40 l6 20 l8 10 h-8 l-6-10 l-6-18 l-4-36 Z',
+      // Feet
+      'M84 148 l-10 4 l0 6 l14 0 l0-6 Z',
+      'M132 148 l10 4 l0 6 l-14 0 l0-6 Z',
+    ].join(' '),
+  },
 ];
 
 export function getPosition(id: string): PrayerPosition | undefined {
