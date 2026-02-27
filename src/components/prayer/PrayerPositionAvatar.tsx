@@ -702,7 +702,7 @@ export function PrayerPositionAvatar({ activePosition, avatarUrl = DEFAULT_AVATA
         }}
       >
         <Canvas
-          camera={{ position: [0, 1.05, 2.6], fov: 35 }}
+          camera={{ position: [0, 0.85, 3.2], fov: 32 }}
           style={{ background: 'transparent' }}
           gl={{ alpha: true, antialias: true }}
         >

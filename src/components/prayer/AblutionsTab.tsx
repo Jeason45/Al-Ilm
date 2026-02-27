@@ -32,7 +32,8 @@ export function AblutionsTab() {
   if (!ablution) return null;
 
   const activeStep: AblutionStep | undefined = ablution.steps[activeStepIndex];
-  const showAvatar = activeAblutionId === 'wudu' && activeStep?.position;
+  const isWudu = activeAblutionId === 'wudu';
+  const avatarPosition = activeStep?.position ?? (isWudu ? 'wudu-hands' : undefined);
 
   return (
     <div>
@@ -67,11 +68,11 @@ export function AblutionsTab() {
         </ScrollReveal>
       )}
 
-      {/* Avatar + customizer (only for wudu steps with positions) */}
-      {showAvatar && (
+      {/* Avatar + customizer (for wudu) */}
+      {isWudu && avatarPosition && (
         <ScrollReveal delay={160}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', gap: '10px' }}>
-            <PrayerPositionAvatar activePosition={activeStep.position!} avatarUrl={avatarUrl} />
+            <PrayerPositionAvatar activePosition={avatarPosition} avatarUrl={avatarUrl} />
             <AvatarCustomizer currentUrl={avatarUrl} onSelect={setAvatarUrl} />
           </div>
         </ScrollReveal>
