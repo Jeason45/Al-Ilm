@@ -66,7 +66,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r1-takbir-sujud1',
-          position: 'takbir',
+          position: 'itidal',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -87,7 +87,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r1-takbir-julus',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition vers la position assise',
           nameAr: 'تكبيرة الانتقال للجلوس',
@@ -107,7 +107,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r1-takbir-sujud2',
-          position: 'takbir',
+          position: 'julus',
           ruling: 'wajib',
           name: 'Takbir de transition vers la 2e prosternation',
           nameAr: 'تكبيرة الانتقال للسجدة الثانية',
@@ -186,7 +186,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r2-takbir-sujud1',
-          position: 'takbir',
+          position: 'itidal',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -207,7 +207,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r2-takbir-julus',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition vers la position assise',
           nameAr: 'تكبيرة الانتقال للجلوس',
@@ -227,7 +227,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r2-takbir-sujud2',
-          position: 'takbir',
+          position: 'julus',
           ruling: 'wajib',
           name: 'Takbir de transition vers la 2e prosternation',
           nameAr: 'تكبيرة الانتقال للسجدة الثانية',
@@ -317,7 +317,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r3-takbir-sujud1',
-          position: 'takbir',
+          position: 'itidal',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -338,7 +338,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r3-takbir-julus',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition vers la position assise',
           nameAr: 'تكبيرة الانتقال للجلوس',
@@ -358,7 +358,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r3-takbir-sujud2',
-          position: 'takbir',
+          position: 'julus',
           ruling: 'wajib',
           name: 'Takbir de transition vers la 2e prosternation',
           nameAr: 'تكبيرة الانتقال للسجدة الثانية',
@@ -437,7 +437,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r4-takbir-sujud1',
-          position: 'takbir',
+          position: 'itidal',
           ruling: 'wajib',
           name: 'Takbir de transition vers la prosternation',
           nameAr: 'تكبيرة الانتقال للسجود',
@@ -458,7 +458,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r4-takbir-julus',
-          position: 'takbir',
+          position: 'sujud',
           ruling: 'wajib',
           name: 'Takbir de transition vers la position assise',
           nameAr: 'تكبيرة الانتقال للجلوس',
@@ -478,7 +478,7 @@ export const isha: PrayerDefinition = {
         },
         {
           id: 'isha-r4-takbir-sujud2',
-          position: 'takbir',
+          position: 'julus',
           ruling: 'wajib',
           name: 'Takbir de transition vers la 2e prosternation',
           nameAr: 'تكبيرة الانتقال للسجدة الثانية',
