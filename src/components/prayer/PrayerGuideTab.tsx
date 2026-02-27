@@ -5,10 +5,8 @@ import type { PrayerId, PrayerStep } from '@/data/prayer-guide/types';
 import { getPrayerById } from '@/data/prayer-guide/prayers';
 import { classifications } from '@/data/prayer-guide/classifications';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { useAvatarPreference } from '@/hooks/useAvatarPreference';
 import { PrayerSelector } from './PrayerSelector';
-import { PrayerPositionAvatar } from './PrayerPositionAvatar';
-import { AvatarCustomizer } from './AvatarCustomizer';
+import { PrayerPositionImage } from './PrayerPositionImage';
 import { PrayerStepCard } from './PrayerStepCard';
 import { ClassificationBadge } from './ClassificationBadge';
 import { CommonErrorsCard } from './CommonErrorsCard';
@@ -17,7 +15,6 @@ import { SpecialCasesSection } from './SpecialCasesSection';
 export function PrayerGuideTab() {
   const [activePrayerId, setActivePrayerId] = useState<PrayerId>('fajr');
   const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const { avatarUrl, setAvatarUrl } = useAvatarPreference();
 
   const prayer = getPrayerById(activePrayerId);
 
@@ -69,13 +66,12 @@ export function PrayerGuideTab() {
         </div>
       </ScrollReveal>
 
-      {/* Avatar + customizer */}
+      {/* Position image */}
       <ScrollReveal delay={160}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
           {activeStep && (
-            <PrayerPositionAvatar activePosition={activeStep.position} avatarUrl={avatarUrl} />
+            <PrayerPositionImage activePosition={activeStep.position} />
           )}
-          <AvatarCustomizer currentUrl={avatarUrl} onSelect={setAvatarUrl} />
         </div>
       </ScrollReveal>
 

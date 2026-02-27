@@ -6,11 +6,9 @@ import { getAblutionById } from '@/data/ablutions';
 import { ablutionErrors } from '@/data/ablutions/common-errors';
 import { ablutionSpecialCases } from '@/data/ablutions/special-cases';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { useAvatarPreference } from '@/hooks/useAvatarPreference';
 import { AblutionSelector } from './AblutionSelector';
 import { AblutionStepCard } from './AblutionStepCard';
-import { PrayerPositionAvatar } from './PrayerPositionAvatar';
-import { AvatarCustomizer } from './AvatarCustomizer';
+import { PrayerPositionImage } from './PrayerPositionImage';
 import { WuduInvalidatorsSection } from './WuduInvalidatorsSection';
 import { WuduDuaSection } from './WuduDuaSection';
 import { CommonErrorsCard } from './CommonErrorsCard';
@@ -20,7 +18,6 @@ import { ChevronDown } from 'lucide-react';
 export function AblutionsTab() {
   const [activeAblutionId, setActiveAblutionId] = useState<AblutionTypeId>('wudu');
   const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const { avatarUrl, setAvatarUrl } = useAvatarPreference();
 
   const ablution = getAblutionById(activeAblutionId);
 
@@ -68,13 +65,13 @@ export function AblutionsTab() {
         </ScrollReveal>
       )}
 
-      {/* Avatar + step indicator + customizer (for wudu) */}
+      {/* Position image + step indicator (for wudu) */}
       {isWudu && avatarPosition && (
         <ScrollReveal delay={160}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', gap: '10px' }}>
-            <PrayerPositionAvatar activePosition={avatarPosition} avatarUrl={avatarUrl} />
+            <PrayerPositionImage activePosition={avatarPosition} showLabel={false} />
 
-            {/* Step indicator below avatar */}
+            {/* Step indicator below image */}
             {activeStep && (
               <div style={{ textAlign: 'center', maxWidth: '320px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
@@ -95,8 +92,6 @@ export function AblutionsTab() {
                 </p>
               </div>
             )}
-
-            <AvatarCustomizer currentUrl={avatarUrl} onSelect={setAvatarUrl} />
           </div>
         </ScrollReveal>
       )}

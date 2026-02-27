@@ -24,7 +24,7 @@ export interface PrayerPosition {
   id: PrayerPositionId;
   name: string;
   nameAr: string;
-  svgPath: string;
+  imagePath: string;
 }
 
 export interface PrayerStep {
