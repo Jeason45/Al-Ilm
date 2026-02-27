@@ -1,336 +1,470 @@
 'use client';
 
-import { Suspense, useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Suspense, useRef, useMemo, useEffect } from 'react';
+import { Canvas, useFrame, useGraph } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { clone as cloneSkeleton } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import type { PrayerPositionId } from '@/data/prayer-guide/types';
 import { positions } from '@/data/prayer-guide/positions';
 
-// ─── Pose data: each body part has [x, y, z] position and [rx, ry, rz] rotation ───
+// ─── Default avatar URL (fallback) ───
 
-interface BodyPose {
-  // root offset
-  root: [number, number, number];
-  // head
-  head: { pos: [number, number, number]; rot: [number, number, number] };
-  // torso
-  torso: { pos: [number, number, number]; rot: [number, number, number] };
-  // upper arms
-  leftUpperArm: { rot: [number, number, number] };
-  rightUpperArm: { rot: [number, number, number] };
-  // forearms
-  leftForearm: { rot: [number, number, number] };
-  rightForearm: { rot: [number, number, number] };
-  // upper legs
-  leftUpperLeg: { rot: [number, number, number] };
-  rightUpperLeg: { rot: [number, number, number] };
-  // lower legs
-  leftLowerLeg: { rot: [number, number, number] };
-  rightLowerLeg: { rot: [number, number, number] };
+const DEFAULT_AVATAR_URL = 'https://models.readyplayer.me/696ce18a29115399d7fe924c.glb';
+
+// ─── Bone rotation config types ───
+
+interface Vec3 {
+  x: number;
+  y: number;
+  z: number;
 }
 
-const DEG = Math.PI / 180;
+interface PrayerPoseConfig {
+  hips: { position: Vec3; rotation: Vec3 };
+  spine: Vec3;
+  spine1: Vec3;
+  spine2: Vec3;
+  neck: Vec3;
+  head: Vec3;
+  leftShoulder: Vec3;
+  leftArm: Vec3;
+  leftForeArm: Vec3;
+  leftHand: Vec3;
+  rightShoulder: Vec3;
+  rightArm: Vec3;
+  rightForeArm: Vec3;
+  rightHand: Vec3;
+  leftUpLeg: Vec3;
+  leftLeg: Vec3;
+  leftFoot: Vec3;
+  rightUpLeg: Vec3;
+  rightLeg: Vec3;
+  rightFoot: Vec3;
+}
 
-const POSES: Record<PrayerPositionId, BodyPose> = {
+// ─── Helper ───
+
+const D = Math.PI / 180;
+const v = (x: number, y: number, z: number): Vec3 => ({ x, y, z });
+const ZERO: Vec3 = { x: 0, y: 0, z: 0 };
+
+// ─── Prayer poses — bone rotations relative to T-pose initial ───
+
+const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
+  // Standing straight, arms at sides
   qiyam: {
-    root: [0, 0, 0],
-    head: { pos: [0, 1.65, 0], rot: [0, 0, 0] },
-    torso: { pos: [0, 1.1, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [0, 0, 5 * DEG] },
-    rightUpperArm: { rot: [0, 0, -5 * DEG] },
-    leftForearm: { rot: [0, 0, 0] },
-    rightForearm: { rot: [0, 0, 0] },
-    leftUpperLeg: { rot: [0, 0, 0] },
-    rightUpperLeg: { rot: [0, 0, 0] },
-    leftLowerLeg: { rot: [0, 0, 0] },
-    rightLowerLeg: { rot: [0, 0, 0] },
+    hips: { position: v(0, 0, 0), rotation: ZERO },
+    spine: ZERO,
+    spine1: ZERO,
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-5 * D, 0, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.2, 0, 0.15),
+    leftForeArm: v(0.05, 0, 0),
+    leftHand: ZERO,
+    rightShoulder: ZERO,
+    rightArm: v(0.2, 0, -0.15),
+    rightForeArm: v(0.05, 0, 0),
+    rightHand: ZERO,
+    leftUpLeg: v(0, 0, 0.02),
+    leftLeg: ZERO,
+    leftFoot: ZERO,
+    rightUpLeg: v(0, 0, -0.02),
+    rightLeg: ZERO,
+    rightFoot: ZERO,
   },
+
+  // Hands raised to ear level (opening takbir)
   takbir: {
-    root: [0, 0, 0],
-    head: { pos: [0, 1.65, 0], rot: [0, 0, 0] },
-    torso: { pos: [0, 1.1, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [-10 * DEG, 0, 80 * DEG] },
-    rightUpperArm: { rot: [-10 * DEG, 0, -80 * DEG] },
-    leftForearm: { rot: [-120 * DEG, 0, 0] },
-    rightForearm: { rot: [-120 * DEG, 0, 0] },
-    leftUpperLeg: { rot: [0, 0, 0] },
-    rightUpperLeg: { rot: [0, 0, 0] },
-    leftLowerLeg: { rot: [0, 0, 0] },
-    rightLowerLeg: { rot: [0, 0, 0] },
+    hips: { position: v(0, 0, 0), rotation: ZERO },
+    spine: ZERO,
+    spine1: ZERO,
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-5 * D, 0, 0),
+    leftShoulder: v(0, 0, 0.1),
+    leftArm: v(-0.6, 0.3, 0.8),
+    leftForeArm: v(-0.4, 0.6, 0),
+    leftHand: v(0, 0.2, 0),
+    rightShoulder: v(0, 0, -0.1),
+    rightArm: v(-0.6, -0.3, -0.8),
+    rightForeArm: v(-0.4, -0.6, 0),
+    rightHand: v(0, -0.2, 0),
+    leftUpLeg: v(0, 0, 0.02),
+    leftLeg: ZERO,
+    leftFoot: ZERO,
+    rightUpLeg: v(0, 0, -0.02),
+    rightLeg: ZERO,
+    rightFoot: ZERO,
   },
+
+  // Standing with hands folded on chest (right over left)
   'qiyam-hands': {
-    root: [0, 0, 0],
-    head: { pos: [0, 1.65, 0], rot: [5 * DEG, 0, 0] },
-    torso: { pos: [0, 1.1, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [20 * DEG, 0, 30 * DEG] },
-    rightUpperArm: { rot: [20 * DEG, 0, -30 * DEG] },
-    leftForearm: { rot: [-80 * DEG, 0, -20 * DEG] },
-    rightForearm: { rot: [-80 * DEG, 0, 20 * DEG] },
-    leftUpperLeg: { rot: [0, 0, 0] },
-    rightUpperLeg: { rot: [0, 0, 0] },
-    leftLowerLeg: { rot: [0, 0, 0] },
-    rightLowerLeg: { rot: [0, 0, 0] },
+    hips: { position: v(0, 0, 0), rotation: ZERO },
+    spine: ZERO,
+    spine1: v(-3 * D, 0, 0),
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-8 * D, 0, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.4, 0, 0.55),
+    leftForeArm: v(-1.2, 0.3, -0.2),
+    leftHand: v(0, 0.3, 0),
+    rightShoulder: ZERO,
+    rightArm: v(0.4, 0, -0.55),
+    rightForeArm: v(-1.2, -0.3, 0.2),
+    rightHand: v(0, -0.3, 0),
+    leftUpLeg: v(0, 0, 0.02),
+    leftLeg: ZERO,
+    leftFoot: ZERO,
+    rightUpLeg: v(0, 0, -0.02),
+    rightLeg: ZERO,
+    rightFoot: ZERO,
   },
+
+  // Bowing — back flat at ~90°, hands on knees
   ruku: {
-    root: [0, -0.35, 0],
-    head: { pos: [0, 1.2, -0.5], rot: [0, 0, 0] },
-    torso: { pos: [0, 0.95, -0.2], rot: [80 * DEG, 0, 0] },
-    leftUpperArm: { rot: [10 * DEG, 0, 10 * DEG] },
-    rightUpperArm: { rot: [10 * DEG, 0, -10 * DEG] },
-    leftForearm: { rot: [0, 0, 0] },
-    rightForearm: { rot: [0, 0, 0] },
-    leftUpperLeg: { rot: [0, 0, 0] },
-    rightUpperLeg: { rot: [0, 0, 0] },
-    leftLowerLeg: { rot: [0, 0, 0] },
-    rightLowerLeg: { rot: [0, 0, 0] },
+    hips: { position: v(0, -0.15, 0.05), rotation: v(55 * D, 0, 0) },
+    spine: v(10 * D, 0, 0),
+    spine1: v(5 * D, 0, 0),
+    spine2: v(5 * D, 0, 0),
+    neck: v(-15 * D, 0, 0),
+    head: v(-10 * D, 0, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.15, 0, 0.2),
+    leftForeArm: v(0.1, 0, 0),
+    leftHand: v(0.2, 0, 0),
+    rightShoulder: ZERO,
+    rightArm: v(0.15, 0, -0.2),
+    rightForeArm: v(0.1, 0, 0),
+    rightHand: v(0.2, 0, 0),
+    leftUpLeg: v(-55 * D, 0, 0.02),
+    leftLeg: v(5 * D, 0, 0),
+    leftFoot: v(10 * D, 0, 0),
+    rightUpLeg: v(-55 * D, 0, -0.02),
+    rightLeg: v(5 * D, 0, 0),
+    rightFoot: v(10 * D, 0, 0),
   },
+
+  // Standing straight after ruku
   itidal: {
-    root: [0, 0, 0],
-    head: { pos: [0, 1.65, 0], rot: [0, 0, 0] },
-    torso: { pos: [0, 1.1, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [0, 0, 8 * DEG] },
-    rightUpperArm: { rot: [0, 0, -8 * DEG] },
-    leftForearm: { rot: [0, 0, 0] },
-    rightForearm: { rot: [0, 0, 0] },
-    leftUpperLeg: { rot: [0, 0, 0] },
-    rightUpperLeg: { rot: [0, 0, 0] },
-    leftLowerLeg: { rot: [0, 0, 0] },
-    rightLowerLeg: { rot: [0, 0, 0] },
+    hips: { position: v(0, 0, 0), rotation: ZERO },
+    spine: ZERO,
+    spine1: ZERO,
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-3 * D, 0, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.2, 0, 0.18),
+    leftForeArm: v(0.05, 0, 0),
+    leftHand: ZERO,
+    rightShoulder: ZERO,
+    rightArm: v(0.2, 0, -0.18),
+    rightForeArm: v(0.05, 0, 0),
+    rightHand: ZERO,
+    leftUpLeg: v(0, 0, 0.02),
+    leftLeg: ZERO,
+    leftFoot: ZERO,
+    rightUpLeg: v(0, 0, -0.02),
+    rightLeg: ZERO,
+    rightFoot: ZERO,
   },
+
+  // Full prostration — forehead on ground
   sujud: {
-    root: [0, -0.9, 0.2],
-    head: { pos: [0, 0.15, -0.7], rot: [40 * DEG, 0, 0] },
-    torso: { pos: [0, 0.45, -0.25], rot: [110 * DEG, 0, 0] },
-    leftUpperArm: { rot: [30 * DEG, 0, 30 * DEG] },
-    rightUpperArm: { rot: [30 * DEG, 0, -30 * DEG] },
-    leftForearm: { rot: [-20 * DEG, 0, 0] },
-    rightForearm: { rot: [-20 * DEG, 0, 0] },
-    leftUpperLeg: { rot: [-60 * DEG, 0, 0] },
-    rightUpperLeg: { rot: [-60 * DEG, 0, 0] },
-    leftLowerLeg: { rot: [-110 * DEG, 0, 0] },
-    rightLowerLeg: { rot: [-110 * DEG, 0, 0] },
+    hips: { position: v(0, -0.55, 0.25), rotation: v(80 * D, 0, 0) },
+    spine: v(20 * D, 0, 0),
+    spine1: v(10 * D, 0, 0),
+    spine2: v(5 * D, 0, 0),
+    neck: v(-20 * D, 0, 0),
+    head: v(-15 * D, 0, 0),
+    leftShoulder: v(0, 0, 0.1),
+    leftArm: v(-0.2, 0.3, 0.6),
+    leftForeArm: v(-0.5, 0, 0),
+    leftHand: v(-0.3, 0, 0),
+    rightShoulder: v(0, 0, -0.1),
+    rightArm: v(-0.2, -0.3, -0.6),
+    rightForeArm: v(-0.5, 0, 0),
+    rightHand: v(-0.3, 0, 0),
+    leftUpLeg: v(-80 * D, 0, 0.05),
+    leftLeg: v(110 * D, 0, 0),
+    leftFoot: v(-30 * D, 0, 0),
+    rightUpLeg: v(-80 * D, 0, -0.05),
+    rightLeg: v(110 * D, 0, 0),
+    rightFoot: v(-30 * D, 0, 0),
   },
+
+  // Sitting between two prostrations
   julus: {
-    root: [0, -0.65, 0],
-    head: { pos: [0, 1.1, 0], rot: [5 * DEG, 0, 0] },
-    torso: { pos: [0, 0.6, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [15 * DEG, 0, 10 * DEG] },
-    rightUpperArm: { rot: [15 * DEG, 0, -10 * DEG] },
-    leftForearm: { rot: [-20 * DEG, 0, 0] },
-    rightForearm: { rot: [-20 * DEG, 0, 0] },
-    leftUpperLeg: { rot: [-90 * DEG, 0, 0] },
-    rightUpperLeg: { rot: [-90 * DEG, 0, 0] },
-    leftLowerLeg: { rot: [-90 * DEG, 0, 0] },
-    rightLowerLeg: { rot: [-90 * DEG, 0, 0] },
+    hips: { position: v(0, -0.55, 0), rotation: v(10 * D, 0, 0) },
+    spine: v(-5 * D, 0, 0),
+    spine1: v(-3 * D, 0, 0),
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-5 * D, 0, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.35, 0, 0.3),
+    leftForeArm: v(-0.7, 0, -0.1),
+    leftHand: v(-0.2, 0, 0),
+    rightShoulder: ZERO,
+    rightArm: v(0.35, 0, -0.3),
+    rightForeArm: v(-0.7, 0, 0.1),
+    rightHand: v(-0.2, 0, 0),
+    leftUpLeg: v(-90 * D, 0.2, 0.1),
+    leftLeg: v(100 * D, 0, 0),
+    leftFoot: v(-15 * D, 0, 0.3),
+    rightUpLeg: v(-90 * D, -0.2, -0.1),
+    rightLeg: v(100 * D, 0, 0),
+    rightFoot: v(-15 * D, 0, -0.3),
   },
+
+  // Sitting for tashahud — right index finger pointed
   tashahud: {
-    root: [0, -0.65, 0],
-    head: { pos: [0, 1.1, 0], rot: [5 * DEG, 0, 0] },
-    torso: { pos: [0, 0.6, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [15 * DEG, 0, 10 * DEG] },
-    rightUpperArm: { rot: [30 * DEG, 0, -15 * DEG] },
-    leftForearm: { rot: [-20 * DEG, 0, 0] },
-    rightForearm: { rot: [-60 * DEG, 10 * DEG, 0] },
-    leftUpperLeg: { rot: [-90 * DEG, 0, 0] },
-    rightUpperLeg: { rot: [-90 * DEG, 0, 0] },
-    leftLowerLeg: { rot: [-90 * DEG, 0, 0] },
-    rightLowerLeg: { rot: [-90 * DEG, 0, 0] },
+    hips: { position: v(0, -0.55, 0), rotation: v(10 * D, 0, 0) },
+    spine: v(-5 * D, 0, 0),
+    spine1: v(-3 * D, 0, 0),
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-5 * D, 0, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.35, 0, 0.3),
+    leftForeArm: v(-0.7, 0, -0.1),
+    leftHand: v(-0.2, 0, 0),
+    rightShoulder: ZERO,
+    rightArm: v(0.5, -0.2, -0.35),
+    rightForeArm: v(-0.9, -0.15, 0.1),
+    rightHand: v(-0.1, -0.1, 0),
+    leftUpLeg: v(-90 * D, 0.2, 0.1),
+    leftLeg: v(100 * D, 0, 0),
+    leftFoot: v(-15 * D, 0, 0.3),
+    rightUpLeg: v(-90 * D, -0.2, -0.1),
+    rightLeg: v(100 * D, 0, 0),
+    rightFoot: v(-15 * D, 0, -0.3),
   },
+
+  // Sitting, head turned right for salam
   salam: {
-    root: [0, -0.65, 0],
-    head: { pos: [0, 1.1, 0], rot: [0, -45 * DEG, 0] },
-    torso: { pos: [0, 0.6, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [15 * DEG, 0, 10 * DEG] },
-    rightUpperArm: { rot: [15 * DEG, 0, -10 * DEG] },
-    leftForearm: { rot: [-20 * DEG, 0, 0] },
-    rightForearm: { rot: [-20 * DEG, 0, 0] },
-    leftUpperLeg: { rot: [-90 * DEG, 0, 0] },
-    rightUpperLeg: { rot: [-90 * DEG, 0, 0] },
-    leftLowerLeg: { rot: [-90 * DEG, 0, 0] },
-    rightLowerLeg: { rot: [-90 * DEG, 0, 0] },
+    hips: { position: v(0, -0.55, 0), rotation: v(10 * D, 0, 0) },
+    spine: v(-5 * D, 0, 0),
+    spine1: v(-3 * D, 0, 0),
+    spine2: ZERO,
+    neck: v(0, -35 * D, 0),
+    head: v(-5 * D, -20 * D, 0),
+    leftShoulder: ZERO,
+    leftArm: v(0.35, 0, 0.3),
+    leftForeArm: v(-0.7, 0, -0.1),
+    leftHand: v(-0.2, 0, 0),
+    rightShoulder: ZERO,
+    rightArm: v(0.35, 0, -0.3),
+    rightForeArm: v(-0.7, 0, 0.1),
+    rightHand: v(-0.2, 0, 0),
+    leftUpLeg: v(-90 * D, 0.2, 0.1),
+    leftLeg: v(100 * D, 0, 0),
+    leftFoot: v(-15 * D, 0, 0.3),
+    rightUpLeg: v(-90 * D, -0.2, -0.1),
+    rightLeg: v(100 * D, 0, 0),
+    rightFoot: v(-15 * D, 0, -0.3),
   },
+
+  // Standing with hands raised in du'a (qunut)
   qunut: {
-    root: [0, 0, 0],
-    head: { pos: [0, 1.65, 0], rot: [10 * DEG, 0, 0] },
-    torso: { pos: [0, 1.1, 0], rot: [0, 0, 0] },
-    leftUpperArm: { rot: [-40 * DEG, 0, 30 * DEG] },
-    rightUpperArm: { rot: [-40 * DEG, 0, -30 * DEG] },
-    leftForearm: { rot: [-70 * DEG, 20 * DEG, 0] },
-    rightForearm: { rot: [-70 * DEG, -20 * DEG, 0] },
-    leftUpperLeg: { rot: [0, 0, 0] },
-    rightUpperLeg: { rot: [0, 0, 0] },
-    leftLowerLeg: { rot: [0, 0, 0] },
-    rightLowerLeg: { rot: [0, 0, 0] },
+    hips: { position: v(0, 0, 0), rotation: ZERO },
+    spine: ZERO,
+    spine1: v(-3 * D, 0, 0),
+    spine2: ZERO,
+    neck: ZERO,
+    head: v(-10 * D, 0, 0),
+    leftShoulder: v(0, 0, 0.1),
+    leftArm: v(-0.4, 0.2, 0.6),
+    leftForeArm: v(-1.0, 0.3, 0),
+    leftHand: v(-0.4, 0.2, 0),
+    rightShoulder: v(0, 0, -0.1),
+    rightArm: v(-0.4, -0.2, -0.6),
+    rightForeArm: v(-1.0, -0.3, 0),
+    rightHand: v(-0.4, -0.2, 0),
+    leftUpLeg: v(0, 0, 0.02),
+    leftLeg: ZERO,
+    leftFoot: ZERO,
+    rightUpLeg: v(0, 0, -0.02),
+    rightLeg: ZERO,
+    rightFoot: ZERO,
   },
 };
 
 // ─── Lerp helpers ───
 
-function lerpVal(a: number, b: number, t: number) {
+function lerpNum(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-function lerpArr(a: [number, number, number], b: [number, number, number], t: number): [number, number, number] {
-  return [lerpVal(a[0], b[0], t), lerpVal(a[1], b[1], t), lerpVal(a[2], b[2], t)];
+function lerpVec3(a: Vec3, b: Vec3, t: number): Vec3 {
+  return { x: lerpNum(a.x, b.x, t), y: lerpNum(a.y, b.y, t), z: lerpNum(a.z, b.z, t) };
 }
 
-// ─── Humanoid body ───
+function lerpPose(a: PrayerPoseConfig, b: PrayerPoseConfig, t: number): PrayerPoseConfig {
+  return {
+    hips: {
+      position: lerpVec3(a.hips.position, b.hips.position, t),
+      rotation: lerpVec3(a.hips.rotation, b.hips.rotation, t),
+    },
+    spine: lerpVec3(a.spine, b.spine, t),
+    spine1: lerpVec3(a.spine1, b.spine1, t),
+    spine2: lerpVec3(a.spine2, b.spine2, t),
+    neck: lerpVec3(a.neck, b.neck, t),
+    head: lerpVec3(a.head, b.head, t),
+    leftShoulder: lerpVec3(a.leftShoulder, b.leftShoulder, t),
+    leftArm: lerpVec3(a.leftArm, b.leftArm, t),
+    leftForeArm: lerpVec3(a.leftForeArm, b.leftForeArm, t),
+    leftHand: lerpVec3(a.leftHand, b.leftHand, t),
+    rightShoulder: lerpVec3(a.rightShoulder, b.rightShoulder, t),
+    rightArm: lerpVec3(a.rightArm, b.rightArm, t),
+    rightForeArm: lerpVec3(a.rightForeArm, b.rightForeArm, t),
+    rightHand: lerpVec3(a.rightHand, b.rightHand, t),
+    leftUpLeg: lerpVec3(a.leftUpLeg, b.leftUpLeg, t),
+    leftLeg: lerpVec3(a.leftLeg, b.leftLeg, t),
+    leftFoot: lerpVec3(a.leftFoot, b.leftFoot, t),
+    rightUpLeg: lerpVec3(a.rightUpLeg, b.rightUpLeg, t),
+    rightLeg: lerpVec3(a.rightLeg, b.rightLeg, t),
+    rightFoot: lerpVec3(a.rightFoot, b.rightFoot, t),
+  };
+}
 
-const GOLD = '#C9A84C';
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
 
-function Humanoid({ targetPose }: { targetPose: PrayerPositionId }) {
-  const pose = POSES[targetPose];
-  const prevRef = useRef<BodyPose>(pose);
-  const currentRef = useRef<BodyPose>(pose);
+// ─── Bone names mapping (Mixamo convention used by Ready Player Me) ───
+
+const BONE_MAP: Record<keyof Omit<PrayerPoseConfig, 'hips'>, string> = {
+  spine: 'Spine',
+  spine1: 'Spine1',
+  spine2: 'Spine2',
+  neck: 'Neck',
+  head: 'Head',
+  leftShoulder: 'LeftShoulder',
+  leftArm: 'LeftArm',
+  leftForeArm: 'LeftForeArm',
+  leftHand: 'LeftHand',
+  rightShoulder: 'RightShoulder',
+  rightArm: 'RightArm',
+  rightForeArm: 'RightForeArm',
+  rightHand: 'RightHand',
+  leftUpLeg: 'LeftUpLeg',
+  leftLeg: 'LeftLeg',
+  leftFoot: 'LeftFoot',
+  rightUpLeg: 'RightUpLeg',
+  rightLeg: 'RightLeg',
+  rightFoot: 'RightFoot',
+};
+
+// ─── Avatar model component ───
+
+function AvatarModel({ targetPose, avatarUrl }: { targetPose: PrayerPositionId; avatarUrl: string }) {
+  const { scene } = useGLTF(avatarUrl);
+  const clone = useMemo(() => cloneSkeleton(scene), [scene]);
+  const { nodes } = useGraph(clone);
+
+  // Store initial bone rotations to prevent drift
+  const initialRotations = useRef<Record<string, THREE.Euler>>({});
+  const initialHipsPos = useRef<THREE.Vector3>(new THREE.Vector3());
+
+  // Transition state
+  const prevPoseRef = useRef<PrayerPoseConfig>(PRAYER_POSES[targetPose]);
+  const currentPoseRef = useRef<PrayerPoseConfig>(PRAYER_POSES[targetPose]);
   const progressRef = useRef(1);
   const prevTargetRef = useRef(targetPose);
 
-  // Body part refs
-  const rootRef = useRef<THREE.Group>(null);
-  const headRef = useRef<THREE.Mesh>(null);
-  const torsoRef = useRef<THREE.Mesh>(null);
-  const lUpperArmRef = useRef<THREE.Mesh>(null);
-  const rUpperArmRef = useRef<THREE.Mesh>(null);
-  const lForearmRef = useRef<THREE.Mesh>(null);
-  const rForearmRef = useRef<THREE.Mesh>(null);
-  const lUpperLegRef = useRef<THREE.Mesh>(null);
-  const rUpperLegRef = useRef<THREE.Mesh>(null);
-  const lLowerLegRef = useRef<THREE.Mesh>(null);
-  const rLowerLegRef = useRef<THREE.Mesh>(null);
-
-  const material = useMemo(() => new THREE.MeshStandardMaterial({
-    color: GOLD,
-    roughness: 0.45,
-    metalness: 0.15,
-  }), []);
+  // Capture initial rotations on mount
+  useEffect(() => {
+    const allBones = ['Hips', ...Object.values(BONE_MAP)];
+    allBones.forEach(boneName => {
+      const bone = nodes[boneName] as THREE.Bone | undefined;
+      if (bone) {
+        initialRotations.current[boneName] = bone.rotation.clone();
+      }
+    });
+    const hips = nodes['Hips'] as THREE.Bone | undefined;
+    if (hips) {
+      initialHipsPos.current.copy(hips.position);
+    }
+  }, [nodes]);
 
   useFrame((_, delta) => {
-    const target = POSES[targetPose];
+    const target = PRAYER_POSES[targetPose];
 
-    // Detect pose change
+    // Detect pose change → start transition
     if (targetPose !== prevTargetRef.current) {
-      prevRef.current = { ...currentRef.current };
+      prevPoseRef.current = { ...currentPoseRef.current };
       progressRef.current = 0;
       prevTargetRef.current = targetPose;
     }
 
-    // Animate
-    const speed = 3;
+    // Advance transition
+    const speed = 2.5;
     progressRef.current = Math.min(1, progressRef.current + delta * speed);
-    const t = 1 - Math.pow(1 - progressRef.current, 3); // ease-out cubic
+    const t = easeOutCubic(progressRef.current);
 
-    const prev = prevRef.current;
+    const cur = lerpPose(prevPoseRef.current, target, t);
+    currentPoseRef.current = cur;
 
-    // Interpolate current pose
-    const cur: BodyPose = {
-      root: lerpArr(prev.root, target.root, t),
-      head: { pos: lerpArr(prev.head.pos, target.head.pos, t), rot: lerpArr(prev.head.rot, target.head.rot, t) },
-      torso: { pos: lerpArr(prev.torso.pos, target.torso.pos, t), rot: lerpArr(prev.torso.rot, target.torso.rot, t) },
-      leftUpperArm: { rot: lerpArr(prev.leftUpperArm.rot, target.leftUpperArm.rot, t) },
-      rightUpperArm: { rot: lerpArr(prev.rightUpperArm.rot, target.rightUpperArm.rot, t) },
-      leftForearm: { rot: lerpArr(prev.leftForearm.rot, target.leftForearm.rot, t) },
-      rightForearm: { rot: lerpArr(prev.rightForearm.rot, target.rightForearm.rot, t) },
-      leftUpperLeg: { rot: lerpArr(prev.leftUpperLeg.rot, target.leftUpperLeg.rot, t) },
-      rightUpperLeg: { rot: lerpArr(prev.rightUpperLeg.rot, target.rightUpperLeg.rot, t) },
-      leftLowerLeg: { rot: lerpArr(prev.leftLowerLeg.rot, target.leftLowerLeg.rot, t) },
-      rightLowerLeg: { rot: lerpArr(prev.rightLowerLeg.rot, target.rightLowerLeg.rot, t) },
-    };
-    currentRef.current = cur;
-
-    // Apply to refs
-    if (rootRef.current) rootRef.current.position.set(...cur.root);
-    if (headRef.current) {
-      headRef.current.position.set(...cur.head.pos);
-      headRef.current.rotation.set(...cur.head.rot);
-    }
-    if (torsoRef.current) {
-      torsoRef.current.position.set(...cur.torso.pos);
-      torsoRef.current.rotation.set(...cur.torso.rot);
+    // Apply hips position + rotation
+    const hips = nodes['Hips'] as THREE.Bone | undefined;
+    const initHipsRot = initialRotations.current['Hips'];
+    if (hips && initHipsRot) {
+      hips.position.set(
+        initialHipsPos.current.x + cur.hips.position.x,
+        initialHipsPos.current.y + cur.hips.position.y,
+        initialHipsPos.current.z + cur.hips.position.z,
+      );
+      hips.rotation.set(
+        initHipsRot.x + cur.hips.rotation.x,
+        initHipsRot.y + cur.hips.rotation.y,
+        initHipsRot.z + cur.hips.rotation.z,
+      );
     }
 
-    // Arms — positioned relative to shoulders
-    const shoulderY = cur.torso.pos[1] + 0.35;
-    if (lUpperArmRef.current) {
-      lUpperArmRef.current.position.set(-0.28, shoulderY, cur.torso.pos[2]);
-      lUpperArmRef.current.rotation.set(...cur.leftUpperArm.rot);
-    }
-    if (rUpperArmRef.current) {
-      rUpperArmRef.current.position.set(0.28, shoulderY, cur.torso.pos[2]);
-      rUpperArmRef.current.rotation.set(...cur.rightUpperArm.rot);
-    }
-    if (lForearmRef.current) {
-      lForearmRef.current.position.set(-0.28, shoulderY - 0.3, cur.torso.pos[2]);
-      lForearmRef.current.rotation.set(...cur.leftForearm.rot);
-    }
-    if (rForearmRef.current) {
-      rForearmRef.current.position.set(0.28, shoulderY - 0.3, cur.torso.pos[2]);
-      rForearmRef.current.rotation.set(...cur.rightForearm.rot);
-    }
+    // Apply rotations to all other bones
+    for (const [poseKey, boneName] of Object.entries(BONE_MAP)) {
+      const bone = nodes[boneName] as THREE.Bone | undefined;
+      const init = initialRotations.current[boneName];
+      if (!bone || !init) continue;
 
-    // Legs — positioned relative to hips
-    const hipY = cur.torso.pos[1] - 0.35;
-    if (lUpperLegRef.current) {
-      lUpperLegRef.current.position.set(-0.12, hipY, cur.torso.pos[2]);
-      lUpperLegRef.current.rotation.set(...cur.leftUpperLeg.rot);
+      const rot = cur[poseKey as keyof Omit<PrayerPoseConfig, 'hips'>];
+
+      // Arms need YZX order for correct rotation
+      if (boneName.includes('Arm') || boneName.includes('ForeArm') || boneName.includes('Hand')) {
+        bone.rotation.order = 'YZX';
+      }
+
+      bone.rotation.set(
+        init.x + rot.x,
+        init.y + rot.y,
+        init.z + rot.z,
+      );
     }
-    if (rUpperLegRef.current) {
-      rUpperLegRef.current.position.set(0.12, hipY, cur.torso.pos[2]);
-      rUpperLegRef.current.rotation.set(...cur.rightUpperLeg.rot);
-    }
-    if (lLowerLegRef.current) {
-      lLowerLegRef.current.position.set(-0.12, hipY - 0.4, cur.torso.pos[2]);
-      lLowerLegRef.current.rotation.set(...cur.leftLowerLeg.rot);
-    }
-    if (rLowerLegRef.current) {
-      rLowerLegRef.current.position.set(0.12, hipY - 0.4, cur.torso.pos[2]);
-      rLowerLegRef.current.rotation.set(...cur.rightLowerLeg.rot);
+  });
+
+  return <primitive object={clone} />;
+}
+
+// ─── Loading spinner ───
+
+function LoadingFallback() {
+  const ref = useRef<THREE.Mesh>(null);
+
+  useFrame((_, delta) => {
+    if (ref.current) {
+      ref.current.rotation.y += delta * 2;
     }
   });
 
   return (
-    <group ref={rootRef}>
-      {/* Head */}
-      <mesh ref={headRef} material={material}>
-        <sphereGeometry args={[0.12, 16, 16]} />
-      </mesh>
-
-      {/* Torso */}
-      <mesh ref={torsoRef} material={material}>
-        <capsuleGeometry args={[0.16, 0.45, 8, 16]} />
-      </mesh>
-
-      {/* Upper Arms */}
-      <mesh ref={lUpperArmRef} material={material}>
-        <capsuleGeometry args={[0.05, 0.22, 6, 12]} />
-      </mesh>
-      <mesh ref={rUpperArmRef} material={material}>
-        <capsuleGeometry args={[0.05, 0.22, 6, 12]} />
-      </mesh>
-
-      {/* Forearms */}
-      <mesh ref={lForearmRef} material={material}>
-        <capsuleGeometry args={[0.04, 0.2, 6, 12]} />
-      </mesh>
-      <mesh ref={rForearmRef} material={material}>
-        <capsuleGeometry args={[0.04, 0.2, 6, 12]} />
-      </mesh>
-
-      {/* Upper Legs */}
-      <mesh ref={lUpperLegRef} material={material}>
-        <capsuleGeometry args={[0.065, 0.3, 6, 12]} />
-      </mesh>
-      <mesh ref={rUpperLegRef} material={material}>
-        <capsuleGeometry args={[0.065, 0.3, 6, 12]} />
-      </mesh>
-
-      {/* Lower Legs */}
-      <mesh ref={lLowerLegRef} material={material}>
-        <capsuleGeometry args={[0.05, 0.3, 6, 12]} />
-      </mesh>
-      <mesh ref={rLowerLegRef} material={material}>
-        <capsuleGeometry args={[0.05, 0.3, 6, 12]} />
-      </mesh>
-    </group>
+    <mesh ref={ref}>
+      <torusGeometry args={[0.3, 0.05, 8, 32]} />
+      <meshStandardMaterial color="#C9A84C" transparent opacity={0.6} />
+    </mesh>
   );
 }
 
@@ -338,12 +472,12 @@ function Humanoid({ targetPose }: { targetPose: PrayerPositionId }) {
 
 function Ground() {
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.85, 0]} receiveShadow>
-      <circleGeometry args={[1.2, 32]} />
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+      <circleGeometry args={[1.5, 32]} />
       <meshStandardMaterial
         color="#1a1a1a"
         transparent
-        opacity={0.3}
+        opacity={0.25}
         roughness={1}
       />
     </mesh>
@@ -354,34 +488,36 @@ function Ground() {
 
 interface PrayerPositionAvatarProps {
   activePosition: PrayerPositionId;
+  avatarUrl?: string;
 }
 
-export function PrayerPositionAvatar({ activePosition }: PrayerPositionAvatarProps) {
+export function PrayerPositionAvatar({ activePosition, avatarUrl = DEFAULT_AVATAR_URL }: PrayerPositionAvatarProps) {
   const active = positions.find(p => p.id === activePosition);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
       <div
         style={{
-          width: '220px',
-          height: '220px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 70%, transparent 100%)',
-          border: '1.5px solid rgba(201, 168, 76, 0.18)',
-          boxShadow: '0 0 40px rgba(201, 168, 76, 0.06)',
+          width: '260px',
+          height: '280px',
+          borderRadius: '16px',
+          background: 'radial-gradient(circle at 50% 40%, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.01) 70%, transparent 100%)',
+          border: '1px solid rgba(201, 168, 76, 0.12)',
+          boxShadow: '0 0 40px rgba(201, 168, 76, 0.04)',
           overflow: 'hidden',
         }}
       >
         <Canvas
-          camera={{ position: [0, 0.6, 3], fov: 35 }}
+          camera={{ position: [0, 1, 3], fov: 30 }}
           style={{ background: 'transparent' }}
           gl={{ alpha: true, antialias: true }}
         >
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[2, 3, 2]} intensity={0.8} color="#fff5e0" />
-          <directionalLight position={[-1, 1, -1]} intensity={0.3} color="#e0d8ff" />
-          <Suspense fallback={null}>
-            <Humanoid targetPose={activePosition} />
+          <ambientLight intensity={0.7} />
+          <directionalLight position={[3, 5, 3]} intensity={1} color="#fff5e0" castShadow />
+          <directionalLight position={[-2, 3, -1]} intensity={0.35} color="#e0d8ff" />
+          <pointLight position={[0, 2, 1]} intensity={0.3} color="#C9A84C" />
+          <Suspense fallback={<LoadingFallback />}>
+            <AvatarModel key={avatarUrl} targetPose={activePosition} avatarUrl={avatarUrl} />
             <Ground />
           </Suspense>
         </Canvas>
@@ -400,3 +536,6 @@ export function PrayerPositionAvatar({ activePosition }: PrayerPositionAvatarPro
     </div>
   );
 }
+
+// Preload the default GLB model
+useGLTF.preload(DEFAULT_AVATAR_URL);
