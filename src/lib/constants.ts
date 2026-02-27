@@ -16,10 +16,9 @@ export const NAV_LINKS = [
   { label: 'Invocations', href: '/invocations' },
   { label: 'Apprendre', href: '/apprendre' },
   { label: 'Annexes', href: '/annexes' },
-  { label: 'Horaires', href: '/horaires' },
+  { label: 'Prière', href: '/horaires' },
   { label: 'Quiz', href: '/quiz' },
   { label: 'Recherche', href: '/recherche' },
-  { label: 'Favoris', href: '/favoris' },
 ] as const;
 
 export const ANNEXES_LINKS = [
