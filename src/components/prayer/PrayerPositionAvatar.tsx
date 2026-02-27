@@ -702,7 +702,7 @@ export function PrayerPositionAvatar({ activePosition, avatarUrl = DEFAULT_AVATA
         }}
       >
         <Canvas
-          camera={{ position: [0, 0.85, 3.2], fov: 32 }}
+          camera={{ position: [0, 0, 3], fov: 32 }}
           style={{ background: 'transparent' }}
           gl={{ alpha: true, antialias: true }}
         >
@@ -710,10 +710,12 @@ export function PrayerPositionAvatar({ activePosition, avatarUrl = DEFAULT_AVATA
           <directionalLight position={[3, 5, 3]} intensity={1} color="#fff5e0" castShadow />
           <directionalLight position={[-2, 3, -1]} intensity={0.35} color="#e0d8ff" />
           <pointLight position={[0, 2, 1]} intensity={0.3} color="#C9A84C" />
-          <Suspense fallback={<LoadingFallback />}>
-            <AvatarModel key={avatarUrl} targetPose={activePosition} avatarUrl={avatarUrl} />
-            <Ground />
-          </Suspense>
+          <group position={[0, -0.85, 0]}>
+            <Suspense fallback={<LoadingFallback />}>
+              <AvatarModel key={avatarUrl} targetPose={activePosition} avatarUrl={avatarUrl} />
+              <Ground />
+            </Suspense>
+          </group>
         </Canvas>
       </div>
 
