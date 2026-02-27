@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { getAllSurahsMeta } from '@/data/index';
 import { SITE_URL, ANNEXES_LINKS } from '@/lib/constants';
 import { HADITH_COLLECTIONS } from '@/lib/hadith-api';
+import { CATEGORIES } from '@/data/invocations/categories';
 
 export const dynamic = 'force-static';
 
@@ -31,6 +32,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const hadithPages = HADITH_COLLECTIONS.map((c) => ({
     url: `${SITE_URL}/hadiths/${c.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  const invocationPages = CATEGORIES.map((c) => ({
+    url: `${SITE_URL}/invocations/${c.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -89,5 +97,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...coranPages,
     ...annexePages,
     ...hadithPages,
+    {
+      url: `${SITE_URL}/invocations`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    ...invocationPages,
   ];
 }

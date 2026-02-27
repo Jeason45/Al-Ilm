@@ -1,0 +1,41 @@
+import type { InvocationItem } from '../types';
+
+export const istikharaInvocations: InvocationItem[] = [
+  {
+    id: 'istikhara-01',
+    category: 'istikhara',
+    titre: 'Invocation de la prière de consultation (Istikhara)',
+    arabe: 'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ',
+    transliteration: 'Allahumma inni astakhiruka bi \'ilmika wa astaqdiruka bi qudratika wa as\'aluka min fadlikal-\'azim. Fa innaka taqdiru wa la aqdiru wa ta\'lamu wa la a\'lamu wa Anta \'Allamul-ghuyub. Allahumma in kunta ta\'lamu anna hadhal-amra khayrun li fi dini wa ma\'ashi wa \'aqibati amri faqdurlahu li wa yassirhu li thumma barik li fih. Wa in kunta ta\'lamu anna hadhal-amra sharrun li fi dini wa ma\'ashi wa \'aqibati amri fasrifhu \'anni wasrifni \'anhu waqdur liyal-khayra haythu kana thumma ardini bih.',
+    traduction: 'Ô Allah, je Te consulte par Ton savoir, je Te demande Ton pouvoir par Ta puissance et je Te demande de Ta grâce immense. Car Tu es Puissant et je ne le suis pas, Tu sais et je ne sais pas, et Tu connais les mystères. Ô Allah, si Tu sais que cette affaire est un bien pour moi dans ma religion, ma subsistance et l\'issue de mon affaire, décrète-la pour moi, facilite-la moi et bénis-la pour moi. Et si Tu sais que cette affaire est un mal pour moi dans ma religion, ma subsistance et l\'issue de mon affaire, détourne-la de moi et détourne-moi d\'elle, et décrète pour moi le bien où qu\'il soit et fais que j\'en sois satisfait.',
+    source: 'Bukhari 1162',
+    isQuranic: false,
+    repetitions: 1,
+    notes: 'Accomplir 2 rak\'at de prière surérogatoire, puis réciter cette du\'a. Mentionner son besoin au moment indiqué dans l\'invocation.',
+  },
+  {
+    id: 'istikhara-02',
+    category: 'istikhara',
+    titre: 'Mode d\'emploi de la prière',
+    arabe: 'يُصَلِّي رَكْعَتَيْنِ مِنْ غَيْرِ الْفَرِيضَةِ ثُمَّ يَقُولُ...',
+    transliteration: 'Yusalli rak\'atayni min ghayril-faridati thumma yaqul...',
+    traduction: 'Accomplir deux unités de prière (en dehors de la prière obligatoire) puis réciter l\'invocation de l\'Istikhara.',
+    source: 'Bukhari 1162',
+    isQuranic: false,
+    repetitions: 1,
+    notes: 'On peut la refaire si on n\'a pas de réponse claire. La réponse vient par une facilitation ou un blocage dans l\'affaire, pas nécessairement par un rêve.',
+  },
+  {
+    id: 'istikhara-03',
+    category: 'istikhara',
+    titre: 'Remise de confiance après l\'Istikhara',
+    arabe: 'فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ',
+    transliteration: 'Fa idha \'azamta fatawakkal \'alallah. Innallaha yuhibbul-mutawakkilin.',
+    traduction: 'Et quand tu es décidé, place ta confiance en Allah. Car Allah aime ceux qui Lui font confiance.',
+    source: 'Al-Imran 3:159',
+    isQuranic: true,
+    quranRef: '3:159',
+    repetitions: 1,
+    notes: 'Après l\'Istikhara, agir avec confiance en Allah.',
+  },
+];

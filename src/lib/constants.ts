@@ -13,6 +13,7 @@ export const STATS = {
 export const NAV_LINKS = [
   { label: 'Coran', href: '/coran' },
   { label: 'Hadiths', href: '/hadiths' },
+  { label: 'Invocations', href: '/invocations' },
   { label: 'Apprendre', href: '/apprendre' },
   { label: 'Annexes', href: '/annexes' },
   { label: 'Horaires', href: '/horaires' },

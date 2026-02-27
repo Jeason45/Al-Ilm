@@ -97,3 +97,21 @@ export interface Compagnon {
   titre: string;
   histoire: string;
 }
+
+export type InvocationCategory = 'matin' | 'soir' | 'apres-priere' | 'sommeil' | 'reveil'
+  | 'repas' | 'voyage' | 'mosquee' | 'pluie' | 'stress' | 'maladie' | 'protection'
+  | 'general' | 'mariage' | 'vetements' | 'deuil' | 'coranique' | 'istikhara';
+
+export interface InvocationItem {
+  id: string;
+  category: InvocationCategory;
+  titre: string;
+  arabe: string;
+  transliteration?: string;
+  traduction: string;
+  source: string;
+  isQuranic: boolean;
+  quranRef?: string;
+  repetitions?: number;
+  notes?: string;
+}
