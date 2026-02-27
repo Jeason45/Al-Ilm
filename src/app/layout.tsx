@@ -5,6 +5,7 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ScrollProgress } from '@/components/ScrollProgress';
+import { Providers } from '@/components/Providers';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 
 const outfit = Outfit({
@@ -87,12 +88,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${outfit.variable} ${dmSans.variable} ${amiri.variable} antialiased`}>
-        <ScrollProgress />
-        <Header />
-        <main className="min-h-screen flex flex-col items-center w-full">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <ScrollProgress />
+          <Header />
+          <main className="min-h-screen flex flex-col items-center w-full">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

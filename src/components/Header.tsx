@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { UserMenu } from './UserMenu';
 import { NAV_LINKS, SITE_NAME, SITE_NAME_AR } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
@@ -80,9 +81,11 @@ export function Header() {
                 );
               })}
               <ThemeToggle />
+              <UserMenu />
             </nav>
 
             <div className="flex items-center gap-3 md:hidden">
+              <UserMenu />
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
