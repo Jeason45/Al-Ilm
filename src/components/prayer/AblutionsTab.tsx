@@ -68,11 +68,34 @@ export function AblutionsTab() {
         </ScrollReveal>
       )}
 
-      {/* Avatar + customizer (for wudu) */}
+      {/* Avatar + step indicator + customizer (for wudu) */}
       {isWudu && avatarPosition && (
         <ScrollReveal delay={160}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', gap: '10px' }}>
             <PrayerPositionAvatar activePosition={avatarPosition} avatarUrl={avatarUrl} />
+
+            {/* Step indicator below avatar */}
+            {activeStep && (
+              <div style={{ textAlign: 'center', maxWidth: '320px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    width: '22px', height: '22px', borderRadius: '6px', fontSize: '0.6875rem',
+                    fontWeight: 600, background: 'rgba(201, 168, 76, 0.15)',
+                    border: '1px solid rgba(201, 168, 76, 0.3)', color: 'var(--color-gold)',
+                  }}>
+                    {activeStep.order}
+                  </span>
+                  <span className="font-outfit" style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-foreground)' }}>
+                    {activeStep.name}
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.75rem', color: 'var(--color-muted)', lineHeight: 1.5 }}>
+                  {activeStep.description}
+                </p>
+              </div>
+            )}
+
             <AvatarCustomizer currentUrl={avatarUrl} onSelect={setAvatarUrl} />
           </div>
         </ScrollReveal>
