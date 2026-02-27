@@ -1,8 +1,8 @@
 'use client';
 
-import { Suspense, useRef, useMemo, useEffect } from 'react';
-import { Canvas, useFrame, useGraph } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { Suspense, useRef, useMemo, useEffect, useCallback } from 'react';
+import { Canvas, useFrame, useGraph, useThree } from '@react-three/fiber';
+import { useGLTF, OrbitControls, ContactShadows, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import { clone as cloneSkeleton } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import type { PrayerPositionId } from '@/data/prayer-guide/types';
@@ -294,7 +294,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
 
   // ─── Wudu poses ───
 
-  // Hands extended forward, washing under water
   'wudu-hands': {
     hips: { position: v(0, 0, 0), rotation: v(5 * D, 0, 0) },
     spine: v(5 * D, 0, 0),
@@ -318,7 +317,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Right hand raised to mouth
   'wudu-mouth': {
     hips: { position: v(0, 0, 0), rotation: ZERO },
     spine: ZERO,
@@ -342,7 +340,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Right hand raised to nose
   'wudu-nose': {
     hips: { position: v(0, 0, 0), rotation: ZERO },
     spine: ZERO,
@@ -366,7 +363,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Both hands on face
   'wudu-face': {
     hips: { position: v(0, 0, 0), rotation: ZERO },
     spine: ZERO,
@@ -390,7 +386,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Left arm extended, right hand washing left forearm
   'wudu-arms': {
     hips: { position: v(0, 0, 0), rotation: ZERO },
     spine: ZERO,
@@ -414,7 +409,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Both hands on top of head, wiping back
   'wudu-head': {
     hips: { position: v(0, 0, 0), rotation: ZERO },
     spine: ZERO,
@@ -438,7 +432,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Hands at ears, index fingers in ears, thumbs behind
   'wudu-ears': {
     hips: { position: v(0, 0, 0), rotation: ZERO },
     spine: ZERO,
@@ -462,7 +455,6 @@ const PRAYER_POSES: Record<PrayerPositionId, PrayerPoseConfig> = {
     rightFoot: ZERO,
   },
 
-  // Bent forward, washing feet
   'wudu-feet': {
     hips: { position: v(0, -0.1, 0.05), rotation: v(40 * D, 0, 0) },
     spine: v(15 * D, 0, 0),
@@ -553,6 +545,60 @@ const BONE_MAP: Record<keyof Omit<PrayerPoseConfig, 'hips'>, string> = {
   rightFoot: 'RightFoot',
 };
 
+// ─── Auto-frame camera to fit model bounding box ───
+
+function CameraFramer({ clone }: { clone: THREE.Object3D }) {
+  const { camera } = useThree();
+  const targetPos = useRef(new THREE.Vector3(0, 0.85, 2.8));
+  const targetLookAt = useRef(new THREE.Vector3(0, 0.85, 0));
+  const currentLookAt = useRef(new THREE.Vector3(0, 0.85, 0));
+  const initialized = useRef(false);
+
+  const reframe = useCallback(() => {
+    const box = new THREE.Box3().setFromObject(clone);
+    const center = new THREE.Vector3();
+    const size = new THREE.Vector3();
+    box.getCenter(center);
+    box.getSize(size);
+
+    // Camera distance based on model height
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const fov = (camera as THREE.PerspectiveCamera).fov * (Math.PI / 180);
+    const dist = (maxDim / 2) / Math.tan(fov / 2) * 1.15;
+
+    targetPos.current.set(0, center.y, Math.max(dist, 2.2));
+    targetLookAt.current.copy(center);
+  }, [clone, camera]);
+
+  // Initial frame
+  useEffect(() => {
+    reframe();
+    // Snap camera immediately on first frame
+    camera.position.copy(targetPos.current);
+    currentLookAt.current.copy(targetLookAt.current);
+    camera.lookAt(currentLookAt.current);
+    initialized.current = true;
+  }, [reframe, camera]);
+
+  // Smooth camera transition every frame
+  useFrame((_, delta) => {
+    if (!initialized.current) return;
+
+    // Recompute target from bounding box
+    reframe();
+
+    // Smoothly lerp camera position
+    const speed = 3;
+    const t = 1 - Math.exp(-speed * delta);
+
+    camera.position.lerp(targetPos.current, t);
+    currentLookAt.current.lerp(targetLookAt.current, t);
+    camera.lookAt(currentLookAt.current);
+  });
+
+  return null;
+}
+
 // ─── Avatar model component ───
 
 function AvatarModel({ targetPose, avatarUrl }: { targetPose: PrayerPositionId; avatarUrl: string }) {
@@ -640,7 +686,12 @@ function AvatarModel({ targetPose, avatarUrl }: { targetPose: PrayerPositionId; 
     }
   });
 
-  return <primitive object={clone} />;
+  return (
+    <>
+      <primitive object={clone} />
+      <CameraFramer clone={clone} />
+    </>
+  );
 }
 
 // ─── Loading spinner ───
@@ -655,25 +706,9 @@ function LoadingFallback() {
   });
 
   return (
-    <mesh ref={ref}>
+    <mesh ref={ref} position={[0, 0.85, 0]}>
       <torusGeometry args={[0.3, 0.05, 8, 32]} />
       <meshStandardMaterial color="#C9A84C" transparent opacity={0.6} />
-    </mesh>
-  );
-}
-
-// ─── Ground plane ───
-
-function Ground() {
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-      <circleGeometry args={[1.5, 32]} />
-      <meshStandardMaterial
-        color="#1a1a1a"
-        transparent
-        opacity={0.25}
-        roughness={1}
-      />
     </mesh>
   );
 }
@@ -692,30 +727,64 @@ export function PrayerPositionAvatar({ activePosition, avatarUrl = DEFAULT_AVATA
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
       <div
         style={{
-          width: '300px',
-          height: '360px',
-          borderRadius: '16px',
-          background: 'radial-gradient(circle at 50% 40%, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.01) 70%, transparent 100%)',
+          width: '100%',
+          maxWidth: '340px',
+          aspectRatio: '3 / 4',
+          borderRadius: '20px',
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 50%, transparent 100%)',
           border: '1px solid rgba(201, 168, 76, 0.12)',
-          boxShadow: '0 0 40px rgba(201, 168, 76, 0.04)',
+          boxShadow: '0 8px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(201, 168, 76, 0.04)',
           overflow: 'hidden',
+          position: 'relative',
         }}
       >
         <Canvas
-          camera={{ position: [0, 0, 3], fov: 32 }}
+          camera={{ position: [0, 0.85, 2.8], fov: 35, near: 0.1, far: 100 }}
           style={{ background: 'transparent' }}
-          gl={{ alpha: true, antialias: true }}
+          gl={{ alpha: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
+          shadows
         >
-          <ambientLight intensity={0.7} />
-          <directionalLight position={[3, 5, 3]} intensity={1} color="#fff5e0" castShadow />
-          <directionalLight position={[-2, 3, -1]} intensity={0.35} color="#e0d8ff" />
-          <pointLight position={[0, 2, 1]} intensity={0.3} color="#C9A84C" />
-          <group position={[0, -0.85, 0]}>
-            <Suspense fallback={<LoadingFallback />}>
-              <AvatarModel key={avatarUrl} targetPose={activePosition} avatarUrl={avatarUrl} />
-              <Ground />
-            </Suspense>
-          </group>
+          {/* Lighting — soft studio setup */}
+          <ambientLight intensity={0.5} />
+          <directionalLight
+            position={[3, 6, 4]}
+            intensity={1.2}
+            color="#fff8e8"
+            castShadow
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+          />
+          <directionalLight position={[-3, 4, -2]} intensity={0.4} color="#e8e0ff" />
+          <pointLight position={[0, 3, 2]} intensity={0.4} color="#C9A84C" distance={8} />
+          <pointLight position={[-2, 1, 0]} intensity={0.2} color="#fff" distance={6} />
+
+          {/* Environment for reflections */}
+          <Environment preset="studio" environmentIntensity={0.3} />
+
+          {/* OrbitControls — rotate only, no pan, limited angles */}
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            minPolarAngle={Math.PI * 0.2}
+            maxPolarAngle={Math.PI * 0.65}
+            target={[0, 0.85, 0]}
+            enableDamping
+            dampingFactor={0.08}
+          />
+
+          <Suspense fallback={<LoadingFallback />}>
+            <AvatarModel key={avatarUrl} targetPose={activePosition} avatarUrl={avatarUrl} />
+          </Suspense>
+
+          {/* Contact shadow — soft ground shadow */}
+          <ContactShadows
+            position={[0, 0, 0]}
+            opacity={0.4}
+            scale={3}
+            blur={2.5}
+            far={2}
+            color="#000000"
+          />
         </Canvas>
       </div>
 
