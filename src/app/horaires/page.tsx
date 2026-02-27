@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { MapPin, Clock, RefreshCw, Sunrise, Sun, Moon } from 'lucide-react';
+import { MapPin, RefreshCw, Sunrise, Sun, Moon, Plus, X, Star } from 'lucide-react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 interface PrayerTimes {
@@ -26,6 +26,12 @@ interface LocationInfo {
   longitude: number;
 }
 
+interface SavedLocation {
+  city: string;
+  latitude: number;
+  longitude: number;
+}
+
 const PRAYERS = [
   { key: 'Fajr', name: 'Fajr', nameAr: 'الفجر', icon: Moon, desc: 'Aube' },
   { key: 'Sunrise', name: 'Lever du soleil', nameAr: 'الشروق', icon: Sunrise, desc: 'Shurouq' },
@@ -36,8 +42,9 @@ const PRAYERS = [
 ] as const;
 
 const API_BASE = 'https://api.aladhan.com/v1';
+const STORAGE_KEY = 'al-ilm-saved-locations';
+const MAX_SAVED = 5;
 
-// Fallback coordinates when geolocation is denied
 const PARIS_LAT = 48.8566;
 const PARIS_LON = 2.3522;
 
@@ -54,7 +61,20 @@ function getNextPrayer(times: PrayerTimes): string | null {
     const [h, m] = time.split(':').map(Number);
     if (h * 60 + m > currentMinutes) return p.key;
   }
-  return 'Fajr'; // after Isha, next is Fajr
+  return 'Fajr';
+}
+
+function loadSavedLocations(): SavedLocation[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function persistSavedLocations(locations: SavedLocation[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(locations));
 }
 
 export default function HorairesPage() {
@@ -65,6 +85,12 @@ export default function HorairesPage() {
   const [error, setError] = useState<string | null>(null);
   const [cityInput, setCityInput] = useState('');
   const [manualMode, setManualMode] = useState(false);
+  const [savedLocations, setSavedLocations] = useState<SavedLocation[]>([]);
+
+  // Load saved locations from localStorage on mount
+  useEffect(() => {
+    setSavedLocations(loadSavedLocations());
+  }, []);
 
   const fetchByCoords = useCallback(async (lat: number, lon: number) => {
     setLoading(true);
@@ -76,7 +102,6 @@ export default function HorairesPage() {
       if (data.code === 200) {
         setTimes(data.data.timings);
         setHijri(data.data.date.hijri);
-        // Reverse geocode
         try {
           const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=fr`);
           const geoData = await geoRes.json();
@@ -104,7 +129,6 @@ export default function HorairesPage() {
     setLoading(true);
     setError(null);
     try {
-      // First geocode the city name to coordinates via Nominatim
       const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&accept-language=fr`);
       const geoData = await geoRes.json();
       if (!geoData.length) {
@@ -116,7 +140,6 @@ export default function HorairesPage() {
       const lon = parseFloat(geoData[0].lon);
       const cityName = geoData[0].display_name?.split(',')[0] || city;
 
-      // Then fetch prayer times by coordinates (more reliable than timingsByCity)
       const date = formatDate(new Date());
       const res = await fetch(`${API_BASE}/timings/${date}?latitude=${lat}&longitude=${lon}&method=12`);
       const data = await res.json();
@@ -140,7 +163,6 @@ export default function HorairesPage() {
       navigator.geolocation.getCurrentPosition(
         (pos) => fetchByCoords(pos.coords.latitude, pos.coords.longitude),
         () => {
-          // Geolocation denied — fallback to Paris coordinates
           fetchByCoords(PARIS_LAT, PARIS_LON);
           setManualMode(true);
         },
@@ -157,7 +179,35 @@ export default function HorairesPage() {
     if (cityInput.trim()) {
       fetchByCity(cityInput.trim());
       setManualMode(true);
+      setCityInput('');
     }
+  };
+
+  const isLocationSaved = location
+    ? savedLocations.some(s => s.city === location.city)
+    : false;
+
+  const handleSaveLocation = () => {
+    if (!location || isLocationSaved) return;
+    const newSaved: SavedLocation = {
+      city: location.city,
+      latitude: location.latitude,
+      longitude: location.longitude,
+    };
+    const updated = [...savedLocations, newSaved].slice(-MAX_SAVED);
+    setSavedLocations(updated);
+    persistSavedLocations(updated);
+  };
+
+  const handleRemoveLocation = (city: string) => {
+    const updated = savedLocations.filter(s => s.city !== city);
+    setSavedLocations(updated);
+    persistSavedLocations(updated);
+  };
+
+  const handleSelectSaved = (saved: SavedLocation) => {
+    fetchByCoords(saved.latitude, saved.longitude);
+    setManualMode(true);
   };
 
   const nextPrayer = times ? getNextPrayer(times) : null;
@@ -211,12 +261,80 @@ export default function HorairesPage() {
                 Rechercher
               </button>
             </form>
+
+            {/* Current location + save button */}
             {location && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <MapPin style={{ width: '12px', height: '12px', color: 'var(--color-gold)' }} />
-                <span style={{ fontSize: '0.8125rem', color: 'var(--color-muted)' }}>
-                  {location.city}{location.country ? `, ${location.country}` : ''}{!manualMode && ' (GPS)'}
-                </span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <MapPin style={{ width: '12px', height: '12px', color: 'var(--color-gold)' }} />
+                  <span style={{ fontSize: '0.8125rem', color: 'var(--color-muted)' }}>
+                    {location.city}{location.country ? `, ${location.country}` : ''}{!manualMode && ' (GPS)'}
+                  </span>
+                </div>
+                {!isLocationSaved && savedLocations.length < MAX_SAVED && (
+                  <button
+                    onClick={handleSaveLocation}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '4px',
+                      fontSize: '0.75rem', color: 'var(--color-gold)', background: 'none',
+                      border: 'none', cursor: 'pointer', padding: '4px 0',
+                    }}
+                  >
+                    <Plus style={{ width: '12px', height: '12px' }} />
+                    Enregistrer
+                  </button>
+                )}
+                {isLocationSaved && (
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--color-gold)' }}>
+                    <Star style={{ width: '11px', height: '11px', fill: 'var(--color-gold)' }} />
+                    Enregistrée
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Saved locations chips */}
+            {savedLocations.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {savedLocations.map((saved) => {
+                  const isActive = location?.city === saved.city;
+                  return (
+                    <div
+                      key={saved.city}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '6px',
+                        padding: '6px 10px', borderRadius: '8px', fontSize: '0.8125rem',
+                        border: `1px solid ${isActive ? 'var(--color-gold)' : 'var(--color-border)'}`,
+                        background: isActive ? 'rgba(201, 168, 76, 0.1)' : 'var(--color-surface-elevated)',
+                        color: isActive ? 'var(--color-gold)' : 'var(--color-foreground)',
+                      }}
+                    >
+                      <button
+                        onClick={() => handleSelectSaved(saved)}
+                        style={{
+                          display: 'inline-flex', alignItems: 'center', gap: '4px',
+                          background: 'none', border: 'none', cursor: 'pointer',
+                          color: 'inherit', fontSize: 'inherit', padding: 0,
+                        }}
+                      >
+                        <MapPin style={{ width: '11px', height: '11px', flexShrink: 0 }} />
+                        {saved.city}
+                      </button>
+                      <button
+                        onClick={() => handleRemoveLocation(saved.city)}
+                        aria-label={`Supprimer ${saved.city}`}
+                        style={{
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          width: '16px', height: '16px', borderRadius: '50%',
+                          background: 'none', border: 'none', cursor: 'pointer',
+                          color: 'var(--color-muted)', padding: 0,
+                        }}
+                      >
+                        <X style={{ width: '10px', height: '10px' }} />
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -226,7 +344,7 @@ export default function HorairesPage() {
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="card" style={{ padding: '1.25rem', opacity: 0.4 }}>
+              <div key={i} className="surah-card" style={{ padding: '1.25rem', opacity: 0.4 }}>
                 <div style={{ height: '20px', width: '40%', background: 'var(--color-surface-elevated)', borderRadius: '6px' }} />
               </div>
             ))}
