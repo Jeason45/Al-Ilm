@@ -7,6 +7,7 @@ import { useAudioPlayer } from '@/hooks/useAudioPlayer';
 import { useReciterPreference } from '@/hooks/useReciterPreference';
 import { fetchAudio, RECITERS } from '@/lib/quran-api';
 import { Play, Pause, Volume2 } from 'lucide-react';
+import Link from 'next/link';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 /* ── Parse reference → chapter + verse range ── */
@@ -91,6 +92,9 @@ export default function InvocationsPage() {
   return (
     <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
       <div style={{ width: '100%', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
+        <Link href="/annexes" className="back-link">
+          <span className="back-link-icon">←</span> Annexes
+        </Link>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>

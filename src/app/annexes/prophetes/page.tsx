@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { prophetes } from '@/data/annexes/prophetes';
 import { SearchInput } from '@/components/SearchInput';
 import { Badge } from '@/components/Badge';
@@ -22,6 +23,9 @@ export default function ProphetesPage() {
   return (
     <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
       <div style={{ width: '100%', maxWidth: '1100px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
+        <Link href="/annexes" className="back-link">
+          <span className="back-link-icon">←</span> Annexes
+        </Link>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p className="font-amiri text-gold" style={{ fontSize: '1.75rem', marginBottom: '1rem', opacity: 0.5 }}>
