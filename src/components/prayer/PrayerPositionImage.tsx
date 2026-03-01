@@ -48,7 +48,7 @@ export function PrayerPositionImage({ activePosition, showLabel = true, gender =
       <div style={{
         position: 'relative',
         width: '100%',
-        maxWidth: '340px',
+        maxWidth: 'min(340px, 100%)',
         aspectRatio: '3 / 4',
         borderRadius: '16px',
         border: '1.5px solid rgba(201, 168, 76, 0.3)',

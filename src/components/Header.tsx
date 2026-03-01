@@ -14,8 +14,8 @@ const center: React.CSSProperties = {
   maxWidth: '1100px',
   marginLeft: 'auto',
   marginRight: 'auto',
-  paddingLeft: '24px',
-  paddingRight: '24px',
+  paddingLeft: 'clamp(14px, 4vw, 24px)',
+  paddingRight: 'clamp(14px, 4vw, 24px)',
 };
 
 export function Header() {

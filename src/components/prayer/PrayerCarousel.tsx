@@ -91,18 +91,29 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
           onClick={() => goTo(i)}
           aria-label={`Étape ${i + 1}`}
           style={{
-            width: i === activeIndex ? '20px' : '8px',
-            height: '8px',
-            borderRadius: '4px',
+            minWidth: '44px',
+            minHeight: '44px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             border: 'none',
             cursor: 'pointer',
             padding: 0,
+            background: 'transparent',
+            margin: '-10px -8px',
+          }}
+        >
+          <span style={{
+            display: 'block',
+            width: i === activeIndex ? '20px' : '8px',
+            height: '8px',
+            borderRadius: '4px',
             background: i === activeIndex
               ? 'var(--color-gold)'
               : 'rgba(201, 168, 76, 0.2)',
             transition: 'all 0.3s ease',
-          }}
-        />
+          }} />
+        </button>
       ));
     }
 
@@ -114,7 +125,7 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
 
     if (start > 0) {
       dots.push(
-        <button key={0} onClick={() => goTo(0)} style={dotStyle(0 === activeIndex)} aria-label="Étape 1" />,
+        <button key={0} onClick={() => goTo(0)} style={dotStyle(0 === activeIndex)} aria-label="Étape 1"><span style={dotInnerStyle(0 === activeIndex)} /></button>,
       );
       if (start > 1) {
         dots.push(<span key="el" style={{ color: 'var(--color-muted)', fontSize: '0.625rem', lineHeight: 1 }}>···</span>);
@@ -123,7 +134,7 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
 
     for (let i = start; i <= end; i++) {
       dots.push(
-        <button key={i} onClick={() => goTo(i)} style={dotStyle(i === activeIndex)} aria-label={`Étape ${i + 1}`} />,
+        <button key={i} onClick={() => goTo(i)} style={dotStyle(i === activeIndex)} aria-label={`Étape ${i + 1}`}><span style={dotInnerStyle(i === activeIndex)} /></button>,
       );
     }
 
@@ -132,7 +143,7 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
         dots.push(<span key="er" style={{ color: 'var(--color-muted)', fontSize: '0.625rem', lineHeight: 1 }}>···</span>);
       }
       dots.push(
-        <button key={total - 1} onClick={() => goTo(total - 1)} style={dotStyle(total - 1 === activeIndex)} aria-label={`Étape ${total}`} />,
+        <button key={total - 1} onClick={() => goTo(total - 1)} style={dotStyle(total - 1 === activeIndex)} aria-label={`Étape ${total}`}><span style={dotInnerStyle(total - 1 === activeIndex)} /></button>,
       );
     }
 
@@ -195,8 +206,8 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
               left: '8px',
               top: '50%',
               transform: 'translateY(-50%)',
-              width: '36px',
-              height: '36px',
+              width: '44px',
+              height: '44px',
               borderRadius: '50%',
               border: '1px solid rgba(201, 168, 76, 0.25)',
               background: 'rgba(0, 0, 0, 0.45)',
@@ -225,8 +236,8 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
               right: '8px',
               top: '50%',
               transform: 'translateY(-50%)',
-              width: '36px',
-              height: '36px',
+              width: '44px',
+              height: '44px',
               borderRadius: '50%',
               border: '1px solid rgba(201, 168, 76, 0.25)',
               background: 'rgba(0, 0, 0, 0.45)',
@@ -347,14 +358,27 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
   );
 }
 
-function dotStyle(isActive: boolean): React.CSSProperties {
+function dotStyle(_isActive: boolean): React.CSSProperties {
   return {
-    width: isActive ? '20px' : '8px',
-    height: '8px',
-    borderRadius: '4px',
+    minWidth: '44px',
+    minHeight: '44px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     border: 'none',
     cursor: 'pointer',
     padding: 0,
+    background: 'transparent',
+    margin: '-10px -8px',
+  };
+}
+
+function dotInnerStyle(isActive: boolean): React.CSSProperties {
+  return {
+    display: 'block',
+    width: isActive ? '20px' : '8px',
+    height: '8px',
+    borderRadius: '4px',
     background: isActive
       ? 'var(--color-gold)'
       : 'rgba(201, 168, 76, 0.2)',

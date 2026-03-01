@@ -52,7 +52,7 @@ export function HeroSection() {
       <div className="hero-fade" />
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 10, textAlign: 'center' as const, maxWidth: '768px', paddingLeft: '24px', paddingRight: '24px' }}>
+      <div style={{ position: 'relative', zIndex: 10, textAlign: 'center' as const, maxWidth: '768px', paddingLeft: 'clamp(14px, 4vw, 24px)', paddingRight: 'clamp(14px, 4vw, 24px)' }}>
         <p className="font-amiri animate-fade-in" style={{
           fontSize: 'clamp(3rem, 6vw, 4.5rem)',
           marginBottom: '1.5rem',

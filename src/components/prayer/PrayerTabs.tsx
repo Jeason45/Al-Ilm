@@ -17,8 +17,10 @@ const tabs: { id: PrayerTab; label: string }[] = [
 export function PrayerTabs({ activeTab, onTabChange }: PrayerTabsProps) {
   return (
     <div style={{
-      display: 'inline-flex',
+      display: 'flex',
+      flexWrap: 'wrap',
       alignItems: 'center',
+      justifyContent: 'center',
       gap: '4px',
       padding: '4px',
       borderRadius: '12px',
@@ -30,7 +32,7 @@ export function PrayerTabs({ activeTab, onTabChange }: PrayerTabsProps) {
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           style={{
-            padding: '8px 14px',
+            padding: '10px 14px',
             fontSize: '13px',
             fontWeight: 500,
             borderRadius: '8px',

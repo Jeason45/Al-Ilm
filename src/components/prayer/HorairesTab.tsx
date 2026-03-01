@@ -263,7 +263,8 @@ export function HorairesTab() {
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: '4px',
                     fontSize: '0.75rem', color: 'var(--color-gold)', background: 'none',
-                    border: 'none', cursor: 'pointer', padding: '4px 0',
+                    border: 'none', cursor: 'pointer', padding: '10px 0',
+                    minHeight: '44px',
                   }}
                 >
                   <Plus style={{ width: '12px', height: '12px' }} />
@@ -271,7 +272,7 @@ export function HorairesTab() {
                 </button>
               )}
               {isLocationSaved && (
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--color-gold)' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--color-gold)', minHeight: '44px', padding: '10px 0' }}>
                   <Star style={{ width: '11px', height: '11px', fill: 'var(--color-gold)' }} />
                   Enregistrée
                 </span>
@@ -299,7 +300,8 @@ export function HorairesTab() {
                       style={{
                         display: 'inline-flex', alignItems: 'center', gap: '4px',
                         background: 'none', border: 'none', cursor: 'pointer',
-                        color: 'inherit', fontSize: 'inherit', padding: 0,
+                        color: 'inherit', fontSize: 'inherit', padding: '4px 0',
+                        minHeight: '44px',
                       }}
                     >
                       <MapPin style={{ width: '11px', height: '11px', flexShrink: 0 }} />
@@ -310,9 +312,10 @@ export function HorairesTab() {
                       aria-label={`Supprimer ${saved.city}`}
                       style={{
                         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        width: '16px', height: '16px', borderRadius: '50%',
+                        minWidth: '44px', minHeight: '44px', borderRadius: '50%',
                         background: 'none', border: 'none', cursor: 'pointer',
                         color: 'var(--color-muted)', padding: 0,
+                        margin: '-12px -12px -12px 0',
                       }}
                     >
                       <X style={{ width: '10px', height: '10px' }} />

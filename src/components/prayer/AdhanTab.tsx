@@ -39,7 +39,7 @@ export function AdhanTab() {
                 key={m}
                 onClick={() => handleModeChange(m)}
                 style={{
-                  padding: '8px 20px', fontSize: '13px', fontWeight: 500,
+                  padding: '12px 20px', fontSize: '13px', fontWeight: 500,
                   borderRadius: '8px', border: 'none', cursor: 'pointer',
                   transition: 'all 0.2s', fontFamily: 'inherit',
                   background: mode === m ? 'var(--color-gold)' : 'transparent',

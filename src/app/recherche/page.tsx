@@ -11,8 +11,8 @@ const center: React.CSSProperties = {
   maxWidth: '800px',
   marginLeft: 'auto',
   marginRight: 'auto',
-  paddingLeft: '24px',
-  paddingRight: '24px',
+  paddingLeft: 'clamp(14px, 4vw, 24px)',
+  paddingRight: 'clamp(14px, 4vw, 24px)',
 };
 
 const CATEGORIES: { id: SearchCategory; label: string; icon: typeof BookOpen }[] = [
