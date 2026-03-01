@@ -1,35 +1,55 @@
 import type { Gender } from './types';
 
-/** Mixamo bone name prefix (varies by export tool: mixamorig, mixamorig7, etc.) */
-const P = 'mixamorig7:';
-
-/** Mixamo bone names with prefix */
-export const BONE_NAMES = {
-  hips: `${P}Hips`,
-  spine: `${P}Spine`,
-  spine1: `${P}Spine1`,
-  spine2: `${P}Spine2`,
-  neck: `${P}Neck`,
-  head: `${P}Head`,
-  rightShoulder: `${P}RightShoulder`,
-  rightArm: `${P}RightArm`,
-  rightForeArm: `${P}RightForeArm`,
-  rightHand: `${P}RightHand`,
-  leftShoulder: `${P}LeftShoulder`,
-  leftArm: `${P}LeftArm`,
-  leftForeArm: `${P}LeftForeArm`,
-  leftHand: `${P}LeftHand`,
-  rightUpLeg: `${P}RightUpLeg`,
-  rightLeg: `${P}RightLeg`,
-  rightFoot: `${P}RightFoot`,
-  rightToeBase: `${P}RightToeBase`,
-  leftUpLeg: `${P}LeftUpLeg`,
-  leftLeg: `${P}LeftLeg`,
-  leftFoot: `${P}LeftFoot`,
-  leftToeBase: `${P}LeftToeBase`,
+/**
+ * Mixamo bone suffixes (without prefix).
+ * The actual prefix varies per model (mixamorig7, mixamorig2, mixamorig, etc.)
+ * and Three.js strips colons from names. We detect the prefix dynamically.
+ */
+export const BONE_SUFFIXES = {
+  hips: 'Hips',
+  spine: 'Spine',
+  spine1: 'Spine1',
+  spine2: 'Spine2',
+  neck: 'Neck',
+  head: 'Head',
+  rightShoulder: 'RightShoulder',
+  rightArm: 'RightArm',
+  rightForeArm: 'RightForeArm',
+  rightHand: 'RightHand',
+  leftShoulder: 'LeftShoulder',
+  leftArm: 'LeftArm',
+  leftForeArm: 'LeftForeArm',
+  leftHand: 'LeftHand',
+  rightUpLeg: 'RightUpLeg',
+  rightLeg: 'RightLeg',
+  rightFoot: 'RightFoot',
+  rightToeBase: 'RightToeBase',
+  leftUpLeg: 'LeftUpLeg',
+  leftLeg: 'LeftLeg',
+  leftFoot: 'LeftFoot',
+  leftToeBase: 'LeftToeBase',
 } as const;
 
-export type BoneName = (typeof BONE_NAMES)[keyof typeof BONE_NAMES];
+export type BoneSuffixKey = keyof typeof BONE_SUFFIXES;
+
+/**
+ * Detect the Mixamo prefix from a list of bone names.
+ * Looks for any bone ending with "Hips" and extracts the prefix.
+ */
+export function detectBonePrefix(boneNames: string[]): string {
+  const hipsBone = boneNames.find((n) => n.endsWith('Hips'));
+  if (!hipsBone) return '';
+  return hipsBone.slice(0, -4); // Remove "Hips"
+}
+
+/** Build full bone name map with a detected prefix */
+export function buildBoneNames(prefix: string): Record<BoneSuffixKey, string> {
+  const result = {} as Record<BoneSuffixKey, string>;
+  for (const [key, suffix] of Object.entries(BONE_SUFFIXES)) {
+    result[key as BoneSuffixKey] = `${prefix}${suffix}`;
+  }
+  return result;
+}
 
 /** Bone groups for editor UI */
 export const BONE_GROUPS = {

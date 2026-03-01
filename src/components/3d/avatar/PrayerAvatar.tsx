@@ -6,21 +6,19 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
-import { BONE_NAMES } from '../constants';
+import { BONE_SUFFIXES, detectBonePrefix, buildBoneNames, type BoneSuffixKey } from '../constants';
 import type { PrayerPoseConfig, Vector3Config } from '../types';
 import { ZERO_POSE } from '../poses/defaults';
 
 interface PrayerAvatarProps {
   modelUrl: string;
-  /** Pass either a pose object or a ref to a pose (ref avoids DOM↔R3F boundary issues) */
   pose?: PrayerPoseConfig;
   poseRef?: React.RefObject<PrayerPoseConfig>;
   scale?: number;
 }
 
-type BoneKey = keyof typeof BONE_NAMES;
-
-const POSE_TO_BONE: Record<string, BoneKey> = {
+/** Map from pose config path to bone suffix key */
+const POSE_TO_BONE: Record<string, BoneSuffixKey> = {
   'spine.hips': 'hips',
   'spine.spine': 'spine',
   'spine.spine1': 'spine1',
@@ -62,12 +60,10 @@ export function PrayerAvatar({ modelUrl, pose, poseRef: externalPoseRef, scale =
   const initialRotations = useRef<Map<string, THREE.Euler>>(new Map());
   const initialHipsY = useRef<number>(0);
   const bonesRef = useRef<Map<string, THREE.Bone>>(new Map());
+  const boneNamesRef = useRef<Record<BoneSuffixKey, string> | null>(null);
 
-  // Internal ref fallback when pose is passed as value prop
   const internalPoseRef = useRef<PrayerPoseConfig>(pose ?? ZERO_POSE);
   if (pose) internalPoseRef.current = pose;
-
-  // Use external ref if provided, otherwise use internal
   const activePoseRef = externalPoseRef ?? internalPoseRef;
 
   const clonedScene = useMemo(() => {
@@ -77,6 +73,7 @@ export function PrayerAvatar({ modelUrl, pose, poseRef: externalPoseRef, scale =
   useEffect(() => {
     bonesRef.current = new Map();
     initialRotations.current = new Map();
+    boneNamesRef.current = null;
   }, [clonedScene]);
 
   useFrame(() => {
@@ -84,36 +81,44 @@ export function PrayerAvatar({ modelUrl, pose, poseRef: externalPoseRef, scale =
     if (bonesRef.current.size === 0 && groupRef.current) {
       const bones = new Map<string, THREE.Bone>();
       const rotations = new Map<string, THREE.Euler>();
+      const allBoneNames: string[] = [];
 
       groupRef.current.traverse((child) => {
         if ((child as THREE.Bone).isBone) {
           const bone = child as THREE.Bone;
           bones.set(bone.name, bone);
           rotations.set(bone.name, bone.rotation.clone());
-
-          if (bone.name === BONE_NAMES.hips) {
-            initialHipsY.current = bone.position.y;
-          }
+          allBoneNames.push(bone.name);
         }
       });
 
       if (bones.size > 0) {
+        // Detect prefix dynamically from actual bone names
+        const prefix = detectBonePrefix(allBoneNames);
+        boneNamesRef.current = buildBoneNames(prefix);
+
+        // Capture initial hips Y
+        const hipsName = boneNamesRef.current.hips;
+        const hipsBone = bones.get(hipsName);
+        if (hipsBone) {
+          initialHipsY.current = hipsBone.position.y;
+        }
+
         bonesRef.current = bones;
         initialRotations.current = rotations;
-        console.log(`[PrayerAvatar] Captured ${bones.size} bones:`, [...bones.keys()].join(', '));
-      } else {
-        console.warn('[PrayerAvatar] No bones found in scene');
+        console.log(`[PrayerAvatar] Captured ${bones.size} bones, prefix="${prefix}"`);
       }
     }
 
     const bones = bonesRef.current;
     const initRots = initialRotations.current;
-    if (bones.size === 0) return;
+    const boneNames = boneNamesRef.current;
+    if (bones.size === 0 || !boneNames) return;
 
     const currentPose = activePoseRef.current;
 
-    for (const [posePath, boneKey] of Object.entries(POSE_TO_BONE)) {
-      const boneName = BONE_NAMES[boneKey];
+    for (const [posePath, suffixKey] of Object.entries(POSE_TO_BONE)) {
+      const boneName = boneNames[suffixKey];
       const bone = bones.get(boneName);
       const initRot = initRots.get(boneName);
       if (!bone || !initRot) continue;
@@ -126,7 +131,7 @@ export function PrayerAvatar({ modelUrl, pose, poseRef: externalPoseRef, scale =
       );
     }
 
-    const hipsBone = bones.get(BONE_NAMES.hips);
+    const hipsBone = bones.get(boneNames.hips);
     if (hipsBone) {
       hipsBone.position.y = initialHipsY.current + currentPose.hipsPositionY;
     }
