@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { RotateCcw, FlipHorizontal } from 'lucide-react';
 import type { PrayerPositionId } from '@/data/prayer-guide/types';
 import type { PrayerPoseConfig, Gender, Vector3Config } from '../types';
@@ -79,6 +79,12 @@ export function PoseEditorPanel() {
   const [positionId, setPositionId] = useState<PrayerPositionId>('qiyam');
   const [gender, setGender] = useState<Gender>('male');
   const [pose, setPose] = useState<PrayerPoseConfig>(structuredClone(ZERO_POSE));
+
+  // Auto-load pose when position changes
+  useEffect(() => {
+    const existing = getPoseForPosition(positionId);
+    setPose(structuredClone(existing ?? ZERO_POSE));
+  }, [positionId]);
 
   const handleBoneChange = useCallback((groupId: BoneGroupId, boneKey: string, value: Vector3Config) => {
     setPose((prev) => setBoneValue(prev, groupId, boneKey, value));
