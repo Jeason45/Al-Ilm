@@ -12,7 +12,9 @@ import { ZERO_POSE } from '../poses/defaults';
 
 interface PrayerAvatarProps {
   modelUrl: string;
+  /** Pass either a pose object or a ref to a pose (ref avoids DOM↔R3F boundary issues) */
   pose?: PrayerPoseConfig;
+  poseRef?: React.RefObject<PrayerPoseConfig>;
   scale?: number;
 }
 
@@ -51,7 +53,7 @@ function getPoseRotation(pose: PrayerPoseConfig, path: string): Vector3Config {
   return ((groupData as any)[bone] as Vector3Config | undefined) ?? { x: 0, y: 0, z: 0 };
 }
 
-export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAvatarProps) {
+export function PrayerAvatar({ modelUrl, pose, poseRef: externalPoseRef, scale = 1 }: PrayerAvatarProps) {
   const gltf = useLoader(GLTFLoader, modelUrl, (loader) => {
     loader.setMeshoptDecoder(MeshoptDecoder);
   });
@@ -60,23 +62,25 @@ export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAv
   const initialRotations = useRef<Map<string, THREE.Euler>>(new Map());
   const initialHipsY = useRef<number>(0);
   const bonesRef = useRef<Map<string, THREE.Bone>>(new Map());
-  // Keep pose in a ref so useFrame always reads the latest value
-  const poseRef = useRef<PrayerPoseConfig>(pose);
-  poseRef.current = pose;
+
+  // Internal ref fallback when pose is passed as value prop
+  const internalPoseRef = useRef<PrayerPoseConfig>(pose ?? ZERO_POSE);
+  if (pose) internalPoseRef.current = pose;
+
+  // Use external ref if provided, otherwise use internal
+  const activePoseRef = externalPoseRef ?? internalPoseRef;
 
   const clonedScene = useMemo(() => {
     return SkeletonUtils.clone(gltf.scene);
   }, [gltf.scene]);
 
-  // Capture bones — try in useEffect, retry in first useFrame if needed
   useEffect(() => {
-    // Reset for new scene
     bonesRef.current = new Map();
     initialRotations.current = new Map();
   }, [clonedScene]);
 
   useFrame(() => {
-    // Lazy bone capture: try on first frame if not yet captured
+    // Lazy bone capture on first frame
     if (bonesRef.current.size === 0 && groupRef.current) {
       const bones = new Map<string, THREE.Bone>();
       const rotations = new Map<string, THREE.Euler>();
@@ -96,7 +100,9 @@ export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAv
       if (bones.size > 0) {
         bonesRef.current = bones;
         initialRotations.current = rotations;
-        console.log(`[PrayerAvatar] Captured ${bones.size} bones`);
+        console.log(`[PrayerAvatar] Captured ${bones.size} bones:`, [...bones.keys()].join(', '));
+      } else {
+        console.warn('[PrayerAvatar] No bones found in scene');
       }
     }
 
@@ -104,7 +110,7 @@ export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAv
     const initRots = initialRotations.current;
     if (bones.size === 0) return;
 
-    const currentPose = poseRef.current;
+    const currentPose = activePoseRef.current;
 
     for (const [posePath, boneKey] of Object.entries(POSE_TO_BONE)) {
       const boneName = BONE_NAMES[boneKey];
@@ -125,7 +131,6 @@ export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAv
       hipsBone.position.y = initialHipsY.current + currentPose.hipsPositionY;
     }
 
-    // Force frame invalidation (needed for "demand" frameloop)
     invalidate();
   });
 

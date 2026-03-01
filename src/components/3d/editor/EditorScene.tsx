@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Grid } from '@react-three/drei';
 import { PrayerAvatar } from '../avatar/PrayerAvatar';
@@ -11,7 +12,7 @@ interface EditorSceneProps {
   gender: Gender;
 }
 
-function SceneContent({ pose, gender }: EditorSceneProps) {
+function SceneContent({ poseRef, gender }: { poseRef: React.RefObject<PrayerPoseConfig>; gender: Gender }) {
   return (
     <>
       {/* Lighting */}
@@ -29,10 +30,10 @@ function SceneContent({ pose, gender }: EditorSceneProps) {
         infiniteGrid
       />
 
-      {/* Avatar */}
+      {/* Avatar — pass poseRef to cross DOM↔R3F reconciler boundary */}
       <PrayerAvatar
         modelUrl={AVATAR_MODELS[gender]}
-        pose={pose}
+        poseRef={poseRef}
         scale={1}
       />
 
@@ -48,6 +49,10 @@ function SceneContent({ pose, gender }: EditorSceneProps) {
 }
 
 export function EditorScene({ pose, gender }: EditorSceneProps) {
+  // Ref bridge: DOM state → R3F scene (avoids reconciler boundary stale props)
+  const poseRef = useRef<PrayerPoseConfig>(pose);
+  poseRef.current = pose;
+
   return (
     <div style={{
       width: '100%',
@@ -62,7 +67,7 @@ export function EditorScene({ pose, gender }: EditorSceneProps) {
         camera={{ position: [0, 1.2, 2.5], fov: 50 }}
         style={{ width: '100%', height: '100%' }}
       >
-        <SceneContent pose={pose} gender={gender} />
+        <SceneContent poseRef={poseRef} gender={gender} />
       </Canvas>
     </div>
   );
