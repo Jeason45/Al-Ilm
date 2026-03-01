@@ -1,16 +1,22 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import type { PrayerPositionId } from '@/data/prayer-guide/types';
+import type { Gender } from '@/components/3d/types';
 import { getPosition } from '@/data/prayer-guide/positions';
 import { ImageOff } from 'lucide-react';
+
+const PrayerPositionViewer = lazy(() =>
+  import('@/components/3d/viewer/PrayerPositionViewer').then((m) => ({ default: m.PrayerPositionViewer })),
+);
 
 interface PrayerPositionImageProps {
   activePosition: PrayerPositionId;
   showLabel?: boolean;
+  gender?: Gender;
 }
 
-export function PrayerPositionImage({ activePosition, showLabel = true }: PrayerPositionImageProps) {
+export function PrayerPositionImage({ activePosition, showLabel = true, gender = 'male' }: PrayerPositionImageProps) {
   const position = getPosition(activePosition);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,9 +40,11 @@ export function PrayerPositionImage({ activePosition, showLabel = true }: Prayer
 
   if (!position) return null;
 
+  const use3D = position.has3dPose === true;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-      {/* Image container */}
+      {/* Image / 3D container */}
       <div style={{
         position: 'relative',
         width: '100%',
@@ -48,7 +56,20 @@ export function PrayerPositionImage({ activePosition, showLabel = true }: Prayer
         overflow: 'hidden',
         background: 'var(--color-surface, #1a1a2e)',
       }}>
-        {hasError ? (
+        {use3D ? (
+          /* 3D Viewer */
+          <Suspense fallback={
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(110deg, transparent 30%, rgba(201, 168, 76, 0.06) 50%, transparent 70%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 1.5s infinite',
+            }} />
+          }>
+            <PrayerPositionViewer positionId={activePosition} gender={gender} />
+          </Suspense>
+        ) : hasError ? (
           /* Fallback */
           <div style={{
             width: '100%',
@@ -82,8 +103,8 @@ export function PrayerPositionImage({ activePosition, showLabel = true }: Prayer
           />
         )}
 
-        {/* Loading shimmer overlay */}
-        {isLoading && !hasError && (
+        {/* Loading shimmer overlay (PNG mode only) */}
+        {!use3D && isLoading && !hasError && (
           <div style={{
             position: 'absolute',
             inset: 0,

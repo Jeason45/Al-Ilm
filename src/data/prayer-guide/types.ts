@@ -25,6 +25,7 @@ export interface PrayerPosition {
   name: string;
   nameAr: string;
   imagePath: string;
+  has3dPose?: boolean;
 }
 
 export interface PrayerStep {

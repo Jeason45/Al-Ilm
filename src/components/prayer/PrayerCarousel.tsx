@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import type { PrayerPositionId, RulingType } from '@/data/prayer-guide/types';
+import type { Gender } from '@/components/3d/types';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { PrayerPositionImage } from './PrayerPositionImage';
 import { ClassificationBadge } from './ClassificationBadge';
 
@@ -27,6 +29,7 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
   const [direction, setDirection] = useState<'left' | 'right'>('right');
   const [isAnimating, setIsAnimating] = useState(false);
   const [textKey, setTextKey] = useState(0);
+  const [gender, setGender] = useLocalStorage<Gender>('prayer-avatar-gender', 'male');
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -138,6 +141,29 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
 
   return (
     <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+      {/* ── Gender toggle ── */}
+      <div style={{ display: 'flex', gap: '6px' }}>
+        {(['male', 'female'] as const).map((g) => (
+          <button
+            key={g}
+            onClick={() => setGender(g)}
+            style={{
+              padding: '4px 14px',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              borderRadius: '20px',
+              border: '1px solid rgba(201, 168, 76, 0.2)',
+              background: gender === g ? 'rgba(201, 168, 76, 0.15)' : 'transparent',
+              color: gender === g ? 'var(--color-gold)' : 'var(--color-muted)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {g === 'male' ? 'Homme' : 'Femme'}
+          </button>
+        ))}
+      </div>
+
       {/* ── Image zone ── */}
       <div
         onTouchStart={handleTouchStart}
@@ -156,7 +182,7 @@ export function PrayerCarousel({ steps, rakaatBoundaries }: PrayerCarouselProps)
             ? `translateX(${direction === 'right' ? '-20px' : '20px'})`
             : 'translateX(0)',
         }}>
-          <PrayerPositionImage activePosition={step.position} showLabel={false} />
+          <PrayerPositionImage activePosition={step.position} showLabel={false} gender={gender} />
         </div>
 
         {/* Arrow left */}
