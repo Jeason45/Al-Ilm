@@ -1,10 +1,11 @@
 'use client';
 
 import { useRef, useEffect, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { BONE_NAMES } from '../constants';
 import type { PrayerPoseConfig, Vector3Config } from '../types';
 import { ZERO_POSE } from '../poses/defaults';
@@ -12,13 +13,11 @@ import { ZERO_POSE } from '../poses/defaults';
 interface PrayerAvatarProps {
   modelUrl: string;
   pose?: PrayerPoseConfig;
-  /** Scale factor for the avatar */
   scale?: number;
 }
 
 type BoneKey = keyof typeof BONE_NAMES;
 
-/** Map from pose config path to Mixamo bone name */
 const POSE_TO_BONE: Record<string, BoneKey> = {
   'spine.hips': 'hips',
   'spine.spine': 'spine',
@@ -53,17 +52,19 @@ function getPoseRotation(pose: PrayerPoseConfig, path: string): Vector3Config {
 }
 
 export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAvatarProps) {
-  const { scene } = useGLTF(modelUrl);
+  const gltf = useLoader(GLTFLoader, modelUrl, (loader) => {
+    loader.setMeshoptDecoder(MeshoptDecoder);
+  });
+
   const groupRef = useRef<THREE.Group>(null);
   const initialRotations = useRef<Map<string, THREE.Euler>>(new Map());
   const initialHipsY = useRef<number>(0);
   const bonesRef = useRef<Map<string, THREE.Bone>>(new Map());
 
   const clonedScene = useMemo(() => {
-    return SkeletonUtils.clone(scene);
-  }, [scene]);
+    return SkeletonUtils.clone(gltf.scene);
+  }, [gltf.scene]);
 
-  // Capture initial rotations and bone references on mount
   useEffect(() => {
     if (!groupRef.current) return;
 
@@ -86,7 +87,6 @@ export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAv
     initialRotations.current = rotations;
   }, [clonedScene]);
 
-  // Apply pose each frame
   useFrame(() => {
     const bones = bonesRef.current;
     const initRots = initialRotations.current;
@@ -106,7 +106,6 @@ export function PrayerAvatar({ modelUrl, pose = ZERO_POSE, scale = 1 }: PrayerAv
       );
     }
 
-    // Apply hips Y offset
     const hipsBone = bones.get(BONE_NAMES.hips);
     if (hipsBone) {
       hipsBone.position.y = initialHipsY.current + pose.hipsPositionY;

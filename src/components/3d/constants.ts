@@ -1,29 +1,32 @@
 import type { Gender } from './types';
 
-/** Mixamo/RPM bone names */
+/** Mixamo bone name prefix (varies by export tool: mixamorig, mixamorig7, etc.) */
+const P = 'mixamorig7:';
+
+/** Mixamo bone names with prefix */
 export const BONE_NAMES = {
-  hips: 'Hips',
-  spine: 'Spine',
-  spine1: 'Spine1',
-  spine2: 'Spine2',
-  neck: 'Neck',
-  head: 'Head',
-  rightShoulder: 'RightShoulder',
-  rightArm: 'RightArm',
-  rightForeArm: 'RightForeArm',
-  rightHand: 'RightHand',
-  leftShoulder: 'LeftShoulder',
-  leftArm: 'LeftArm',
-  leftForeArm: 'LeftForeArm',
-  leftHand: 'LeftHand',
-  rightUpLeg: 'RightUpLeg',
-  rightLeg: 'RightLeg',
-  rightFoot: 'RightFoot',
-  rightToeBase: 'RightToeBase',
-  leftUpLeg: 'LeftUpLeg',
-  leftLeg: 'LeftLeg',
-  leftFoot: 'LeftFoot',
-  leftToeBase: 'LeftToeBase',
+  hips: `${P}Hips`,
+  spine: `${P}Spine`,
+  spine1: `${P}Spine1`,
+  spine2: `${P}Spine2`,
+  neck: `${P}Neck`,
+  head: `${P}Head`,
+  rightShoulder: `${P}RightShoulder`,
+  rightArm: `${P}RightArm`,
+  rightForeArm: `${P}RightForeArm`,
+  rightHand: `${P}RightHand`,
+  leftShoulder: `${P}LeftShoulder`,
+  leftArm: `${P}LeftArm`,
+  leftForeArm: `${P}LeftForeArm`,
+  leftHand: `${P}LeftHand`,
+  rightUpLeg: `${P}RightUpLeg`,
+  rightLeg: `${P}RightLeg`,
+  rightFoot: `${P}RightFoot`,
+  rightToeBase: `${P}RightToeBase`,
+  leftUpLeg: `${P}LeftUpLeg`,
+  leftLeg: `${P}LeftLeg`,
+  leftFoot: `${P}LeftFoot`,
+  leftToeBase: `${P}LeftToeBase`,
 } as const;
 
 export type BoneName = (typeof BONE_NAMES)[keyof typeof BONE_NAMES];
