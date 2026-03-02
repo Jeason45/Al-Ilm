@@ -30,7 +30,7 @@ export const surah: Surah = {
       numero: "98:8",
       arabe: "رَّضِيَ اللَّهُ عَنْهُمْ وَرَضُوا عَنْهُ",
       traduction: "Allah les agrée et ils L'agréent.",
-      explication: "La double satisfaction — le sommet de la relation entre Créateur et créature. Allah est content d'eux, et eux sont contents de Lui. La réciprocité parfaite."
+      explication: "La double satisfaction — le sommet de la relation entre Créateur et créature. Allah est content d'eux, et eux sont contents de Lui. L'agrément mutuel entre le Créateur et Sa créature."
     }
   ],
   meritesEtRecompenses: "⭐ Le verset 7 (khayr al-bariyya) est cité par le Prophète ﷺ pour désigner les croyants sincères. C'est le titre le plus élevé attribuable à un être humain — meilleure créature d'Allah.\n\n⭐ Le verset 5 est cité dans les traités d'usul al-fiqh comme la définition la plus concise de la religion en Islam — ikhlas, salat, zakat. Le din al-qayyima en trois mots.\n\n⭐ Le concept de rida mutuelle (radiya-Llahu 'anhum wa radu 'anhu) est le sommet du bonheur en Islam — plus élevé que le Paradis lui-même, car le rida d'Allah est « plus grand que tout » (9:72).\n\n⭐ La mention des hunafa' lie l'Islam directement à Ibrahim — la religion n'est pas nouvelle, elle est la restauration du monothéisme originel.\n\n⭐ Le paradoxe de la division après la connaissance (verset 4) est une leçon pour toute communauté : le savoir seul ne suffit pas — sans sincérité, il divise au lieu d'unir.",

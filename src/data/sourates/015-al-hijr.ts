@@ -30,7 +30,7 @@ export const surah: Surah = {
       numero: "15:88",
       arabe: "وَاخْفِضْ جَنَاحَكَ لِلْمُؤْمِنِينَ",
       traduction: "Et abaisse ton aile [sois bienveillant] pour les croyants.",
-      explication: "Le Prophète ﷺ est invité à faire preuve de douceur et de bienveillance envers les croyants, un modèle de leadership par la compassion."
+      explication: "Le Prophète ﷺ est invité à faire preuve de douceur et de bienveillance envers les croyants, un exemple de guidance par la compassion."
     }
   ],
   meritesEtRecompenses: "⭐ Le verset 9 est la promesse la plus extraordinaire de l’histoire des révélations — Allah se porte garant de la préservation de Son Livre. 1400 ans de vérification confirment cette promesse. Aucun autre texte sacré ne peut prétendre à une telle intégrité.\n\n⭐ Al-Fatiha (les Sept Souvent Répétées) est décrite comme supérieure à tout ce qui a été révélé dans la Torah, l’Évangile et les Psaumes — un trésor que chaque musulman possède et récite quotidiennement.\n\n⭐ Les ruines des Thamoud à Madâ’in Sâlih sont encore visibles aujourd’hui — site UNESCO en Arabie Saoudite. Le Prophète ﷺ a ordonné de n’y entrer qu’en pleurant. Ces pierres sont des preuves archéologiques de la véracité du Coran.",
