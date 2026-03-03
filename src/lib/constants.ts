@@ -15,6 +15,7 @@ export const NAV_LINKS = [
   { label: 'Hadiths', href: '/hadiths' },
   { label: 'Invocations', href: '/invocations' },
   { label: 'Apprendre', href: '/apprendre' },
+  { label: 'Histoire', href: '/histoire' },
   { label: 'Annexes', href: '/annexes' },
   { label: 'Prière', href: '/horaires' },
   { label: 'Quiz', href: '/quiz' },
