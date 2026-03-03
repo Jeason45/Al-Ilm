@@ -25,7 +25,6 @@ export const ANNEXES_LINKS = [
   { label: '25 Prophètes', href: '/annexes/prophetes', icon: 'Users' },
   { label: 'Glossaire', href: '/annexes/glossaire', icon: 'BookOpen' },
   { label: 'Miracles scientifiques', href: '/annexes/miracles-scientifiques', icon: 'Microscope' },
-  { label: 'Invocations', href: '/invocations', icon: 'HandHeart' },
   { label: 'Tuto pratique', href: '/annexes/guide-pratique', icon: 'Compass' },
   { label: 'Index thématique', href: '/annexes/index-thematique', icon: 'List' },
   { label: 'Femmes en Islam', href: '/annexes/femmes-en-islam', icon: 'Heart' },
