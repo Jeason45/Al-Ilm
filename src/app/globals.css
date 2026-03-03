@@ -422,6 +422,11 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
+  .grid-invocations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
   .grid-preview {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -436,6 +441,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 1024px) {
   .grid-features { grid-template-columns: repeat(2, 1fr); }
+  .grid-invocations { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -453,6 +459,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 480px) {
   .grid-surahs { grid-template-columns: 1fr; }
   .grid-features { grid-template-columns: 1fr; }
+  .grid-invocations { grid-template-columns: repeat(2, 1fr); }
   .grid-preview { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
 

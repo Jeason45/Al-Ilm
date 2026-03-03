@@ -2,10 +2,10 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { Badge } from '@/components/Badge';
 import { SearchInput } from '@/components/SearchInput';
+import { CategoryIcon, getCategoryStyle } from '@/components/invocations/CategoryIcon';
 import { CATEGORIES } from '@/data/invocations/categories';
 import { ALL_INVOCATIONS, getCategoryCount, searchInvocations } from '@/data/invocations';
 
@@ -134,53 +134,47 @@ export default function InvocationsPage() {
 
         {/* Grille des catégories */}
         {!isSearching && (
-          <div className="grid-features">
+          <div className="grid-invocations">
             {CATEGORIES.map((cat, i) => {
               const count = getCategoryCount(cat.id);
+              const style = getCategoryStyle(cat.id);
               return (
-                <ScrollReveal key={cat.id} delay={i * 50}>
+                <ScrollReveal key={cat.id} delay={i * 40}>
                   <Link
                     href={`/invocations/${cat.slug}`}
-                    className="group surah-card"
+                    className="surah-card"
                     style={{
-                      display: 'block',
-                      padding: 'clamp(1.25rem, 2.5vw, 2rem)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                      padding: 'clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1.5vw, 0.75rem)',
                       textDecoration: 'none',
                       color: 'inherit',
+                      gap: '0.625rem',
                     }}
                   >
-                    {/* Arabic name */}
+                    <CategoryIcon categoryId={cat.id} />
+
+                    <h3 className="font-outfit font-semibold" style={{
+                      fontSize: 'clamp(0.8125rem, 1.8vw, 0.9375rem)',
+                      lineHeight: 1.3,
+                    }}>
+                      {cat.titre}
+                    </h3>
+
                     <p className="font-amiri" style={{
-                      fontSize: '1.75rem',
-                      color: 'var(--color-gold)',
-                      marginBottom: '0.75rem',
-                      lineHeight: 1.4,
+                      fontSize: '1.0625rem',
+                      color: style.color,
+                      lineHeight: 1.3,
+                      opacity: 0.8,
                     }}>
                       {cat.titreArabe}
                     </p>
 
-                    {/* French name */}
-                    <h3 className="font-outfit font-semibold" style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>
-                      {cat.titre}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-muted" style={{ fontSize: '0.8125rem', marginBottom: '1rem', lineHeight: 1.5 }}>
-                      {cat.description}
-                    </p>
-
-                    {/* Badge + Arrow */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Badge variant="gold">{count} invocation{count > 1 ? 's' : ''}</Badge>
-                      <span className="text-muted group-hover:text-gold" style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '6px',
-                        fontSize: '0.8125rem', fontWeight: 500,
-                        transition: 'color 0.2s',
-                      }}>
-                        Explorer
-                        <ArrowUpRight style={{ width: '14px', height: '14px' }} />
-                      </span>
-                    </div>
+                    <Badge variant="gold">
+                      {count}
+                    </Badge>
                   </Link>
                 </ScrollReveal>
               );
