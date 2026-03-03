@@ -30,4 +30,8 @@ export const ANNEXES_LINKS = [
   { label: 'Femmes en Islam', href: '/annexes/femmes-en-islam', icon: 'Heart' },
   { label: 'Compagnons', href: '/annexes/compagnons', icon: 'Shield' },
   { label: 'Compilation du Coran', href: '/annexes/compilation', icon: 'BookMarked' },
+  { label: 'Guide du Ramadan', href: '/annexes/ramadan', icon: 'Moon' },
+  { label: 'Les 4 écoles', href: '/annexes/ecoles', icon: 'Scale' },
+  { label: 'Zakat & Dons', href: '/annexes/zakat', icon: 'Heart' },
+  { label: 'Courants de l\'Islam', href: '/annexes/courants', icon: 'GitBranch' },
 ] as const;

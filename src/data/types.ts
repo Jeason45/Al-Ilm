@@ -98,6 +98,43 @@ export interface Compagnon {
   histoire: string;
 }
 
+export interface RamadanSection {
+  titre: string;
+  titreArabe: string;
+  icon: string;
+  contenu: string[];
+}
+
+export interface EcoleJuridique {
+  nom: string;
+  nomArabe: string;
+  fondateur: string;
+  fondateurArabe: string;
+  epoque: string;
+  lieu: string;
+  methodologie: string;
+  geographie: string;
+  ouvragesRef: string[];
+  particularites: string[];
+}
+
+export interface AssociationIslam {
+  nom: string;
+  description: string;
+  url: string;
+  pays: string;
+}
+
+export interface CourantIslam {
+  nom: string;
+  nomArabe: string;
+  origine: string;
+  croyances: string[];
+  population: string;
+  geographie: string;
+  sousCourants?: string[];
+}
+
 export type InvocationCategory = 'matin' | 'soir' | 'apres-priere' | 'sommeil' | 'reveil'
   | 'repas' | 'voyage' | 'mosquee' | 'pluie' | 'stress' | 'maladie' | 'protection'
   | 'general' | 'mariage' | 'vetements' | 'deuil' | 'coranique' | 'istikhara';
