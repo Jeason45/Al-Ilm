@@ -491,7 +491,7 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
       </div>
 
       {/* Universal sticky bar — all modes, all surahs */}
-      <div style={{
+      <div className="scrollbar-hidden" style={{
         position: 'sticky', top: '64px', zIndex: 30,
         display: 'flex', alignItems: 'center', gap: '6px',
         padding: '8px 12px', marginBottom: '1rem', borderRadius: '10px',

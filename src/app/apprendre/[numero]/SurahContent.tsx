@@ -104,7 +104,7 @@ export function SurahContent({ numero }: { numero: number }) {
       <TextReader sections={textSections} />
 
       {/* Sticky navigation bar */}
-      <div style={{
+      <div className="scrollbar-hidden" style={{
         position: 'sticky', top: '64px', zIndex: 30,
         display: 'flex', alignItems: 'center', gap: '6px',
         padding: '8px 12px', borderRadius: '10px',

@@ -208,7 +208,7 @@ export function HadithReader({ collectionId, allSahih }: HadithReaderProps) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
         {/* Section dropdown (non-small only) */}
         {!isSmall && sections.length > 0 && (
-          <div style={{ position: 'relative', flex: '1 1 auto', minWidth: '200px' }}>
+          <div style={{ position: 'relative', flex: '1 1 auto', minWidth: '0' }}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="surah-card"

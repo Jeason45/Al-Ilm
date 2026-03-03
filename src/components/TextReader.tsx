@@ -290,7 +290,7 @@ export function TextReader({ sections }: TextReaderProps) {
               <div style={{ position: 'fixed', inset: 0, zIndex: 40 }} onClick={() => setVoiceDropdownOpen(false)} />
               <div style={{
                 position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 50,
-                minWidth: '220px', maxHeight: '240px', overflowY: 'auto',
+                minWidth: '200px', maxWidth: 'calc(100vw - 48px)', maxHeight: '240px', overflowY: 'auto',
                 background: 'var(--color-surface-elevated)',
                 border: '1px solid var(--color-border)', borderRadius: '10px',
                 boxShadow: '0 8px 30px rgba(0,0,0,0.3)',

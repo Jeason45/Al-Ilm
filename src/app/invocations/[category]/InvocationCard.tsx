@@ -66,7 +66,7 @@ export function InvocationCard({
             </button>
           )}
 
-          <h3 className="font-outfit font-semibold" style={{ fontSize: '0.9375rem', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <h3 className="font-outfit font-semibold" style={{ fontSize: '0.9375rem', wordBreak: 'break-word' }}>
             {invocation.titre}
           </h3>
         </div>

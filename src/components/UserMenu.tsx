@@ -66,7 +66,7 @@ export function UserMenu() {
         }}>
           {initial}
         </span>
-        <span style={{ maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <span style={{ maxWidth: 'clamp(60px, 15vw, 100px)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {session.user.name}
         </span>
         <ChevronDown size={14} style={{ color: 'var(--color-muted)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
