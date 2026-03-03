@@ -44,7 +44,7 @@ export function PrayerPositionImage({ activePosition, showLabel = true, gender =
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-      {/* Image / 3D container */}
+      {/* Image / 3D container — placeholder until images are ready */}
       <div style={{
         position: 'relative',
         width: '100%',
@@ -56,63 +56,24 @@ export function PrayerPositionImage({ activePosition, showLabel = true, gender =
         overflow: 'hidden',
         background: 'var(--color-surface, #1a1a2e)',
       }}>
-        {use3D ? (
-          /* 3D Viewer */
-          <Suspense fallback={
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(110deg, transparent 30%, rgba(201, 168, 76, 0.06) 50%, transparent 70%)',
-              backgroundSize: '200% 100%',
-              animation: 'shimmer 1.5s infinite',
-            }} />
-          }>
-            <PrayerPositionViewer positionId={activePosition} gender={gender} />
-          </Suspense>
-        ) : hasError ? (
-          /* Fallback */
-          <div style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '12px',
-            background: 'rgba(201, 168, 76, 0.05)',
-          }}>
-            <ImageOff style={{ width: '48px', height: '48px', color: 'rgba(201, 168, 76, 0.3)' }} />
-            <span style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textAlign: 'center', padding: '0 1rem' }}>
-              Image bientôt disponible
-            </span>
-          </div>
-        ) : (
-          <img
-            key={displayedSrc}
-            src={displayedSrc}
-            alt={`${position.name} — ${position.nameAr}`}
-            onError={handleError}
-            onLoad={handleLoad}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: isLoading ? 0 : 1,
-              transition: 'opacity 0.35s ease',
-            }}
-          />
-        )}
-
-        {/* Loading shimmer overlay (PNG mode only) */}
-        {!use3D && isLoading && !hasError && (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(110deg, transparent 30%, rgba(201, 168, 76, 0.06) 50%, transparent 70%)',
-            backgroundSize: '200% 100%',
-            animation: 'shimmer 1.5s infinite',
-          }} />
-        )}
+        <div style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          background: 'rgba(201, 168, 76, 0.05)',
+        }}>
+          <ImageOff style={{ width: '48px', height: '48px', color: 'rgba(201, 168, 76, 0.3)' }} />
+          <p className="font-amiri" style={{ fontSize: '1.25rem', color: 'var(--color-gold)', opacity: 0.6 }}>
+            قريبًا
+          </p>
+          <span style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textAlign: 'center', padding: '0 1rem' }}>
+            Image bientôt disponible
+          </span>
+        </div>
       </div>
 
       {/* Label */}

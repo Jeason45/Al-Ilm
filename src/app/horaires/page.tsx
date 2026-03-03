@@ -7,6 +7,7 @@ import { HorairesTab } from '@/components/prayer/HorairesTab';
 
 import { AdhanTab } from '@/components/prayer/AdhanTab';
 import { AblutionsTab } from '@/components/prayer/AblutionsTab';
+import { PrayerGuideTab } from '@/components/prayer/PrayerGuideTab';
 
 export default function HorairesPage() {
   const [activeTab, setActiveTab] = useState<PrayerTab>('adhan');
@@ -30,16 +31,7 @@ export default function HorairesPage() {
 
         {activeTab === 'adhan' && <AdhanTab />}
         {activeTab === 'ablutions' && <AblutionsTab />}
-        {activeTab === 'priere' && (
-          <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-            <p className="font-amiri" style={{ fontSize: '1.5rem', color: 'var(--color-gold)', marginBottom: '1rem', opacity: 0.6 }}>
-              قريبًا
-            </p>
-            <p style={{ fontSize: '1rem', color: 'var(--color-muted)' }}>
-              Bientôt disponible
-            </p>
-          </div>
-        )}
+        {activeTab === 'priere' && <PrayerGuideTab />}
         {activeTab === 'horaires' && <HorairesTab />}
       </div>
     </div>
