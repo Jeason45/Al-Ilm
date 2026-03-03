@@ -64,7 +64,7 @@ function SectionHeader({ item }: { item: Extract<TimelineItem, { type: 'section'
 function EventCard({ item, isLast }: { item: Extract<TimelineItem, { type: 'event' }>; isLast: boolean }) {
   return (
     <ScrollReveal>
-      <div style={{ position: 'relative', paddingLeft: '2.5rem', paddingBottom: isLast ? 0 : '2rem' }}>
+      <div style={{ position: 'relative', paddingLeft: 'clamp(2rem, 5vw, 2.5rem)', paddingBottom: isLast ? 0 : '2rem' }}>
         {!isLast && (
           <div style={{
             position: 'absolute', left: '7px', top: '12px', bottom: 0, width: '1px',

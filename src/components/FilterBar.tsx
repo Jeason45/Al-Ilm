@@ -27,8 +27,8 @@ export function FilterBar({ activeFilter, onFilterChange }: FilterBarProps) {
           key={filter.id}
           onClick={() => onFilterChange(filter.id)}
           style={{
-            padding: '8px 16px',
-            fontSize: '13px',
+            padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 3vw, 16px)',
+            fontSize: 'clamp(12px, 2.5vw, 13px)',
             fontWeight: 500,
             borderRadius: '8px',
             border: 'none',

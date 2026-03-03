@@ -32,8 +32,8 @@ export function PrayerTabs({ activeTab, onTabChange }: PrayerTabsProps) {
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           style={{
-            padding: '10px 14px',
-            fontSize: '13px',
+            padding: 'clamp(8px, 2vw, 10px) clamp(10px, 3vw, 14px)',
+            fontSize: 'clamp(12px, 2.5vw, 13px)',
             fontWeight: 500,
             borderRadius: '8px',
             border: 'none',

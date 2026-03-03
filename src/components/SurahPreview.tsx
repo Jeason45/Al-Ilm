@@ -9,8 +9,8 @@ const center: React.CSSProperties = {
   maxWidth: '1100px',
   marginLeft: 'auto',
   marginRight: 'auto',
-  paddingLeft: '24px',
-  paddingRight: '24px',
+  paddingLeft: 'clamp(14px, 4vw, 24px)',
+  paddingRight: 'clamp(14px, 4vw, 24px)',
 };
 
 const previewSurahs = [
@@ -43,7 +43,7 @@ export function SurahPreview() {
                 className="surah-card"
                 style={{
                   display: 'block',
-                  padding: '2rem 1.5rem',
+                  padding: 'clamp(1.25rem, 3vw, 2rem) clamp(1rem, 2.5vw, 1.5rem)',
                   textDecoration: 'none',
                   color: 'inherit',
                 }}

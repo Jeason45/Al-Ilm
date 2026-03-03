@@ -9,7 +9,7 @@ export function SurateCard({ surah, basePath = '/apprendre' }: { surah: SurahMet
       style={{
         display: 'flex',
         flexDirection: 'column',
-        padding: '1.5rem',
+        padding: 'clamp(1rem, 3vw, 1.5rem)',
         textDecoration: 'none',
         color: 'inherit',
         height: '100%',

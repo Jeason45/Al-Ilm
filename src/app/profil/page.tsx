@@ -18,7 +18,7 @@ export default function ProfilPage() {
   if (status === 'loading' || !session) {
     return (
       <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
-        <div style={{ width: '100%', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px', textAlign: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: 'clamp(14px, 4vw, 24px)', paddingRight: 'clamp(14px, 4vw, 24px)', textAlign: 'center' }}>
           <div style={{
             width: '40px', height: '40px', margin: '0 auto',
             border: '3px solid var(--color-border)', borderTopColor: 'var(--color-gold)',
@@ -31,7 +31,7 @@ export default function ProfilPage() {
 
   return (
     <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
-      <div style={{ width: '100%', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '24px', paddingRight: '24px' }}>
+      <div style={{ width: '100%', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: 'clamp(14px, 4vw, 24px)', paddingRight: 'clamp(14px, 4vw, 24px)' }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <div style={{

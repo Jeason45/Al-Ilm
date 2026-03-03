@@ -24,7 +24,7 @@ export function SearchInput({ value, onChange, placeholder = 'Rechercher...', cl
           paddingRight: '40px',
           paddingTop: '12px',
           paddingBottom: '12px',
-          fontSize: '15px',
+          fontSize: 'clamp(14px, 3vw, 15px)',
           borderRadius: '12px',
           background: 'rgba(255, 255, 255, 0.04)',
           border: '1px solid var(--color-border)',

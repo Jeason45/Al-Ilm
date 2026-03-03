@@ -26,7 +26,7 @@ export function AblutionSelector({ activeAblution, onSelect }: AblutionSelectorP
             key={ablution.id}
             onClick={() => onSelect(ablution.id)}
             style={{
-              padding: '8px 14px',
+              padding: 'clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 14px)',
               borderRadius: '10px',
               fontSize: '0.8125rem',
               fontWeight: 500,

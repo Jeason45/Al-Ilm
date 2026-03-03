@@ -243,7 +243,7 @@ export function HorairesTab() {
             <button
               type="submit"
               className="btn-primary"
-              style={{ padding: '12px 20px', fontSize: '0.8125rem', flexShrink: 0 }}
+              style={{ padding: 'clamp(10px, 2vw, 12px) clamp(14px, 3vw, 20px)', fontSize: '0.8125rem', flexShrink: 0 }}
             >
               Rechercher
             </button>
@@ -359,8 +359,8 @@ export function HorairesTab() {
                   key={prayer.key}
                   className="surah-card"
                   style={{
-                    padding: '1rem 1.25rem',
-                    display: 'flex', alignItems: 'center', gap: '14px',
+                    padding: 'clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2.5vw, 1.25rem)',
+                    display: 'flex', alignItems: 'center', gap: 'clamp(10px, 2.5vw, 14px)',
                     borderColor: isNext ? 'var(--color-gold)' : undefined,
                     boxShadow: isNext ? '0 0 0 1px var(--color-gold), 0 4px 20px rgba(201, 168, 76, 0.15)' : undefined,
                     opacity: isSunrise ? 0.5 : 1,
