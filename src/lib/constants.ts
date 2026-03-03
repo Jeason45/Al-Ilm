@@ -13,6 +13,7 @@ export const STATS = {
 export const NAV_LINKS = [
   { label: 'Coran', href: '/coran' },
   { label: 'Hadiths', href: '/hadiths' },
+  { label: 'Invocations', href: '/invocations' },
   { label: 'Annexes', href: '/annexes' },
   { label: 'Prière', href: '/horaires' },
   { label: 'Quiz', href: '/quiz' },
@@ -24,7 +25,7 @@ export const ANNEXES_LINKS = [
   { label: '25 Prophètes', href: '/annexes/prophetes', icon: 'Users' },
   { label: 'Glossaire', href: '/annexes/glossaire', icon: 'BookOpen' },
   { label: 'Miracles scientifiques', href: '/annexes/miracles-scientifiques', icon: 'Microscope' },
-  { label: 'Invocations', href: '/annexes/invocations', icon: 'HandHeart' },
+  { label: 'Invocations', href: '/invocations', icon: 'HandHeart' },
   { label: 'Tuto pratique', href: '/annexes/guide-pratique', icon: 'Compass' },
   { label: 'Index thématique', href: '/annexes/index-thematique', icon: 'List' },
   { label: 'Femmes en Islam', href: '/annexes/femmes-en-islam', icon: 'Heart' },
