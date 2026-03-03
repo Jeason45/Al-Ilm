@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { PrayerTabs, type PrayerTab } from '@/components/prayer/PrayerTabs';
 import { HorairesTab } from '@/components/prayer/HorairesTab';
-import { PrayerGuideTab } from '@/components/prayer/PrayerGuideTab';
+
 import { AdhanTab } from '@/components/prayer/AdhanTab';
 import { AblutionsTab } from '@/components/prayer/AblutionsTab';
 
@@ -29,7 +29,16 @@ export default function HorairesPage() {
         </ScrollReveal>
 
         {activeTab === 'horaires' && <HorairesTab />}
-        {activeTab === 'guide' && <PrayerGuideTab />}
+        {activeTab === 'tuto' && (
+          <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
+            <p className="font-amiri" style={{ fontSize: '1.5rem', color: 'var(--color-gold)', marginBottom: '1rem', opacity: 0.6 }}>
+              قريبًا
+            </p>
+            <p style={{ fontSize: '1rem', color: 'var(--color-muted)' }}>
+              Bientôt disponible
+            </p>
+          </div>
+        )}
         {activeTab === 'adhan' && <AdhanTab />}
         {activeTab === 'ablutions' && <AblutionsTab />}
       </div>

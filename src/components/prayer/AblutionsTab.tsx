@@ -27,6 +27,7 @@ export function AblutionsTab() {
   if (!ablution) return null;
 
   const isWudu = activeAblutionId === 'wudu';
+  const isGhusl = activeAblutionId === 'ghusl-men' || activeAblutionId === 'ghusl-women';
 
   const carouselSteps: CarouselStep[] = ablution.steps
     .filter(s => s.position) // only steps with an image position
@@ -50,64 +51,80 @@ export function AblutionsTab() {
         </div>
       </ScrollReveal>
 
-      {/* Ablution info header */}
-      <ScrollReveal delay={120}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '6px' }}>
-            <h2 className="font-outfit font-bold" style={{ fontSize: '1.5rem' }}>
-              {ablution.name}
-            </h2>
-            <span className="font-amiri" style={{ fontSize: '1.25rem', color: 'var(--color-muted)', opacity: 0.5 }}>
-              {ablution.nameAr}
-            </span>
+      {/* Ghusl: coming soon */}
+      {isGhusl ? (
+        <ScrollReveal delay={120}>
+          <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
+            <p className="font-amiri" style={{ fontSize: '1.5rem', color: 'var(--color-gold)', marginBottom: '1rem', opacity: 0.6 }}>
+              قريبًا
+            </p>
+            <p style={{ fontSize: '1rem', color: 'var(--color-muted)' }}>
+              Bientôt disponible
+            </p>
           </div>
-          <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted)', marginTop: '8px', lineHeight: 1.5 }}>
-            {ablution.description}
-          </p>
-        </div>
-      </ScrollReveal>
-
-      {/* Conditions (when ghusl is obligatory) */}
-      {ablution.conditions && ablution.conditions.length > 0 && (
-        <ScrollReveal delay={140}>
-          <ConditionsSection conditions={ablution.conditions} />
         </ScrollReveal>
-      )}
-
-      {/* Wudu carousel */}
-      {isWudu && hasCarouselSteps && (
-        <ScrollReveal delay={160}>
-          <PrayerCarousel
-            key={activeAblutionId}
-            steps={carouselSteps}
-          />
-        </ScrollReveal>
-      )}
-
-      {/* Wudu-specific sections */}
-      {activeAblutionId === 'wudu' && (
+      ) : (
         <>
-          {/* Invalidators */}
-          <ScrollReveal delay={240}>
-            <WuduInvalidatorsSection />
+          {/* Ablution info header */}
+          <ScrollReveal delay={120}>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '6px' }}>
+                <h2 className="font-outfit font-bold" style={{ fontSize: '1.5rem' }}>
+                  {ablution.name}
+                </h2>
+                <span className="font-amiri" style={{ fontSize: '1.25rem', color: 'var(--color-muted)', opacity: 0.5 }}>
+                  {ablution.nameAr}
+                </span>
+              </div>
+              <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted)', marginTop: '8px', lineHeight: 1.5 }}>
+                {ablution.description}
+              </p>
+            </div>
           </ScrollReveal>
 
-          {/* Du'a after wudu */}
-          <ScrollReveal delay={260}>
-            <WuduDuaSection />
+          {/* Conditions (when ghusl is obligatory) */}
+          {ablution.conditions && ablution.conditions.length > 0 && (
+            <ScrollReveal delay={140}>
+              <ConditionsSection conditions={ablution.conditions} />
+            </ScrollReveal>
+          )}
+
+          {/* Wudu carousel */}
+          {isWudu && hasCarouselSteps && (
+            <ScrollReveal delay={160}>
+              <PrayerCarousel
+                key={activeAblutionId}
+                steps={carouselSteps}
+              />
+            </ScrollReveal>
+          )}
+
+          {/* Wudu-specific sections */}
+          {activeAblutionId === 'wudu' && (
+            <>
+              {/* Invalidators */}
+              <ScrollReveal delay={240}>
+                <WuduInvalidatorsSection />
+              </ScrollReveal>
+
+              {/* Du'a after wudu */}
+              <ScrollReveal delay={260}>
+                <WuduDuaSection />
+              </ScrollReveal>
+            </>
+          )}
+
+          {/* Common errors */}
+          <ScrollReveal delay={280}>
+            <CommonErrorsCard errors={ablutionErrors} title="Erreurs courantes du wudu" />
+          </ScrollReveal>
+
+          {/* Special cases */}
+          <ScrollReveal delay={300}>
+            <SpecialCasesSection cases={ablutionSpecialCases} title="Cas particuliers" />
           </ScrollReveal>
         </>
       )}
-
-      {/* Common errors */}
-      <ScrollReveal delay={280}>
-        <CommonErrorsCard errors={ablutionErrors} title="Erreurs courantes du wudu" />
-      </ScrollReveal>
-
-      {/* Special cases */}
-      <ScrollReveal delay={300}>
-        <SpecialCasesSection cases={ablutionSpecialCases} title="Cas particuliers" />
-      </ScrollReveal>
     </div>
   );
 }

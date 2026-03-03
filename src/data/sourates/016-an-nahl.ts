@@ -17,7 +17,7 @@ export const surah: Surah = {
     {
       numero: "16:90",
       arabe: "إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ وَإِيتَاءِ ذِي الْقُرْبَىٰ",
-      traduction: "Certes, Allah commande l'équité, la bienfaisance et l'assistance aux proches.",
+      traduction: "Certes, Allah commande l'équité, la bienfaisance et la générosité envers les proches.",
       explication: "Ce verset résume toute l'éthique islamique en trois commandements : la justice, l'excellence dans le comportement et la solidarité familiale."
     },
     {

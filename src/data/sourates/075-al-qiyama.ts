@@ -18,7 +18,7 @@ export const surah: Surah = {
       numero: "75:1-2",
       arabe: "لَا أُقْسِمُ بِيَوْمِ الْقِيَامَةِ وَلَا أُقْسِمُ بِالنَّفْسِ اللَّوَّامَةِ",
       traduction: "Non ! Je jure par le Jour de la Résurrection ! Et non ! Je jure par l'âme qui se blâme !",
-      explication: "Le double serment lie le Jugement externe (la Résurrection) au jugement interne (la conscience). La nafs lawwama — l'âme qui blâme — est le tribunal intérieur de l'homme, entre la nafs ammara (qui incite au mal) et la nafs mutma'inna (apaisée)."
+      explication: "Le double serment lie le Jugement externe (la Résurrection) au jugement interne (la conscience). La nafs lawwama — l'âme qui blâme — est le tribunal intérieur de l'homme, entre la nafs ammara (qui incite au mal) et la nafs mutma'inna (apaisée). Note : la particule 'la' dans 'la uqsimu' est interprétée diversement par les savants — certains y voient une négation explétive renforçant le serment ('Je jure bel et bien'), d'autres une véritable négation ('Je n'ai pas besoin de jurer, tant c'est évident'), et d'autres encore la considèrent comme une particule d'introduction du serment sans valeur de négation."
     },
     {
       numero: "75:3-4",
