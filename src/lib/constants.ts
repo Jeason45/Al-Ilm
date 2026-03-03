@@ -34,4 +34,8 @@ export const ANNEXES_LINKS = [
   { label: 'Les 4 écoles', href: '/annexes/ecoles', icon: 'Scale', desc: 'Hanafi, Maliki, Shafi\'i, Hanbali' },
   { label: 'Zakat & Dons', href: '/annexes/zakat', icon: 'HandCoins', desc: 'Calculateur et associations' },
   { label: 'Courants de l\'Islam', href: '/annexes/courants', icon: 'GitBranch', desc: 'Sunnisme, Chiisme, Ibadisme...' },
+  { label: '5 piliers de l\'Islam', href: '/annexes/piliers-islam', icon: 'Pilcrow', desc: 'Shahada, Salat, Zakat, Sawm, Hajj' },
+  { label: '6 piliers de la foi', href: '/annexes/piliers-foi', icon: 'Sparkles', desc: 'Allah, Anges, Livres, Prophètes, Akhira, Qadr' },
+  { label: 'La vie après la mort', href: '/annexes/vie-apres-mort', icon: 'Infinity', desc: 'Tombe, Résurrection, Jugement, Paradis, Enfer' },
+  { label: 'Biographie du Prophète ﷺ', href: '/annexes/sira', icon: 'BookHeart', desc: 'La Sira de la naissance au décès' },
 ] as const;

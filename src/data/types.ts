@@ -135,6 +135,41 @@ export interface CourantIslam {
   sousCourants?: string[];
 }
 
+export interface PilierIslam {
+  numero: number;
+  nom: string;
+  nomArabe: string;
+  icon: string;
+  description: string;
+  preuves: string[];
+  details: string[];
+}
+
+export interface PilierFoi {
+  numero: number;
+  nom: string;
+  nomArabe: string;
+  icon: string;
+  description: string;
+  preuves: string[];
+  details: string[];
+}
+
+export interface EtapeAkhira {
+  titre: string;
+  titreArabe: string;
+  icon: string;
+  contenu: string[];
+}
+
+export interface SiraEvenement {
+  date: string;
+  titre: string;
+  titreArabe: string;
+  lieu: string;
+  description: string[];
+}
+
 export type InvocationCategory = 'matin' | 'soir' | 'apres-priere' | 'sommeil' | 'reveil'
   | 'repas' | 'voyage' | 'mosquee' | 'pluie' | 'stress' | 'maladie' | 'protection'
   | 'general' | 'mariage' | 'vetements' | 'deuil' | 'coranique' | 'istikhara';

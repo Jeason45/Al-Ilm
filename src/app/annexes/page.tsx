@@ -5,12 +5,14 @@ import { ScrollReveal } from '@/components/ScrollReveal';
 import {
   Star, Users, BookOpen, Microscope, Compass, List,
   Heart, Shield, BookMarked, Moon, Scale, HandCoins, GitBranch,
+  Pilcrow, Sparkles, Infinity, BookHeart,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
   Star, Users, BookOpen, Microscope, Compass, List,
   Heart, Shield, BookMarked, Moon, Scale, HandCoins, GitBranch,
+  Pilcrow, Sparkles, Infinity, BookHeart,
 };
 
 export const metadata: Metadata = {
