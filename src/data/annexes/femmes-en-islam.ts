@@ -62,7 +62,7 @@ export const femmesEnIslam: FemmeEnIslam[] = [
     histoire: "La Reine de Saba régnait sur un royaume puissant et prospère au Yémen. Quand Sulayman l'invita au monothéisme par une lettre portée par la huppe, elle fit preuve de sagesse en consultant son conseil avant de répondre. Elle envoya d'abord des cadeaux que Sulayman refusa, puis se rendit en personne à sa cour. Impressionnée par les prodiges divins dont bénéficiait Sulayman, notamment le transport instantané de son trône, elle se soumit à Allah en disant : « Seigneur, je me suis fait du tort à moi-même. Je me soumets avec Sulayman à Allah, Seigneur des mondes. »"
   },
   {
-    nom: "Mère de Musa (Yukabad)",
+    nom: "Mère de Musa",
     titre: "La mère à qui Allah inspira le courage",
     sourate: "Al-Qasas (28), Ta-Ha (20)",
     histoire: "La mère de Musa reçut d'Allah l'inspiration de mettre son nouveau-né dans un coffre et de le jeter dans le Nil pour le sauver du décret de Pharaon qui ordonnait le massacre des garçons nouveau-nés des Bani Isra'il. Allah lui promit de le lui rendre et d'en faire un prophète. Malgré l'angoisse déchirante de se séparer de son bébé, elle fit confiance à la promesse divine. Allah tint Sa promesse : Musa fut recueilli par la famille de Pharaon et rendu à sa mère comme nourrice."

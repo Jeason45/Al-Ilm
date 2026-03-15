@@ -79,7 +79,7 @@ export const glossaire: GlossaireItem[] = [
   {
     terme: "Du'a",
     arabe: "دُعَاءٌ",
-    definition: "L'invocation et la supplication adressée directement à Allah pour demander Son aide, Son pardon ou Ses bienfaits. Le du'a est décrit par le Prophète comme « l'essence même de l'adoration ». Allah promet de répondre à celui qui L'invoque sincèrement, soit en lui accordant ce qu'il demande, soit en lui épargnant un mal, soit en le récompensant dans l'au-delà."
+    definition: "L'invocation et la supplication adressée directement à Allah pour demander Son aide, Son pardon ou Ses bienfaits. Le du'a est décrit par le Prophète comme l'adoration elle-même (rapporté par At-Tirmidhi, hasan sahih). Allah promet de répondre à celui qui L'invoque sincèrement, soit en lui accordant ce qu'il demande, soit en lui épargnant un mal, soit en le récompensant dans l'au-delà."
   },
   {
     terme: "Jannah",
@@ -219,6 +219,6 @@ export const glossaire: GlossaireItem[] = [
   {
     terme: "Bid'ah",
     arabe: "بِدْعَةٌ",
-    definition: "L'innovation dans les affaires religieuses, c'est-à-dire l'introduction de pratiques cultuelles qui n'ont aucun fondement dans le Coran ou la Sunnah. Le Prophète a mis en garde contre les innovations en disant que toute innovation est un égarement. Ce terme ne concerne que le domaine religieux et non les affaires mondaines."
+    definition: "L'innovation dans les affaires religieuses, c'est-à-dire l'introduction de pratiques cultuelles qui n'ont aucun fondement dans le Coran ou la Sunnah. Le Prophète a mis en garde contre les innovations en disant que toute innovation est un égarement (rapporté par Muslim). Les savants divergent sur la portée de ce hadith : certains, comme l'imam Ash-Shafi'i et l'imam An-Nawawi, distinguent entre l'innovation blâmable et l'innovation louable dans les affaires religieuses. Ce terme ne concerne que le domaine religieux et non les affaires mondaines."
   }
 ];

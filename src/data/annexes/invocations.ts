@@ -65,7 +65,7 @@ export const invocations: Invocation[] = [
     occasion: "À réciter avant un discours, un enseignement, un examen ou toute situation nécessitant clarté d'esprit et éloquence. C'est l'invocation de Musa avant d'affronter Pharaon."
   },
   {
-    titre: "Invocation de Maryam pour la subsistance",
+    titre: "Invocation d'Asiya pour une demeure au Paradis",
     arabe: "رَبِّ ابْنِ لِي عِندَكَ بَيْتًا فِي الْجَنَّةِ",
     traduction: "Seigneur ! Construis-moi auprès de Toi une maison au Paradis.",
     reference: "At-Tahrim 66:11",

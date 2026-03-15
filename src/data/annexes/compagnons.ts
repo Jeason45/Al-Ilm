@@ -23,7 +23,7 @@ export const compagnons: Compagnon[] = [
     nom: "Ali ibn Abi Talib",
     nomArabe: "عَلِيُّ بْنُ أَبِي طَالِبٍ",
     titre: "Le Lion d'Allah (Asadullah), quatrième calife",
-    histoire: "Ali fut le premier enfant à embrasser l'Islam et le cousin et gendre du Prophète, ayant épousé sa fille Fatima. Le Prophète dit à son sujet : « Je suis la cité du savoir et Ali en est la porte. » Il dormit dans le lit du Prophète la nuit de l'Hégire, risquant sa vie face aux assassins mecquois. Guerrier valeureux, il porta l'étendard du Prophète dans de nombreuses batailles et se distingua à Badr, Uhud et Khaybar. Il fut également reconnu pour son savoir juridique profond et sa sagesse, devenant le quatrième calife bien guidé."
+    histoire: "Ali fut le premier enfant à embrasser l'Islam et le cousin et gendre du Prophète, ayant épousé sa fille Fatima. Le Prophète dit à son sujet lors de la bataille de Khaybar : « Je donnerai demain l'étendard à un homme qu'Allah et Son Messager aiment » — et il le donna à Ali (rapporté par Al-Bukhari et Muslim). Il dormit dans le lit du Prophète la nuit de l'Hégire, risquant sa vie face aux assassins mecquois. Guerrier valeureux, il porta l'étendard du Prophète dans de nombreuses batailles et se distingua à Badr, Uhud et Khaybar. Il fut également reconnu pour son savoir juridique profond et sa sagesse, devenant le quatrième calife bien guidé."
   },
   {
     nom: "Khadija bint Khuwaylid",
@@ -47,7 +47,7 @@ export const compagnons: Compagnon[] = [
     nom: "Salman al-Farisi",
     nomArabe: "سَلْمَانُ الْفَارِسِيُّ",
     titre: "Le chercheur de vérité venu de Perse",
-    histoire: "Salman est né dans une famille zoroastrienne en Perse et entreprit un extraordinaire voyage spirituel à la recherche de la vérité. Il passa d'un monastère chrétien à un autre, chaque moine mourant lui recommandant le suivant, jusqu'à ce que le dernier lui annonce la venue d'un prophète en Arabie. Réduit en esclavage lors de son voyage, il finit par rencontrer le Prophète à Médine et vérifia les signes qui lui avaient été décrits. Le Prophète dit de lui : « Salman fait partie des gens de ma maison. » C'est lui qui suggéra de creuser une tranchée (khandaq) autour de Médine pour la défendre."
+    histoire: "Salman est né dans une famille zoroastrienne en Perse et entreprit un extraordinaire voyage spirituel à la recherche de la vérité. Il passa d'un monastère chrétien à un autre, chaque moine mourant lui recommandant le suivant, jusqu'à ce que le dernier lui annonce la venue d'un prophète en Arabie. Réduit en esclavage lors de son voyage, il finit par rencontrer le Prophète à Médine et vérifia les signes qui lui avaient été décrits. Le Prophète dit de lui, selon un hadith rapporté par Al-Hakim (dont la chaîne est considérée comme faible par certains savants) : « Salman fait partie des gens de ma maison. » C'est lui qui suggéra de creuser une tranchée (khandaq) autour de Médine pour la défendre."
   },
   {
     nom: "Abu Dharr al-Ghifari",

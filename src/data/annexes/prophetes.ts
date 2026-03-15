@@ -13,7 +13,7 @@ export const prophetes: Prophete[] = [
     nomArabe: "إِدْرِيسُ",
     titre: "L'homme élevé à un haut rang",
     sourates: ["Maryam", "Al-Anbiya"],
-    histoire: "Idris est mentionné dans le Coran comme un homme véridique et un prophète qu'Allah a élevé à un haut rang. Il est considéré comme l'un des premiers prophètes après Adam et Seth. La tradition islamique lui attribue l'invention de l'écriture et de la couture, ainsi que l'enseignement de nombreuses sciences. Il est connu pour sa patience, sa piété et son engagement constant dans l'adoration d'Allah."
+    histoire: "Idris est mentionné dans le Coran comme un homme véridique et un prophète qu'Allah a élevé à un haut rang. Il est considéré comme l'un des premiers prophètes après Adam et Seth. Certaines traditions (dont des récits isra'iliyyat non confirmés par des sources authentiques) lui attribuent l'invention de l'écriture et de la couture, ainsi que l'enseignement de nombreuses sciences. Il est connu pour sa patience, sa piété et son engagement constant dans l'adoration d'Allah."
   },
   {
     nom: "Nuh (Noé)",

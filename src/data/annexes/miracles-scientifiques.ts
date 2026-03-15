@@ -5,8 +5,8 @@ export const miraclesScientifiques: MiracleScientifique[] = [
     titre: "Le développement embryonnaire",
     verset: "وَلَقَدْ خَلَقْنَا الْإِنسَانَ مِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَارٍ مَّكِينٍ ثُمَّ خَلَقْنَا النُّطْفَةَ عَلَقَةً فَخَلَقْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ",
     reference: "Al-Mu'minun 23:12-14",
-    explication: "Le Coran décrit avec une précision remarquable les étapes successives du développement de l'embryon humain : la goutte de sperme (nutfa), l'adhérence (alaqa), le morceau de chair (mudgha), la formation des os puis leur revêtement de chair. Cette description séquentielle correspond exactement aux étapes de l'embryologie moderne, alors qu'aucun instrument d'observation n'existait au 7ème siècle.",
-    decouverteModerne: "L'embryologie moderne, développée grâce au microscope à partir du 17ème siècle, a confirmé que le développement embryonnaire suit exactement les étapes décrites dans le Coran. Le professeur Keith Moore, éminent embryologiste canadien, a reconnu que la description coranique des stades embryonnaires est d'une exactitude scientifique remarquable."
+    explication: "Le Coran décrit les étapes successives du développement de l'embryon humain : la goutte de sperme (nutfa), l'adhérence (alaqa), le morceau de chair (mudgha), la formation des os puis leur revêtement de chair. Certains chercheurs voient dans cette description une correspondance avec l'embryologie moderne, bien que l'interprétation exacte des termes arabes et leur correspondance avec les étapes scientifiques fassent l'objet de discussions académiques.",
+    decouverteModerne: "L'embryologie moderne, développée grâce au microscope à partir du 17ème siècle, a décrit les stades du développement embryonnaire. Certains scientifiques ont relevé des parallèles avec la description coranique, tandis que d'autres estiment que les termes arabes classiques désignent des réalités différentes des concepts embryologiques modernes."
   },
   {
     titre: "L'expansion de l'univers",
@@ -26,7 +26,7 @@ export const miraclesScientifiques: MiracleScientifique[] = [
     titre: "Le fer venu de l'espace",
     verset: "وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ",
     reference: "Al-Hadid 57:25",
-    explication: "Le Coran utilise le verbe « anzalna » (Nous avons fait descendre) pour parler du fer, suggérant une origine extraterrestre. De plus, la sourate Al-Hadid (Le Fer) est la 57ème sourate, et le nombre atomique du fer est 26, correspondant à la valeur numérique du mot « Al-Hadid » en arabe. Cette formulation est remarquable car elle indique que le fer n'est pas un élément terrestre d'origine.",
+    explication: "Le Coran utilise le verbe « anzalna » (Nous avons fait descendre) pour parler du fer, ce que certains chercheurs interprètent comme une allusion à une origine extraterrestre. Cette formulation est considérée par certains exégètes comme indiquant que le fer n'est pas un élément terrestre d'origine, bien que d'autres savants estiment que « anzalna » peut aussi signifier « Nous avons mis à disposition » dans l'usage coranique.",
     decouverteModerne: "L'astrophysique moderne a démontré que le fer ne peut se former que dans les étoiles massives dont la température dépasse des centaines de millions de degrés. Le fer présent sur Terre provient de météorites et d'étoiles explosées (supernovae), confirmant littéralement qu'il a été « envoyé » de l'espace."
   },
   {
@@ -34,20 +34,20 @@ export const miraclesScientifiques: MiracleScientifique[] = [
     verset: "مَرَجَ الْبَحْرَيْنِ يَلْتَقِيَانِ بَيْنَهُمَا بَرْزَخٌ لَّا يَبْغِيَانِ",
     reference: "Ar-Rahman 55:19-20",
     explication: "Le Coran mentionne l'existence d'une barrière invisible entre deux mers qui se rencontrent sans se mélanger. Chaque masse d'eau conserve ses propres caractéristiques de température, de salinité et de densité malgré leur proximité. Cette barrière naturelle, appelée « barzakh » dans le Coran, empêche les deux eaux de transgresser leurs limites respectives.",
-    decouverteModerne: "L'océanographie moderne a confirmé l'existence de ces barrières naturelles entre les mers. Grâce aux images satellites et aux études océanographiques, on a découvert que les eaux de la mer Méditerranée et de l'océan Atlantique, par exemple, ne se mélangent pas au détroit de Gibraltar en raison de leurs différences de densité et de salinité."
+    decouverteModerne: "L'océanographie moderne a découvert que les eaux de mers adjacentes se mélangent lentement au niveau de zones de transition appelées haloclines, où les différences de salinité et de densité créent une séparation relative. Au détroit de Gibraltar par exemple, les eaux méditerranéennes et atlantiques se mélangent progressivement plutôt que de rester totalement séparées. Certains chercheurs rapprochent ce phénomène de la description coranique du barzakh."
   },
   {
     titre: "Les montagnes comme des piquets",
     verset: "أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا وَالْجِبَالَ أَوْتَادًا",
     reference: "An-Naba 78:6-7",
     explication: "Le Coran compare les montagnes à des piquets (awtad) enfoncés dans la terre. Tout comme un piquet a une partie visible au-dessus du sol et une partie cachée en dessous, les montagnes possèdent des racines profondes qui s'enfoncent dans la croûte terrestre. Le Coran indique également que les montagnes stabilisent la terre et empêchent son tremblement.",
-    decouverteModerne: "La géologie moderne a démontré que les montagnes possèdent effectivement des racines profondes qui s'enfoncent dans le manteau terrestre, selon le principe de l'isostasie. La théorie de la tectonique des plaques confirme que ces racines montagneuses stabilisent la croûte terrestre, exactement comme le Coran le décrit."
+    decouverteModerne: "La géologie moderne a démontré que les montagnes possèdent effectivement des racines profondes qui s'enfoncent dans le manteau terrestre, selon le principe de l'isostasie. Toutefois, l'interprétation selon laquelle les montagnes « stabilisent » la terre contre les tremblements est discutée scientifiquement, les zones montagneuses étant souvent les plus sismiquement actives. Le concept d'isostasie décrit un équilibre de la croûte terrestre plutôt qu'une stabilisation au sens courant."
   },
   {
     titre: "La fonction du lobe frontal",
     verset: "كَلَّا لَئِن لَّمْ يَنتَهِ لَنَسْفَعًا بِالنَّاصِيَةِ نَاصِيَةٍ كَاذِبَةٍ خَاطِئَةٍ",
     reference: "Al-Alaq 96:15-16",
-    explication: "Le Coran décrit le nasiyah (partie frontale de la tête) comme étant « menteuse et pécheresse », attribuant ainsi la capacité de mentir et de pécher à cette zone spécifique du cerveau. Cette association entre le front et les comportements moraux est remarquable car elle désigne précisément la zone du cerveau responsable de la prise de décision et du comportement.",
+    explication: "Le Coran décrit le nasiyah (partie frontale de la tête) comme étant « menteuse et pécheresse ». Certains y voient une allusion au cortex préfrontal, siège de la prise de décision. D'autres savants considèrent que l'usage du mot nasiyah est une figure de style (synecdoque) courante en arabe classique, désignant la personne par une partie de son corps.",
     decouverteModerne: "Les neurosciences modernes ont découvert que le cortex préfrontal, situé dans la partie frontale du cerveau, est le siège des fonctions exécutives, de la planification, de la prise de décision, du jugement moral et de la motivation. Les lésions de cette zone entraînent des changements de personnalité, un manque de jugement et des comportements antisociaux."
   },
   {
