@@ -133,6 +133,7 @@ export function SurahContent({ numero }: { numero: number }) {
         <div style={{ width: '1px', height: '20px', background: 'var(--color-border)', flexShrink: 0, marginLeft: 'auto' }} />
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Retour en haut"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             padding: '5px 10px', fontSize: '0.75rem', fontWeight: 500,

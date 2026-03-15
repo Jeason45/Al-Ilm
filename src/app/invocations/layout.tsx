@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Invocations & Adhkar — Al-Ilm',
-  description: 'Plus de 170 invocations authentiques réparties en 18 catégories : adhkar du matin et du soir, après la prière, sommeil, voyage, protection et bien plus.',
+  title: 'Invocations (Adhkar)',
+  description:
+    'Invocations du matin, du soir, de la prière et pour chaque occasion.',
   openGraph: {
     title: 'Invocations & Adhkar — Al-Ilm',
-    description: 'Plus de 170 invocations authentiques en arabe, translitération et français.',
+    description:
+      'Plus de 170 invocations authentiques en arabe, translitération et français.',
   },
 };
 

@@ -73,7 +73,7 @@ export const ramadanSections: RamadanSection[] = [
     titreArabe: "أدعية رمضان",
     icon: "HandHeart",
     contenu: [
-      "Du'a d'ouverture du jeûne (au moment du Suhur) : « Nawaytu an asuma ghadan min shahri Ramadan — J'ai l'intention de jeûner demain pour le mois de Ramadan. »",
+      "L'intention (niyyah) du jeûne : l'intention se fait dans le cœur avant le Fajr. Il n'existe pas de formule verbale spécifique rapportée du Prophète ﷺ pour l'intention du jeûne. Il suffit d'avoir la résolution sincère dans le cœur de jeûner le lendemain.",
       "Du'a de rupture du jeûne (Iftar) : « Dhahaba adh-dhama'u, wabtallatil-'uruqu, wa thabatal-ajru in sha Allah — La soif est partie, les veines se sont humectées et la récompense est confirmée, si Allah le veut. » (Abu Dawud)",
       "Du'a de Laylat al-Qadr : « Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni — Ô Allah, Tu es Celui qui pardonne, Tu aimes le pardon, alors pardonne-moi. » (Tirmidhi)",
       "Autres invocations recommandées : demander le Paradis, la protection contre l'Enfer, le pardon des péchés, la guidance, la santé et la subsistance. Le Prophète ﷺ a dit : « Trois personnes dont l'invocation n'est pas rejetée : le jeûneur jusqu'à ce qu'il rompe son jeûne, le gouvernant juste et l'invocation de l'opprimé. » (Tirmidhi)"

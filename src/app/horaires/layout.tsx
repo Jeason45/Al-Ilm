@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'La Prière — Al-Ilm',
+  title: 'Horaires de prière',
   description:
-    'Horaires de prière, tutoriel complet étape par étape avec positions illustrées, et adhan avec texte synchronisé — Fajr, Dhuhr, Asr, Maghrib, Isha.',
+    'Horaires de prière selon votre localisation et guide de la prière étape par étape.',
 };
 
 export default function HorairesLayout({ children }: { children: React.ReactNode }) {

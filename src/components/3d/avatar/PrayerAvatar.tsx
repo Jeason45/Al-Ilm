@@ -106,7 +106,7 @@ export function PrayerAvatar({ modelUrl, pose, poseRef: externalPoseRef, scale =
 
         bonesRef.current = bones;
         initialRotations.current = rotations;
-        console.log(`[PrayerAvatar] Captured ${bones.size} bones, prefix="${prefix}"`);
+        // bones captured: ${bones.size}
       }
     }
 

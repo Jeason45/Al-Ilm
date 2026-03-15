@@ -108,6 +108,7 @@ export const asr: PrayerDefinition = {
           dhikrAr: 'سمع الله لمن حمده، ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'a Allahu liman hamidah. Rabbana wa lakal-hamd',
           notes: 'Se redresser complètement après le ruku\'.',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r1-takbir-sujud1',
@@ -151,6 +152,7 @@ export const asr: PrayerDefinition = {
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
           notes: 'S\'asseoir brièvement entre les deux prosternations.',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r1-takbir-sujud2',
@@ -248,6 +250,7 @@ export const asr: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue. Ô notre Seigneur, à Toi la louange.',
           dhikrAr: 'سمع الله لمن حمده، ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'a Allahu liman hamidah. Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r2-takbir-sujud1',
@@ -289,6 +292,7 @@ export const asr: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r2-takbir-sujud2',
@@ -389,6 +393,7 @@ export const asr: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue. Ô notre Seigneur, à Toi la louange.',
           dhikrAr: 'سمع الله لمن حمده، ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'a Allahu liman hamidah. Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r3-takbir-sujud1',
@@ -430,6 +435,7 @@ export const asr: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r3-takbir-sujud2',
@@ -519,6 +525,7 @@ export const asr: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue. Ô notre Seigneur, à Toi la louange.',
           dhikrAr: 'سمع الله لمن حمده، ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'a Allahu liman hamidah. Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r4-takbir-sujud1',
@@ -560,6 +567,7 @@ export const asr: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r4-takbir-sujud2',
@@ -603,6 +611,7 @@ export const asr: PrayerDefinition = {
           dhikrAr: 'اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم وبارك على محمد وعلى آل محمد كما باركت على إبراهيم وعلى آل إبراهيم في العالمين إنك حميد مجيد',
           dhikrTranslit: 'Allahumma salli \'ala Muhammad wa \'ala ali Muhammad, kama sallayta \'ala Ibrahim wa \'ala ali Ibrahim. Wa barik \'ala Muhammad wa \'ala ali Muhammad, kama barakta \'ala Ibrahim wa \'ala ali Ibrahim, fil-\'alamin innaka Hamidun Majid',
           notes: 'Récitée après le tashahud final, avant le salam.',
+          madhabNote: 'Sunnah muakkada chez les Hanafites et Malikites. Rukn (fard) chez les Shafi\'ites et Hanbalites.',
         },
         {
           id: 'asr-r4-salam-right',
@@ -625,6 +634,7 @@ export const asr: PrayerDefinition = {
           dhikrAr: 'السلام عليكم ورحمة الله',
           dhikrTranslit: 'As-salamu \'alaykum wa rahmatullah',
           notes: 'Tourner la tête vers la gauche. Fin de la prière.',
+          madhabNote: 'Sunnah muakkada chez les Hanafites, Malikites et Shafi\'ites. Wajib (obligatoire) chez les Hanbalites.',
         },
       ],
     },

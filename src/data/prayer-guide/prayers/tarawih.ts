@@ -74,6 +74,7 @@ export const tarawih: PrayerDefinition = {
           dhikrAr: 'سمع الله لمن حمده، ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'a Allahu liman hamidah. Rabbana wa lakal-hamd.',
           notes: 'Se redresser complètement après l\'inclinaison avant de descendre en prosternation.',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'tarawih-r1-takbir-sujud1',
@@ -118,6 +119,7 @@ export const tarawih: PrayerDefinition = {
           dhikrTranslit: 'Rabbi ighfir li',
           repetitions: 3,
           notes: 'S\'asseoir un instant entre les deux prosternations.',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'tarawih-r1-takbir-sujud2',
@@ -207,6 +209,7 @@ export const tarawih: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue. Notre Seigneur, à Toi la louange.',
           dhikrAr: 'سمع الله لمن حمده، ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'a Allahu liman hamidah. Rabbana wa lakal-hamd.',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'tarawih-r2-takbir-sujud1',
@@ -249,6 +252,7 @@ export const tarawih: PrayerDefinition = {
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
           repetitions: 3,
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'tarawih-r2-takbir-sujud2',
@@ -292,6 +296,7 @@ export const tarawih: PrayerDefinition = {
           dhikrAr: 'اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم وبارك على محمد وعلى آل محمد كما باركت على إبراهيم وعلى آل إبراهيم في العالمين إنك حميد مجيد',
           dhikrTranslit: 'Allahumma salli \'ala Muhammad wa \'ala ali Muhammad kama sallayta \'ala Ibrahim wa \'ala ali Ibrahim, wa barik \'ala Muhammad wa \'ala ali Muhammad kama barakta \'ala Ibrahim wa \'ala ali Ibrahim fil-\'alamin, innaka Hamidun Majid.',
           notes: 'Récitées après le tashahud final, avant le salam.',
+          madhabNote: 'Sunnah muakkada chez les Hanafites et Malikites. Rukn (fard) chez les Shafi\'ites et Hanbalites.',
         },
         {
           id: 'tarawih-r2-salam-right',
@@ -314,6 +319,7 @@ export const tarawih: PrayerDefinition = {
           dhikrAr: 'السلام عليكم ورحمة الله',
           dhikrTranslit: 'As-salamu \'alaykum wa rahmatullah',
           notes: 'Tourner la tête vers la gauche. Les tarawih se prient en séries de 2 rak\'at. On répète 4 fois (8 rak\'at) ou 10 fois (20 rak\'at) selon l\'avis suivi. On prend une pause (tarwiha) entre chaque série de 2 rak\'at. Il est sunnah de conclure les tarawih par la prière du Witr.',
+          madhabNote: 'Sunnah muakkada chez les Hanafites, Malikites et Shafi\'ites. Wajib (obligatoire) chez les Hanbalites.',
         },
       ],
     },

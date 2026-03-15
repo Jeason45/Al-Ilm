@@ -26,9 +26,9 @@ export const associationsIslam: AssociationIslam[] = [
     pays: "France"
   },
   {
-    nom: "Barakacity (BarakaCity)",
-    description: "Association humanitaire française intervenant dans des projets d'aide d'urgence, de construction de puits et d'aide aux orphelins à travers le monde.",
-    url: "https://www.barakacity.com",
+    nom: "Ummah Charity",
+    description: "Association humanitaire française intervenant dans des projets d'aide d'urgence, de construction de puits, d'aide alimentaire et de soutien aux orphelins à travers le monde.",
+    url: "https://ummahcharity.org",
     pays: "France"
   }
 ];

@@ -34,7 +34,7 @@ export function useFavorites() {
           })));
         }
       })
-      .catch(() => {});
+      .catch(() => { /* réseau indisponible — favoris locaux utilisés */ });
   }, [isLoggedIn]);
 
   // Sync localStorage favorites to DB on first login
@@ -64,7 +64,7 @@ export function useFavorites() {
           }
         });
       setLocalFavs([]);
-    }).catch(() => {});
+    }).catch(() => { /* sync échouée — sera retentée à la prochaine connexion */ });
   }, [isLoggedIn, synced, localFavs, setLocalFavs]);
 
   const isFavorite = useCallback((type: string, reference: string) => {

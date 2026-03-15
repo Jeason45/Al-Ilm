@@ -37,6 +37,7 @@ export function SearchInput({ value, onChange, placeholder = 'Rechercher...', cl
       {value && (
         <button
           onClick={() => onChange('')}
+          aria-label="Effacer la recherche"
           style={{
             position: 'absolute',
             right: '16px',

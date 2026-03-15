@@ -159,7 +159,7 @@ export const soirInvocations: InvocationItem[] = [
     arabe: 'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ',
     transliteration: 'Allahumma salli wa sallim \'ala nabiyyina Muhammad.',
     traduction: 'Ô Allah, accorde Ta prière et Ton salut à notre Prophète Muhammad.',
-    source: 'Tirmidhi 2457',
+    source: 'At-Tabarani, Al-Mu\'jam al-Kabir',
     isQuranic: false,
     repetitions: 10,
   },

@@ -63,6 +63,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r1-takbir-sujud1',
@@ -104,6 +105,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r1-takbir-sujud2',
@@ -183,6 +185,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r2-takbir-sujud1',
@@ -224,6 +227,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r2-takbir-sujud2',
@@ -314,6 +318,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r3-takbir-sujud1',
@@ -355,6 +360,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r3-takbir-sujud2',
@@ -434,6 +440,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r4-takbir-sujud1',
@@ -475,6 +482,7 @@ export const isha: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'isha-r4-takbir-sujud2',

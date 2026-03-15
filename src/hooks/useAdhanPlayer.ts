@@ -56,14 +56,14 @@ export function useAdhanPlayer({ lines }: UseAdhanPlayerOptions) {
     }
 
     if (audio.src === url && audio.paused && audio.currentTime > 0) {
-      audio.play();
+      audio.play().catch(() => {});
       setIsPlaying(true);
       animFrameRef.current = requestAnimationFrame(updateProgress);
       return;
     }
 
     audio.src = url;
-    audio.play();
+    audio.play().catch(() => {});
     setIsPlaying(true);
     setCurrentLineIndex(0);
     setProgress(0);

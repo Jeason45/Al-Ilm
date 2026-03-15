@@ -91,7 +91,7 @@ export function Header() {
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
                 className="text-muted hover:text-foreground transition-colors"
                 style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
-                aria-label="Menu"
+                aria-label={isMobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               >
                 {isMobileOpen ? <X style={{ width: '20px', height: '20px' }} /> : <Menu style={{ width: '20px', height: '20px' }} />}
               </button>

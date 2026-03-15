@@ -76,7 +76,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
       }
     };
     audio.src = url;
-    audio.play();
+    audio.play().catch(() => {});
     setCurrentIndex(idx);
     setIsPlaying(true);
   }
@@ -97,7 +97,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
         if (nextIdx < keys.length) playFromIndex(nextIdx);
         else stop();
       };
-      audio.play();
+      audio.play().catch(() => {});
       setIsPlaying(true);
     } else {
       playFromIndex(0);
@@ -138,6 +138,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
         <button
           onClick={handlePrev}
           disabled={!ready || currentIndex <= 0}
+          aria-label="Verset précédent"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '32px', height: '32px', borderRadius: '50%',
@@ -153,6 +154,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
         <button
           onClick={handlePlayPause}
           disabled={!ready}
+          aria-label={isPlaying ? "Pause" : "Lecture"}
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '36px', height: '36px', borderRadius: '50%',
@@ -174,6 +176,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
         <button
           onClick={handleNext}
           disabled={!ready || currentIndex < 0}
+          aria-label="Verset suivant"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '32px', height: '32px', borderRadius: '50%',
@@ -203,6 +206,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
       <div style={{ position: 'relative' }}>
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
+          aria-label="Choisir le récitateur"
           style={{
             display: 'flex', alignItems: 'center', gap: '6px',
             padding: '6px 12px', fontSize: '0.75rem',
@@ -251,6 +255,7 @@ export function SurahAudioPlayer({ chapterNumber, verseCount }: SurahAudioPlayer
       {isPlaying && (
         <button
           onClick={stop}
+          aria-label="Arrêter"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '32px', height: '32px', borderRadius: '50%',

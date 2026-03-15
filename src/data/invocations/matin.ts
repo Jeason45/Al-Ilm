@@ -176,9 +176,9 @@ export const matinInvocations: InvocationItem[] = [
     arabe: 'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ',
     transliteration: 'Allahumma salli wa sallim \'ala nabiyyina Muhammad.',
     traduction: 'Ô Allah, accorde Ta prière et Ton salut à notre Prophète Muhammad.',
-    source: 'Tirmidhi 2457',
+    source: 'At-Tabarani, Al-Mu\'jam al-Kabir',
     isQuranic: false,
     repetitions: 10,
-    notes: 'Le Prophète ﷺ a dit : « Celui qui prie sur moi 10 fois le matin et 10 fois le soir bénéficiera de mon intercession. »',
+    notes: 'Le Prophète ﷺ a dit : « Celui qui prie sur moi 10 fois le matin et 10 fois le soir bénéficiera de mon intercession. » (At-Tabarani ; chaîne jugée hasan par Al-Haythami)',
   },
 ];

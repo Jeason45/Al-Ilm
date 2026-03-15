@@ -205,7 +205,7 @@ export const siraEvenements: SiraEvenement[] = [
       "Le Prophète ﷺ accomplit son unique et dernier pèlerinage avec plus de 100 000 compagnons. C'est durant ce pèlerinage qu'il enseigne les rites du Hajj et prononce son sermon d'adieu, l'un des discours les plus importants de l'histoire.",
       "Extraits du sermon : « Ô gens ! Votre sang, vos biens et votre honneur sont sacrés, comme est sacré ce jour-ci, dans ce mois-ci, dans cette cité-ci. Tout ce qui appartient à l'époque pré-islamique est aboli sous mes pieds. »",
       "« L'Arabe n'a aucune supériorité sur le non-Arabe, ni le non-Arabe sur l'Arabe. Le blanc n'a aucune supériorité sur le noir, ni le noir sur le blanc, si ce n'est par la piété. Vous descendez tous d'Adam, et Adam a été créé de terre. »",
-      "Sur le mont Arafat, le dernier verset du Coran relatif à la législation est révélé : « Aujourd'hui, J'ai parachevé pour vous votre religion, J'ai complété Mon bienfait sur vous, et J'ai agréé l'Islam comme religion pour vous. » (Sourate Al-Ma'ida, 5:3). En entendant ce verset, Abu Bakr pleure, comprenant que la mission du Prophète ﷺ touche à sa fin."
+      "Sur le mont Arafat, le dernier verset du Coran relatif à la législation est révélé : « Aujourd'hui, J'ai parachevé pour vous votre religion, J'ai complété Mon bienfait sur vous, et J'ai agréé l'Islam comme religion pour vous. » (Sourate Al-Ma'ida, 5:3). En entendant ce verset, Umar pleure, comprenant que la mission du Prophète ﷺ touche à sa fin."
     ]
   },
   {

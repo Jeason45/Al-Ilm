@@ -72,6 +72,7 @@ function PlayBtn({ playing, onClick }: { playing: boolean; onClick: () => void }
   return (
     <button
       onClick={onClick}
+      aria-label={playing ? 'Mettre en pause' : 'Écouter le verset'}
       style={{
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         width: '26px', height: '26px', borderRadius: '50%',
@@ -129,7 +130,7 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
     if (!tafsirEnabled || tafsirMap.size > 0) return;
     fetchTafsir(chapterNumber)
       .then(setTafsirMap)
-      .catch(() => {}); // silent fail
+      .catch(() => { /* tafsir indisponible */ });
   }, [tafsirEnabled, chapterNumber, tafsirMap.size]);
 
   const handleReciterChange = (id: number) => { setReciterId(id); setDropdownOpen(false); };
@@ -455,6 +456,7 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
                   {layers.map((layer, idx) => (
                     <div key={layer.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px' }}>
                       <button onClick={() => toggleLayer(layer.id)}
+                        aria-label={layer.enabled ? `Masquer ${layer.label}` : `Afficher ${layer.label}`}
                         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '28px', height: '28px', borderRadius: '6px', border: 'none', background: layer.enabled ? 'rgba(201, 168, 76, 0.15)' : 'rgba(255,255,255,0.05)', color: layer.enabled ? 'var(--color-gold)' : 'var(--color-muted)', cursor: 'pointer', transition: 'all 0.15s', flexShrink: 0 }}
                       >
                         {layer.enabled ? <Eye style={{ width: '14px', height: '14px' }} /> : <EyeOff style={{ width: '14px', height: '14px' }} />}
@@ -464,11 +466,13 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
                       </span>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
                         <button onClick={() => moveLayer(layer.id, 'up')} disabled={idx === 0}
+                          aria-label={`Monter ${layer.label}`}
                           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px', height: '16px', border: 'none', background: 'transparent', color: idx === 0 ? 'var(--color-border)' : 'var(--color-muted)', cursor: idx === 0 ? 'default' : 'pointer', borderRadius: '3px' }}
                         >
                           <ChevronUp style={{ width: '12px', height: '12px' }} />
                         </button>
                         <button onClick={() => moveLayer(layer.id, 'down')} disabled={idx === layers.length - 1}
+                          aria-label={`Descendre ${layer.label}`}
                           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px', height: '16px', border: 'none', background: 'transparent', color: idx === layers.length - 1 ? 'var(--color-border)' : 'var(--color-muted)', cursor: idx === layers.length - 1 ? 'default' : 'pointer', borderRadius: '3px' }}
                         >
                           <ChevronDown style={{ width: '12px', height: '12px' }} />
@@ -504,6 +508,7 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
           <button
             onClick={handlePlayAll}
             disabled={audioLoading || audioUrls.size === 0}
+            aria-label={isPlayingAll ? 'Mettre en pause la sourate' : 'Écouter la sourate'}
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: '28px', height: '28px', borderRadius: '50%',
@@ -520,6 +525,7 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
           {(isPlaying || isPlayingAll) && (
             <button
               onClick={stop}
+              aria-label="Arrêter la lecture"
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 width: '28px', height: '28px', borderRadius: '50%',
@@ -568,6 +574,7 @@ export function QuranReader({ chapterNumber, verseCount }: QuranReaderProps) {
         <div style={{ width: '1px', height: '20px', background: 'var(--color-border)', flexShrink: 0, marginLeft: 'auto' }} />
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Retour en haut"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px',
             padding: '5px 10px', fontSize: '0.75rem', fontWeight: 500,

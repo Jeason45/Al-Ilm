@@ -176,6 +176,7 @@ export function TextReader({ sections }: TextReaderProps) {
         <button
           onClick={handlePrev}
           disabled={!speaking || currentSection <= 0}
+          aria-label="Section précédente"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '30px', height: '30px', borderRadius: '50%',
@@ -189,6 +190,7 @@ export function TextReader({ sections }: TextReaderProps) {
 
         <button
           onClick={speaking && !paused ? handlePause : handlePlay}
+          aria-label={speaking && !paused ? 'Mettre en pause' : 'Lire le texte'}
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '34px', height: '34px', borderRadius: '50%',
@@ -208,6 +210,7 @@ export function TextReader({ sections }: TextReaderProps) {
         <button
           onClick={handleNext}
           disabled={!speaking || currentSection >= sections.length - 1}
+          aria-label="Section suivante"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '30px', height: '30px', borderRadius: '50%',
@@ -238,6 +241,7 @@ export function TextReader({ sections }: TextReaderProps) {
         <button
           onClick={() => adjustRate(-0.1)}
           disabled={rate <= 0.5}
+          aria-label="Réduire la vitesse"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '24px', height: '24px', borderRadius: '6px',
@@ -254,6 +258,7 @@ export function TextReader({ sections }: TextReaderProps) {
         <button
           onClick={() => adjustRate(0.1)}
           disabled={rate >= 2}
+          aria-label="Augmenter la vitesse"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '24px', height: '24px', borderRadius: '6px',
@@ -271,6 +276,7 @@ export function TextReader({ sections }: TextReaderProps) {
         <div style={{ position: 'relative' }}>
           <button
             onClick={() => setVoiceDropdownOpen(!voiceDropdownOpen)}
+            aria-label="Choisir la voix"
             style={{
               display: 'flex', alignItems: 'center', gap: '4px',
               padding: '5px 10px', fontSize: '0.6875rem',
@@ -324,6 +330,7 @@ export function TextReader({ sections }: TextReaderProps) {
       {speaking && (
         <button
           onClick={stop}
+          aria-label="Arrêter la lecture"
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '30px', height: '30px', borderRadius: '50%',

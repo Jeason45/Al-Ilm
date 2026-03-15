@@ -65,6 +65,7 @@ export function AdhanPlayer({ muezzinId, onMuezzinChange, isPlaying, progress, o
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
         <button
           onClick={() => onPlay(currentMuezzin.audioUrl)}
+          aria-label={isPlaying ? "Mettre en pause l'adhan" : "Écouter l'adhan"}
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '48px', height: '48px', borderRadius: '50%',
@@ -82,6 +83,7 @@ export function AdhanPlayer({ muezzinId, onMuezzinChange, isPlaying, progress, o
         {(isPlaying || progress > 0) && (
           <button
             onClick={onStop}
+            aria-label="Arrêter l'adhan"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: '36px', height: '36px', borderRadius: '50%',

@@ -39,6 +39,7 @@ export interface PrayerStep {
   dhikrTranslit?: string;
   repetitions?: number;
   notes?: string;
+  madhabNote?: string;
 }
 
 export interface Rakaa {
@@ -53,6 +54,7 @@ export interface PrayerDefinition {
   name: string;
   nameAr: string;
   ruling: RulingType;
+  madhabNote?: string;
   rakaatCount: number | string;
   description: string;
   rakaat: Rakaa[];

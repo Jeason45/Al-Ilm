@@ -5,6 +5,7 @@ export const witr: PrayerDefinition = {
   name: 'Witr',
   nameAr: 'الوتر',
   ruling: 'sunnah-muakkada',
+  madhabNote: 'Wajib (obligatoire) chez les Hanafites. Sunnah muakkada chez les Malikites, Shafi\'ites et Hanbalites.',
   rakaatCount: '1 ou 3',
   description: 'Priere impaire — 1 ou 3 unites (apres Isha)',
   rakaat: [
@@ -63,6 +64,7 @@ export const witr: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'witr-r1-takbir-sujud1',
@@ -104,6 +106,7 @@ export const witr: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'witr-r1-takbir-sujud2',
@@ -183,6 +186,7 @@ export const witr: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'witr-r2-takbir-sujud1',
@@ -224,6 +228,7 @@ export const witr: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'witr-r2-takbir-sujud2',
@@ -325,6 +330,7 @@ export const witr: PrayerDefinition = {
           dhikr: 'Allah entend celui qui Le loue — Notre Seigneur, a Toi la louange',
           dhikrAr: 'سمع الله لمن حمده — ربنا ولك الحمد',
           dhikrTranslit: 'Sami\'Allahu liman hamidah — Rabbana wa lakal-hamd',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'witr-r3-takbir-sujud1',
@@ -366,6 +372,7 @@ export const witr: PrayerDefinition = {
           dhikr: 'Seigneur, pardonne-moi',
           dhikrAr: 'رب اغفر لي',
           dhikrTranslit: 'Rabbi ighfir li',
+          madhabNote: 'Wajib chez les Hanafites. Rukn (fard) chez les Malikites, Shafi\'ites et Hanbalites.',
         },
         {
           id: 'witr-r3-takbir-sujud2',

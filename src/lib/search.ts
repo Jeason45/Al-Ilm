@@ -1,5 +1,10 @@
 import Fuse from 'fuse.js';
 import type { SurahMeta } from '@/data/types';
+import { surahsMeta } from '@/data/metadata';
+import { nomsAllah } from '@/data/annexes/noms-allah';
+import { prophetes } from '@/data/annexes/prophetes';
+import { glossaire } from '@/data/annexes/glossaire';
+import { invocations } from '@/data/annexes/invocations';
 
 /* ── Surah search (existing) ── */
 let fuseInstance: Fuse<SurahMeta> | null = null;
@@ -55,13 +60,6 @@ let cachedItems: SearchableItem[] | null = null;
 
 export function buildSearchIndex(): SearchableItem[] {
   if (cachedItems) return cachedItems;
-
-  /* eslint-disable @typescript-eslint/no-require-imports */
-  const { surahsMeta } = require('@/data/metadata');
-  const { nomsAllah } = require('@/data/annexes/noms-allah');
-  const { prophetes } = require('@/data/annexes/prophetes');
-  const { glossaire } = require('@/data/annexes/glossaire');
-  const { invocations } = require('@/data/annexes/invocations');
 
   const items: SearchableItem[] = [];
 

@@ -289,6 +289,7 @@ export function HadithReader({ collectionId, allSahih }: HadithReaderProps) {
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
+              aria-label="Effacer la recherche"
               style={{
                 position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -412,6 +413,7 @@ export function HadithReader({ collectionId, allSahih }: HadithReaderProps) {
           <button
             onClick={goToPrev}
             disabled={!hasPrev}
+            aria-label="Livre précédent"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: '28px', height: '28px', borderRadius: '6px',
@@ -437,6 +439,7 @@ export function HadithReader({ collectionId, allSahih }: HadithReaderProps) {
           <button
             onClick={goToNext}
             disabled={!hasNext}
+            aria-label="Livre suivant"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: '28px', height: '28px', borderRadius: '6px',
@@ -452,6 +455,7 @@ export function HadithReader({ collectionId, allSahih }: HadithReaderProps) {
           <div style={{ width: '1px', height: '20px', background: 'var(--color-border)', flexShrink: 0 }} />
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Retour en haut"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: '28px', height: '28px', borderRadius: '6px',
@@ -552,6 +556,7 @@ function HadithCard({ hadith, allSahih }: { hadith: Hadith; allSahih: boolean })
           <GradeBadge grade={primaryGrade} allSahih={allSahih} />
           <button
             onClick={handleCopy}
+            aria-label="Copier le hadith"
             title="Copier le hadith"
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',

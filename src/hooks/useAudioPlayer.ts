@@ -50,7 +50,7 @@ export function useAudioPlayer() {
     };
 
     audio.src = url;
-    audio.play();
+    audio.play().catch(() => {});
     setCurrentVerseKey(verseKey);
     setIsPlaying(true);
   }, [currentVerseKey, getAudio]);
@@ -80,7 +80,7 @@ export function useAudioPlayer() {
       };
 
       audio.src = url;
-      audio.play();
+      audio.play().catch(() => {});
       setCurrentVerseKey(key);
       setIsPlaying(true);
     };

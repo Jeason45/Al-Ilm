@@ -34,7 +34,7 @@ export const piliersFoi: PilierFoi[] = [
       "Jibril (Gabriel) : le plus noble des anges, chargé de transmettre la Révélation aux prophètes. C'est lui qui a révélé le Coran au Prophète Muhammad ﷺ.",
       "Mikail (Michel) : chargé de la pluie et de la subsistance des créatures.",
       "Israfil : chargé de souffler dans la Trompe (as-Sur) le Jour de la Résurrection.",
-      "Azrail (Malak al-Mawt) : l'ange de la mort, chargé de recueillir les âmes. Les anges Munkar et Nakir interrogent les morts dans la tombe. Raqib et Atid sont les anges scribes qui notent chaque bonne et mauvaise action de l'être humain. Malik est le gardien de l'Enfer, et Ridwan le gardien du Paradis."
+      "Malak al-Mawt (l'ange de la mort) : chargé de recueillir les âmes (Sourate As-Sajda, 32:11). Les anges Munkar et Nakir interrogent les morts dans la tombe. Raqib et Atid sont les anges scribes qui notent chaque bonne et mauvaise action de l'être humain. Malik est le gardien de l'Enfer, et Ridwan le gardien du Paradis."
     ]
   },
   {
@@ -67,7 +67,7 @@ export const piliersFoi: PilierFoi[] = [
       "Le Prophète ﷺ a dit : « Les prophètes sont des frères de père (même religion, le monothéisme) mais de mères différentes (législations différentes). » (Bukhari & Muslim)"
     ],
     details: [
-      "25 prophètes sont mentionnés nommément dans le Coran, d'Adam à Muhammad ﷺ. Le Prophète ﷺ a dit que le nombre total de prophètes est de 124 000 et celui des messagers de 315.",
+      "25 prophètes sont mentionnés nommément dans le Coran, d'Adam à Muhammad ﷺ. Le Prophète ﷺ a dit que le nombre total de prophètes est de 124 000 et celui des messagers de 315 (hadith rapporté par Ahmad d'après Abu Dharr, dont la chaîne est considérée comme faible par certains savants).",
       "Tout prophète est un homme choisi par Allah, véridique, digne de confiance, qui a transmis fidèlement le message divin. Les prophètes sont protégés par Allah (ma'sum) contre les péchés majeurs.",
       "Le message de tous les prophètes est le même dans son essence : « Adorez Allah, vous n'avez pas d'autre divinité que Lui. » Seules les législations pratiques diffèrent selon les époques et les peuples.",
       "Muhammad ﷺ est le sceau des prophètes (Khatam an-Nabiyyin). Sa mission est universelle et éternelle, et sa législation (la Shari'a) est la dernière et la plus complète. Il n'y aura plus de prophète après lui."
