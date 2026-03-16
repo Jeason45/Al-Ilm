@@ -147,7 +147,7 @@ export default function QuizPage() {
             </div>
           </ScrollReveal>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="quiz-grid">
+          <div style={{ display: 'grid', gap: '16px' }} className="quiz-grid">
             {CATEGORIES.map((cat, i) => {
               const Icon = cat.icon;
               return (
@@ -379,13 +379,13 @@ export default function QuizPage() {
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                     {categoryBreakdown.map(cat => (
-                      <div key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <span className="text-muted" style={{ fontSize: '0.75rem', width: '90px', flexShrink: 0, textAlign: 'right' }}>
+                      <div key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span className="text-muted" style={{ fontSize: 'clamp(0.625rem, 2.5vw, 0.75rem)', minWidth: '60px', maxWidth: '100px', flexShrink: 0, textAlign: 'right', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {cat.label}
                         </span>
                         <div style={{
                           flex: 1, height: '6px', borderRadius: '3px',
-                          background: 'var(--color-surface-elevated)', overflow: 'hidden',
+                          background: 'var(--color-surface-elevated)', overflow: 'hidden', minWidth: '40px',
                         }}>
                           <div style={{
                             width: `${cat.percent}%`, height: '100%', borderRadius: '3px',
@@ -394,7 +394,7 @@ export default function QuizPage() {
                           }} />
                         </div>
                         <span style={{
-                          fontSize: '0.75rem', fontWeight: 600, width: '42px', flexShrink: 0,
+                          fontSize: 'clamp(0.625rem, 2.5vw, 0.75rem)', fontWeight: 600, flexShrink: 0,
                           color: cat.percent >= 80 ? 'var(--color-emerald)' : cat.percent >= 50 ? 'var(--color-gold)' : 'var(--color-rose)',
                         }}>
                           {cat.correct}/{cat.total}

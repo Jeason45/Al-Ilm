@@ -120,7 +120,7 @@ export function Header() {
           isMobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         )}
       >
-        <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '2rem' }}>
+        <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 'clamp(1.25rem, 4vh, 2rem)' }}>
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

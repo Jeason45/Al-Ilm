@@ -45,7 +45,7 @@ export function HeroSection() {
       {/* Bottom fade — adapts to theme: black in dark, white in light */}
       <style dangerouslySetInnerHTML={{ __html: `
         .hero-fade {
-          position: absolute; bottom: 0; left: 0; right: 0; height: 25%; z-index: 1;
+          position: absolute; bottom: 0; left: 0; right: 0; height: clamp(20%, 30vh, 30%); z-index: 1;
           background: linear-gradient(to bottom, transparent 0%, var(--color-background) 100%);
         }
       `}} />
@@ -54,7 +54,7 @@ export function HeroSection() {
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 10, textAlign: 'center' as const, maxWidth: '768px', paddingLeft: 'clamp(14px, 4vw, 24px)', paddingRight: 'clamp(14px, 4vw, 24px)' }}>
         <p className="font-amiri animate-fade-in" style={{
-          fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+          fontSize: 'clamp(2rem, 6vw, 4.5rem)',
           marginBottom: '1.5rem',
           color: '#C9A84C',
           textShadow: '0 2px 20px rgba(0,0,0,0.5)',
@@ -63,7 +63,7 @@ export function HeroSection() {
         </p>
 
         <h1 className="font-outfit font-bold animate-fade-up delay-200" style={{
-          fontSize: 'clamp(3.5rem, 10vw, 8rem)',
+          fontSize: 'clamp(2.5rem, 10vw, 8rem)',
           letterSpacing: '-0.03em',
           lineHeight: 1,
           color: '#fff',
