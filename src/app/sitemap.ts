@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllSurahsMeta } from '@/data/index';
-import { SITE_URL, ANNEXES_LINKS } from '@/lib/constants';
+import { SITE_URL, APPRENDRE_LINKS, PRATIQUE_LINKS } from '@/lib/constants';
 import { HADITH_COLLECTIONS } from '@/lib/hadith-api';
 import { CATEGORIES } from '@/data/invocations/categories';
 
@@ -23,7 +23,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const annexePages = ANNEXES_LINKS.map((link) => ({
+  const apprendreSubPages = APPRENDRE_LINKS.map((link) => ({
+    url: `${SITE_URL}${link.href}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  const pratiquePages = PRATIQUE_LINKS.map((link) => ({
     url: `${SITE_URL}${link.href}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
@@ -64,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/annexes`,
+      url: `${SITE_URL}/pratique`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -76,7 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/horaires`,
+      url: `${SITE_URL}/pratique/priere`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
@@ -95,7 +102,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...apprendrePages,
     ...coranPages,
-    ...annexePages,
+    ...apprendreSubPages,
+    ...pratiquePages,
     ...hadithPages,
     {
       url: `${SITE_URL}/invocations`,

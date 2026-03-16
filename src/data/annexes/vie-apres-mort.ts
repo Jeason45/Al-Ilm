@@ -7,8 +7,8 @@ export const etapesAkhira: EtapeAkhira[] = [
     icon: "Clock",
     contenu: [
       "La mort est la première étape vers l'au-delà. Allah dit : « Toute âme goûtera la mort. Ensuite c'est vers Nous que vous serez ramenés. » (Sourate Al-Ankabut, 29:57). La mort n'est pas une fin, mais un passage vers la vie éternelle.",
-      "L'ange de la mort (Malak al-Mawt) vient recueillir l'âme au moment décrété par Allah. Pour le croyant, les anges viennent avec des visages lumineux et un parfum de musc. Pour le mécréant, les anges viennent avec des visages sombres et terrifiants (Ahmad, Abu Dawud).",
-      "Le Prophète ﷺ a dit : « Quand le croyant est sur le point de quitter ce monde et d'entrer dans l'autre, des anges au visage blanc comme le soleil descendent du ciel avec un linceul et un parfum du Paradis. » (Ahmad)",
+      "L'ange de la mort (Malak al-Mawt) vient recueillir l'âme au moment décrété par Allah. Pour le croyant, les anges viennent avec des visages lumineux et un parfum de musc. Pour le mécréant, les anges viennent avec des visages sombres et terrifiants. Ce récit détaillé est rapporté par Ahmad et Abu Dawud dans un long hadith jugé authentique (sahih) par Al-Albani.",
+      "Le Prophète ﷺ a dit : « Quand le croyant est sur le point de quitter ce monde et d'entrer dans l'autre, des anges au visage blanc comme le soleil descendent du ciel avec un linceul et un parfum du Paradis. » (Ahmad, chaîne jugée sahih par Al-Albani)",
       "Au moment de la mort, il est recommandé de rappeler au mourant la Shahada. Le Prophète ﷺ a dit : « Dictez à vos mourants : La ilaha illa Allah. » (Muslim). La dernière parole d'un croyant devrait être l'attestation de foi."
     ]
   },
@@ -29,9 +29,9 @@ export const etapesAkhira: EtapeAkhira[] = [
     icon: "AlertTriangle",
     contenu: [
       "Le Barzakh est la vie intermédiaire entre la mort et la Résurrection. C'est un monde que nous ne pouvons percevoir, mais dont le Prophète ﷺ nous a informés en détail.",
-      "Les deux anges Munkar et Nakir viennent interroger le défunt dans sa tombe. Ils posent trois questions : « Qui est ton Seigneur ? Quelle est ta religion ? Qui est cet homme qui a été envoyé parmi vous ? » Le croyant répond : « Mon Seigneur est Allah. Ma religion est l'Islam. C'est Muhammad, le Messager d'Allah. » (Ahmad, Abu Dawud)",
-      "Pour le croyant qui répond correctement, sa tombe est élargie et illuminée, et on lui ouvre une fenêtre vers le Paradis. Il vit dans le bonheur jusqu'au Jour de la Résurrection. Le Prophète ﷺ a dit : « La tombe est soit un jardin parmi les jardins du Paradis, soit une fosse parmi les fosses de l'Enfer. » (Tirmidhi)",
-      "La sourate Al-Mulk (67) protège du châtiment de la tombe. Le Prophète ﷺ a dit : « Une sourate du Coran comportant trente versets a intercédé en faveur d'un homme jusqu'à ce qu'il lui soit pardonné : c'est Tabarak alladhi bi-yadihi al-mulk. » (Abu Dawud, Tirmidhi)"
+      "Les deux anges Munkar et Nakir viennent interroger le défunt dans sa tombe. Ils posent trois questions : « Qui est ton Seigneur ? Quelle est ta religion ? Qui est cet homme qui a été envoyé parmi vous ? » Le croyant répond : « Mon Seigneur est Allah. Ma religion est l'Islam. C'est Muhammad, le Messager d'Allah. » Ce hadith est rapporté par Ahmad et Abu Dawud (sahih selon Al-Albani). Les noms « Munkar et Nakir » sont mentionnés dans un hadith rapporté par At-Tirmidhi, dont la chaîne est discutée par les savants, mais l'interrogatoire de la tombe lui-même fait l'objet d'un consensus.",
+      "Pour le croyant qui répond correctement, sa tombe est élargie et illuminée, et on lui ouvre une fenêtre vers le Paradis. Il vit dans le bonheur jusqu'au Jour de la Résurrection. Le Prophète ﷺ a dit : « La tombe est soit un jardin parmi les jardins du Paradis, soit une fosse parmi les fosses de l'Enfer. » (Tirmidhi, jugé hasan par certains savants)",
+      "La sourate Al-Mulk (67) protège du châtiment de la tombe. Le Prophète ﷺ a dit : « Une sourate du Coran comportant trente versets a intercédé en faveur d'un homme jusqu'à ce qu'il lui soit pardonné : c'est Tabarak alladhi bi-yadihi al-mulk. » (Abu Dawud et Tirmidhi, jugé hasan par Al-Albani)"
     ]
   },
   {
@@ -42,7 +42,7 @@ export const etapesAkhira: EtapeAkhira[] = [
       "Israfil soufflera dans la Trompe (as-Sur) et tous les êtres vivants mourront. Puis il soufflera une seconde fois et tous les morts seront ressuscités de leurs tombes. Allah dit : « Et on soufflera dans la Trompe, et voilà que, des tombes, ils se précipiteront vers leur Seigneur. » (Sourate Ya-Sin, 36:51)",
       "Les hommes sortiront de leurs tombes pieds nus, nus et incirconcis, comme ils ont été créés la première fois. Aisha demanda : « Hommes et femmes se regarderont-ils ? » Le Prophète ﷺ répondit : « La situation sera trop grave pour qu'ils se soucient de cela. » (Bukhari & Muslim)",
       "Le soleil sera rapproché des créatures à la distance d'un mile. Les gens transpireront en proportion de leurs péchés : certains jusqu'aux chevilles, d'autres jusqu'aux genoux, d'autres jusqu'à la poitrine, et certains seront noyés dans leur sueur. (Muslim)",
-      "Ce jour durera 50 000 ans de la vie d'ici-bas. Allah dit : « Les anges ainsi que l'Esprit (Jibril) montent vers Lui en un jour dont la durée est de cinquante mille ans. » (Sourate Al-Ma'arij, 70:4). Mais pour le croyant, ce jour sera allégé comme le temps entre le Dhuhr et le Asr."
+      "Ce jour durera 50 000 ans de la vie d'ici-bas. Allah dit : « Les anges ainsi que l'Esprit (Jibril) montent vers Lui en un jour dont la durée est de cinquante mille ans. » (Sourate Al-Ma'arij, 70:4). Mais pour le croyant, ce jour sera allégé comme le temps entre le Dhuhr et le Asr (rapporté par Ahmad, jugé sahih par Al-Albani). Les savants expliquent que la durée de 50 000 ans concerne les mécréants et que la perception du temps ce jour-là variera selon les actes de chacun, ce qui réconcilie les différentes narrations."
     ]
   },
   {
@@ -63,7 +63,7 @@ export const etapesAkhira: EtapeAkhira[] = [
     contenu: [
       "Allah placera les Balances de la justice pour peser les actes des serviteurs. Allah dit : « Nous placerons les balances exactes pour le Jour de la Résurrection. Aucune âme ne sera lésée en rien. Fût-ce le poids d'un grain de moutarde, Nous l'apporterons. Et Nous suffisons pour dresser les comptes. » (Sourate Al-Anbiya, 21:47)",
       "Ce sont de véritables balances avec deux plateaux. Le Prophète ﷺ a dit : « Deux paroles sont légères sur la langue, lourdes dans la balance, aimées du Tout Miséricordieux : SubhanAllahi wa bihamdihi, SubhanAllahi al-Azim — Gloire et louange à Allah, Gloire à Allah le Très Grand. » (Bukhari & Muslim)",
-      "La parole « La ilaha illa Allah » est la plus lourde de toutes dans la balance. Le Prophète ﷺ a rapporté qu'un homme viendra avec 99 registres de péchés, chacun aussi long que la vue peut porter. On placera en face une carte portant « La ilaha illa Allah ». La carte l'emportera sur tous les registres. (Tirmidhi)",
+      "La parole « La ilaha illa Allah » est la plus lourde de toutes dans la balance. Le Prophète ﷺ a rapporté qu'un homme viendra avec 99 registres de péchés, chacun aussi long que la vue peut porter. On placera en face une carte portant « La ilaha illa Allah ». La carte l'emportera sur tous les registres. (Tirmidhi, jugé sahih par Al-Albani ; également rapporté par Ibn Majah et Ahmad. Ce hadith, connu sous le nom de « hadith de la bitaqa », est considéré comme authentique par la majorité des savants.)",
       "Celui dont les bonnes actions pèseront plus lourd que les mauvaises entrera au Paradis. Celui dont les mauvaises actions pèseront plus lourd sera en danger, sauf si Allah lui pardonne par Sa miséricorde."
     ]
   },
@@ -97,7 +97,7 @@ export const etapesAkhira: EtapeAkhira[] = [
       "Le Paradis est la demeure éternelle de béatitude préparée par Allah pour les croyants. Allah dit : « Des jardins sous lesquels coulent les ruisseaux, où ils demeureront éternellement. » (Sourate At-Tawba, 9:72). Il contient ce qu'aucun œil n'a vu, ce qu'aucune oreille n'a entendu, et ce qui n'a jamais traversé le cœur d'un être humain. (Bukhari & Muslim)",
       "Le Paradis a huit portes et cent degrés. Entre chaque degré, il y a une distance comparable à celle entre le ciel et la terre. Le Firdaws est le degré le plus élevé, au-dessus duquel se trouve le Trône du Tout Miséricordieux. Le Prophète ﷺ a dit : « Quand vous demandez à Allah, demandez-Lui Al-Firdaws. » (Bukhari)",
       "Les habitants du Paradis seront dans une jeunesse éternelle, sans maladie, sans fatigue, sans tristesse. Ils porteront des vêtements de soie et d'or, mangeront et boiront sans aucune impureté. Ils auront tout ce qu'ils désirent, et au-dessus de tout, la satisfaction d'Allah.",
-      "La plus grande récompense au Paradis sera de voir le Visage d'Allah. Le Prophète ﷺ a dit : « Quand les habitants du Paradis seront dans le Paradis, Allah dira : ‹ Voulez-vous quelque chose de plus ? › Ils diront : ‹ N'as-Tu pas blanchi nos visages ? Ne nous as-Tu pas fait entrer au Paradis et sauvés de l'Enfer ? › Alors Il lèvera le voile, et rien de ce qui leur a été donné ne leur sera plus cher que de regarder leur Seigneur. » (Muslim)"
+      "La plus grande récompense au Paradis sera de voir le Visage d'Allah (Ru'yat Allah). Le Prophète ﷺ a dit : « Quand les habitants du Paradis seront dans le Paradis, Allah dira : ‹ Voulez-vous quelque chose de plus ? › Ils diront : ‹ N'as-Tu pas blanchi nos visages ? Ne nous as-Tu pas fait entrer au Paradis et sauvés de l'Enfer ? › Alors Il lèvera le voile, et rien de ce qui leur a été donné ne leur sera plus cher que de regarder leur Seigneur. » (Muslim). La vision d'Allah au Paradis est un article de foi chez les Ahl as-Sunna, appuyé par le verset : « Ce jour-là, il y aura des visages resplendissants, qui regarderont leur Seigneur. » (Coran, 75:22-23). Elle se fera d'une manière qui convient à Sa majesté, sans qu'on puisse la comparer à la vision des créatures."
     ]
   },
   {

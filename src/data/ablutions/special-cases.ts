@@ -25,7 +25,8 @@ export const ablutionSpecialCases: SpecialCase[] = [
       'Pas besoin d\'avoir été en état de pureté au moment de la pose (contrairement aux chaussettes)',
       'Pas de limite de durée — tant que le bandage est nécessaire',
       'Si le bandage couvre plus que la zone blessée, laver ce qui peut être lavé et essuyer le reste',
-      'Valable pour le wudu et le ghusl',
+      'Valable pour le wudu et le ghusl — dans le cas du ghusl, toutes les parties non couvertes doivent être lavées normalement, seule la zone bandée est essuyée',
+      'Si retirer le bandage est possible sans danger ni aggravation, il faut le retirer et laver la zone normalement',
     ],
   },
   {

@@ -26,6 +26,10 @@ export interface PrayerPosition {
   nameAr: string;
   imagePath: string;
   has3dPose?: boolean;
+  /** Description corporelle détaillée pour reproduction visuelle (IA vidéo/image) */
+  description?: string;
+  /** Notes sur les divergences entre les 4 écoles juridiques */
+  madhabNotes?: string[];
 }
 
 export interface PrayerStep {

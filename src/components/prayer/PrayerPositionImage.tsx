@@ -1,14 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import type { PrayerPositionId } from '@/data/prayer-guide/types';
 import type { Gender } from '@/components/3d/types';
 import { getPosition } from '@/data/prayer-guide/positions';
-import { ImageOff } from 'lucide-react';
-
-const PrayerPositionViewer = lazy(() =>
-  import('@/components/3d/viewer/PrayerPositionViewer').then((m) => ({ default: m.PrayerPositionViewer })),
-);
 
 interface PrayerPositionImageProps {
   activePosition: PrayerPositionId;
@@ -16,40 +10,18 @@ interface PrayerPositionImageProps {
   gender?: Gender;
 }
 
-export function PrayerPositionImage({ activePosition, showLabel = true, gender = 'male' }: PrayerPositionImageProps) {
+export function PrayerPositionImage({ activePosition, showLabel = true }: PrayerPositionImageProps) {
   const position = getPosition(activePosition);
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [displayedSrc, setDisplayedSrc] = useState(position?.imagePath ?? '');
-
-  useEffect(() => {
-    if (!position) return;
-    setHasError(false);
-    setIsLoading(true);
-    setDisplayedSrc(position.imagePath);
-  }, [position]);
-
-  const handleError = useCallback(() => {
-    setHasError(true);
-    setIsLoading(false);
-  }, []);
-
-  const handleLoad = useCallback(() => {
-    setIsLoading(false);
-  }, []);
 
   if (!position) return null;
 
-  const use3D = position.has3dPose === true;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-      {/* Image / 3D container — placeholder until images are ready */}
+      {/* Visual placeholder + description */}
       <div style={{
         position: 'relative',
         width: '100%',
         maxWidth: 'min(340px, 100%)',
-        aspectRatio: '3 / 4',
         borderRadius: '16px',
         border: '1.5px solid rgba(201, 168, 76, 0.3)',
         boxShadow: '0 4px 24px rgba(0, 0, 0, 0.12)',
@@ -58,21 +30,51 @@ export function PrayerPositionImage({ activePosition, showLabel = true, gender =
       }}>
         <div style={{
           width: '100%',
-          height: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
+          padding: 'clamp(1.25rem, 3vw, 2rem)',
           gap: '12px',
-          background: 'rgba(201, 168, 76, 0.05)',
+          background: 'rgba(201, 168, 76, 0.03)',
         }}>
-          <ImageOff style={{ width: '48px', height: '48px', color: 'rgba(201, 168, 76, 0.3)' }} />
-          <p className="font-amiri" style={{ fontSize: '1.25rem', color: 'var(--color-gold)', opacity: 0.6 }}>
-            قريبًا
+          <p className="font-amiri" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', color: 'var(--color-gold)', opacity: 0.25, lineHeight: 1.2 }}>
+            {position.nameAr}
           </p>
-          <span style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textAlign: 'center', padding: '0 1rem' }}>
-            Image bientôt disponible
+          <span className="font-outfit" style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--color-muted)', opacity: 0.6 }}>
+            {position.name}
           </span>
+
+          {position.description && (
+            <p style={{
+              fontSize: '0.8125rem',
+              lineHeight: 1.65,
+              color: 'var(--color-muted)',
+              textAlign: 'left',
+              marginTop: '4px',
+            }}>
+              {position.description}
+            </p>
+          )}
+
+          {position.madhabNotes && position.madhabNotes.length > 0 && (
+            <div style={{
+              width: '100%',
+              paddingTop: '8px',
+              marginTop: '4px',
+              borderTop: '1px solid rgba(201, 168, 76, 0.15)',
+            }}>
+              <p className="font-outfit" style={{ fontSize: '0.6875rem', fontWeight: 600, color: 'var(--color-gold)', opacity: 0.7, marginBottom: '6px' }}>
+                Selon les écoles
+              </p>
+              <ul style={{ paddingLeft: '1rem', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                {position.madhabNotes.map((note, i) => (
+                  <li key={i} style={{ fontSize: '0.75rem', lineHeight: 1.5, color: 'var(--color-muted)', opacity: 0.8 }}>
+                    {note}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
 
@@ -87,13 +89,6 @@ export function PrayerPositionImage({ activePosition, showLabel = true, gender =
           </span>
         </div>
       )}
-
-      <style>{`
-        @keyframes shimmer {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-      `}</style>
     </div>
   );
 }

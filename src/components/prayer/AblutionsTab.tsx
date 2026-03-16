@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import type { AblutionTypeId } from '@/data/ablutions/types';
+import { useState } from 'react';
+import type { AblutionTypeId, AblutionStep } from '@/data/ablutions/types';
 import { getAblutionById } from '@/data/ablutions';
 import { ablutionErrors } from '@/data/ablutions/common-errors';
 import { ablutionSpecialCases } from '@/data/ablutions/special-cases';
@@ -13,6 +13,7 @@ import { WuduInvalidatorsSection } from './WuduInvalidatorsSection';
 import { WuduDuaSection } from './WuduDuaSection';
 import { CommonErrorsCard } from './CommonErrorsCard';
 import { SpecialCasesSection } from './SpecialCasesSection';
+import { ClassificationBadge } from './ClassificationBadge';
 import { ChevronDown } from 'lucide-react';
 
 export function AblutionsTab() {
@@ -27,7 +28,6 @@ export function AblutionsTab() {
   if (!ablution) return null;
 
   const isWudu = activeAblutionId === 'wudu';
-  const isGhusl = activeAblutionId === 'ghusl-men' || activeAblutionId === 'ghusl-women';
 
   const carouselSteps: CarouselStep[] = ablution.steps
     .filter(s => s.position) // only steps with an image position
@@ -51,80 +51,142 @@ export function AblutionsTab() {
         </div>
       </ScrollReveal>
 
-      {/* Ghusl: coming soon */}
-      {isGhusl ? (
-        <ScrollReveal delay={120}>
-          <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-            <p className="font-amiri" style={{ fontSize: '1.5rem', color: 'var(--color-gold)', marginBottom: '1rem', opacity: 0.6 }}>
-              قريبًا
-            </p>
-            <p style={{ fontSize: '1rem', color: 'var(--color-muted)' }}>
-              Bientôt disponible
-            </p>
+      {/* Ablution info header */}
+      <ScrollReveal delay={120}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '6px' }}>
+            <h2 className="font-outfit font-bold" style={{ fontSize: '1.5rem' }}>
+              {ablution.name}
+            </h2>
+            <span className="font-amiri" style={{ fontSize: '1.25rem', color: 'var(--color-muted)', opacity: 0.5 }}>
+              {ablution.nameAr}
+            </span>
           </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted)', marginTop: '8px', lineHeight: 1.5 }}>
+            {ablution.description}
+          </p>
+        </div>
+      </ScrollReveal>
+
+      {/* Conditions (when ghusl/tayammum is required) */}
+      {ablution.conditions && ablution.conditions.length > 0 && (
+        <ScrollReveal delay={140}>
+          <ConditionsSection conditions={ablution.conditions} />
         </ScrollReveal>
-      ) : (
+      )}
+
+      {/* Step-by-step carousel (wudu only — has position images) */}
+      {isWudu && hasCarouselSteps && (
+        <ScrollReveal delay={160}>
+          <PrayerCarousel
+            key={activeAblutionId}
+            steps={carouselSteps}
+          />
+        </ScrollReveal>
+      )}
+
+      {/* Step-by-step list (ghusl & tayammum — no position images) */}
+      {!isWudu && (
+        <ScrollReveal delay={160}>
+          <StepsList steps={ablution.steps} />
+        </ScrollReveal>
+      )}
+
+      {/* Wudu-specific sections */}
+      {activeAblutionId === 'wudu' && (
         <>
-          {/* Ablution info header */}
-          <ScrollReveal delay={120}>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '6px' }}>
-                <h2 className="font-outfit font-bold" style={{ fontSize: '1.5rem' }}>
-                  {ablution.name}
-                </h2>
-                <span className="font-amiri" style={{ fontSize: '1.25rem', color: 'var(--color-muted)', opacity: 0.5 }}>
-                  {ablution.nameAr}
-                </span>
-              </div>
-              <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted)', marginTop: '8px', lineHeight: 1.5 }}>
-                {ablution.description}
-              </p>
-            </div>
+          <ScrollReveal delay={240}>
+            <WuduInvalidatorsSection />
           </ScrollReveal>
-
-          {/* Conditions (when ghusl is obligatory) */}
-          {ablution.conditions && ablution.conditions.length > 0 && (
-            <ScrollReveal delay={140}>
-              <ConditionsSection conditions={ablution.conditions} />
-            </ScrollReveal>
-          )}
-
-          {/* Wudu carousel */}
-          {isWudu && hasCarouselSteps && (
-            <ScrollReveal delay={160}>
-              <PrayerCarousel
-                key={activeAblutionId}
-                steps={carouselSteps}
-              />
-            </ScrollReveal>
-          )}
-
-          {/* Wudu-specific sections */}
-          {activeAblutionId === 'wudu' && (
-            <>
-              {/* Invalidators */}
-              <ScrollReveal delay={240}>
-                <WuduInvalidatorsSection />
-              </ScrollReveal>
-
-              {/* Du'a after wudu */}
-              <ScrollReveal delay={260}>
-                <WuduDuaSection />
-              </ScrollReveal>
-            </>
-          )}
-
-          {/* Common errors */}
-          <ScrollReveal delay={280}>
-            <CommonErrorsCard errors={ablutionErrors} title="Erreurs courantes du wudu" />
-          </ScrollReveal>
-
-          {/* Special cases */}
-          <ScrollReveal delay={300}>
-            <SpecialCasesSection cases={ablutionSpecialCases} title="Cas particuliers" />
+          <ScrollReveal delay={260}>
+            <WuduDuaSection />
           </ScrollReveal>
         </>
       )}
+
+      {/* Common errors (wudu only) */}
+      {isWudu && (
+        <ScrollReveal delay={280}>
+          <CommonErrorsCard errors={ablutionErrors} title="Erreurs courantes du wudu" />
+        </ScrollReveal>
+      )}
+
+      {/* Special cases */}
+      <ScrollReveal delay={300}>
+        <SpecialCasesSection cases={ablutionSpecialCases} title="Cas particuliers" />
+      </ScrollReveal>
+    </div>
+  );
+}
+
+// ─── Steps list (for ghusl/tayammum — text-only, no carousel) ───
+
+function StepsList({ steps }: { steps: AblutionStep[] }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '2rem' }}>
+      {steps.map((step, i) => (
+        <div
+          key={step.id}
+          style={{
+            position: 'relative',
+            paddingLeft: 'clamp(2.5rem, 5vw, 3rem)',
+          }}
+        >
+          {/* Vertical line */}
+          {i < steps.length - 1 && (
+            <div style={{
+              position: 'absolute', left: '11px', top: '24px', bottom: '-12px', width: '1px',
+              background: 'var(--color-border)',
+            }} />
+          )}
+
+          {/* Step number circle */}
+          <div style={{
+            position: 'absolute', left: 0, top: '4px',
+            width: '24px', height: '24px', borderRadius: '50%',
+            background: step.ruling === 'fard' ? 'var(--color-gold)' : 'rgba(201, 168, 76, 0.15)',
+            color: step.ruling === 'fard' ? '#000' : 'var(--color-gold)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '0.6875rem', fontWeight: 700,
+          }}>
+            {step.order}
+          </div>
+
+          {/* Content */}
+          <div className="surah-card" style={{ padding: 'clamp(1rem, 2vw, 1.25rem)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '6px' }}>
+              <span className="font-outfit" style={{ fontSize: '0.9375rem', fontWeight: 600 }}>
+                {step.name}
+              </span>
+              <span className="font-amiri" style={{ fontSize: '0.875rem', color: 'var(--color-muted)', opacity: 0.5 }}>
+                {step.nameAr}
+              </span>
+              <ClassificationBadge ruling={step.ruling} />
+            </div>
+
+            <p style={{ fontSize: '0.8125rem', color: 'var(--color-muted)', lineHeight: 1.6, margin: 0 }}>
+              {step.description}
+            </p>
+
+            {step.repetitions && step.repetitions > 1 && (
+              <span style={{ fontSize: '0.6875rem', color: 'var(--color-gold)', opacity: 0.7, marginTop: '4px', display: 'inline-block' }}>
+                {step.repetitions}x
+              </span>
+            )}
+
+            {step.madhabNote && (
+              <p style={{
+                fontSize: '0.75rem', color: 'var(--color-muted)', opacity: 0.7,
+                marginTop: '8px', paddingTop: '8px',
+                borderTop: '1px solid var(--color-border)',
+                lineHeight: 1.5,
+              }}>
+                {step.madhabNote}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

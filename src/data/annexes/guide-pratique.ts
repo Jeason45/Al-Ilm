@@ -9,7 +9,7 @@ export const guidePratique: GuidePratique[] = [
   {
     situation: "Guérison et maladie",
     sourates: ["Al-Fatiha", "Al-Baqara (versets 285-286)", "Al-Isra (verset 82)", "Ash-Shu'ara (verset 80)", "Fussilat (verset 44)", "Al-Ikhlas", "Al-Falaq", "An-Nas"],
-    explication: "La sourate Al-Fatiha est appelée « Ar-Ruqya » (l'incantation guérisseuse) et le Prophète a confirmé son utilisation pour la guérison. Les derniers versets de Al-Baqara protègent contre tout mal. Le Coran lui-même est décrit comme un remède pour ce qui est dans les poitrines. Il est recommandé de réciter ces versets sur le malade ou sur de l'eau qu'il boira ensuite."
+    explication: "La sourate Al-Fatiha est utilisée comme ruqya (incantation guérisseuse par le Coran). Lorsqu'un compagnon l'utilisa pour guérir un homme piqué, le Prophète ﷺ dit : « Comment savais-tu que c'est une ruqya ? » (Bukhari). Les derniers versets de Al-Baqara protègent contre tout mal. Le Coran lui-même est décrit comme un remède pour ce qui est dans les poitrines. Il est recommandé de réciter ces versets sur le malade ou sur de l'eau qu'il boira ensuite."
   },
   {
     situation: "Anxiété et angoisse",
@@ -39,7 +39,7 @@ export const guidePratique: GuidePratique[] = [
   {
     situation: "Le mois de Ramadan",
     sourates: ["Al-Baqara (versets 183-187)", "Al-Qadr", "Ad-Dukhan", "Le Coran entier"],
-    explication: "Le Ramadan est le mois du Coran, durant lequel il est recommandé de lire l'intégralité du Coran au moins une fois. La sourate Al-Qadr évoque la Nuit du Destin (Laylat al-Qadr), meilleure que mille mois. Les versets 183 à 187 de Al-Baqara contiennent les règles du jeûne. L'ange Jibril révisait le Coran avec le Prophète chaque Ramadan, et deux fois l'année de sa mort."
+    explication: "Le Ramadan est le mois du Coran, durant lequel il est recommandé de lire l'intégralité du Coran au moins une fois. La sourate Al-Qadr évoque la Nuit du Destin (Laylat al-Qadr), meilleure que mille mois. Les versets 183 à 187 de Al-Baqara contiennent les règles du jeûne. L'ange Jibril passait en revue le Coran avec le Prophète ﷺ chaque Ramadan (Bukhari), et deux fois l'année de sa mort."
   },
   {
     situation: "Voyage",

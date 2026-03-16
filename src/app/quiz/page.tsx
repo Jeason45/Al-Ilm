@@ -1,11 +1,15 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
-import { Trophy, RotateCcw, ChevronRight, Check, X, Zap, BookOpen, Star, Users } from 'lucide-react';
+import { Trophy, RotateCcw, ChevronRight, ChevronLeft, Check, X, Zap, BookOpen, Star, Users, BookMarked, Heart, Info, Eye, Swords, UserCheck, Sparkles, Atom, Shield, Clock, ScrollText } from 'lucide-react';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { surahsMeta } from '@/data/metadata';
-import { nomsAllah } from '@/data/annexes/noms-allah';
-import { prophetes } from '@/data/annexes/prophetes';
+import {
+  generateQuestions,
+  QUESTION_COUNTS,
+  type QuizCategory,
+  type Difficulty,
+  type Question,
+} from '@/lib/quiz-engine';
 
 const center: React.CSSProperties = {
   width: '100%',
@@ -16,178 +20,115 @@ const center: React.CSSProperties = {
   paddingRight: 'clamp(14px, 4vw, 24px)',
 };
 
-/* ── Types ── */
-type Category = 'sourates' | 'noms-allah' | 'prophetes' | 'mixte';
-
-interface Question {
-  question: string;
-  options: string[];
-  correctIndex: number;
-  category: Category;
-}
-
-/* ── Question generators ── */
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function pick<T>(arr: T[], n: number): T[] {
-  return shuffle(arr).slice(0, n);
-}
-
-function generateSurahQuestions(): Question[] {
-  const questions: Question[] = [];
-  const surahs = shuffle(surahsMeta);
-
-  for (const s of surahs.slice(0, 3)) {
-    const wrong = pick(surahsMeta.filter(x => x.numero !== s.numero), 3).map(x => x.nomArabe);
-    const opts = shuffle([s.nomArabe, ...wrong]);
-    questions.push({
-      question: `Quel est le nom arabe de la sourate "${s.nomFrancais}" ?`,
-      options: opts, correctIndex: opts.indexOf(s.nomArabe), category: 'sourates',
-    });
-  }
-
-  for (const s of surahs.slice(3, 6)) {
-    const correct = String(s.nombreVersets);
-    const wrongs = [
-      String(s.nombreVersets + Math.floor(Math.random() * 20) + 5),
-      String(Math.max(1, s.nombreVersets - Math.floor(Math.random() * 15) - 3)),
-      String(s.nombreVersets + Math.floor(Math.random() * 40) + 10),
-    ];
-    const opts = shuffle([correct, ...wrongs]);
-    questions.push({
-      question: `Combien de versets contient la sourate ${s.nom} ?`,
-      options: opts, correctIndex: opts.indexOf(correct), category: 'sourates',
-    });
-  }
-
-  for (const s of surahs.slice(6, 9)) {
-    const correct = s.type === 'mecquoise' ? 'Mecquoise' : 'Médinoise';
-    const opts = ['Mecquoise', 'Médinoise'];
-    questions.push({
-      question: `La sourate ${s.nom} est-elle mecquoise ou médinoise ?`,
-      options: opts, correctIndex: opts.indexOf(correct), category: 'sourates',
-    });
-  }
-
-  for (const s of surahs.slice(9, 12)) {
-    const correct = String(s.numero);
-    const wrongs = pick(surahsMeta.filter(x => x.numero !== s.numero).map(x => String(x.numero)), 3);
-    const opts = shuffle([correct, ...wrongs]);
-    questions.push({
-      question: `Quel est le numéro de la sourate ${s.nom} ?`,
-      options: opts, correctIndex: opts.indexOf(correct), category: 'sourates',
-    });
-  }
-
-  return shuffle(questions);
-}
-
-function generateNomsAllahQuestions(): Question[] {
-  const questions: Question[] = [];
-  const noms = shuffle(nomsAllah);
-
-  for (const n of noms.slice(0, 5)) {
-    const wrong = pick(nomsAllah.filter(x => x.numero !== n.numero), 3).map(x => x.signification);
-    const opts = shuffle([n.signification, ...wrong]);
-    questions.push({
-      question: `Quelle est la signification de "${n.nom}" (${n.arabe}) ?`,
-      options: opts, correctIndex: opts.indexOf(n.signification), category: 'noms-allah',
-    });
-  }
-
-  for (const n of noms.slice(5, 10)) {
-    const wrong = pick(nomsAllah.filter(x => x.numero !== n.numero), 3).map(x => x.nom);
-    const opts = shuffle([n.nom, ...wrong]);
-    questions.push({
-      question: `Quel nom d'Allah signifie "${n.signification}" ?`,
-      options: opts, correctIndex: opts.indexOf(n.nom), category: 'noms-allah',
-    });
-  }
-
-  return shuffle(questions);
-}
-
-function generateProphetesQuestions(): Question[] {
-  const questions: Question[] = [];
-  const props = shuffle(prophetes);
-
-  for (const p of props.slice(0, 5)) {
-    const wrong = pick(prophetes.filter(x => x.nom !== p.nom), 3).map(x => x.titre);
-    const opts = shuffle([p.titre, ...wrong]);
-    questions.push({
-      question: `Quel est le titre du prophète ${p.nom} ?`,
-      options: opts, correctIndex: opts.indexOf(p.titre), category: 'prophetes',
-    });
-  }
-
-  for (const p of props.slice(5, 10)) {
-    const wrong = pick(prophetes.filter(x => x.nom !== p.nom), 3).map(x => x.nom);
-    const opts = shuffle([p.nom, ...wrong]);
-    questions.push({
-      question: `Quel prophète est connu comme "${p.titre}" ?`,
-      options: opts, correctIndex: opts.indexOf(p.nom), category: 'prophetes',
-    });
-  }
-
-  return shuffle(questions);
-}
-
-function generateQuestions(category: Category, count: number): Question[] {
-  let pool: Question[] = [];
-  if (category === 'sourates' || category === 'mixte') pool = [...pool, ...generateSurahQuestions()];
-  if (category === 'noms-allah' || category === 'mixte') pool = [...pool, ...generateNomsAllahQuestions()];
-  if (category === 'prophetes' || category === 'mixte') pool = [...pool, ...generateProphetesQuestions()];
-  return shuffle(pool).slice(0, count);
-}
-
-const CATEGORIES: { id: Category; label: string; labelAr: string; icon: typeof BookOpen; description: string }[] = [
-  { id: 'sourates', label: 'Sourates', labelAr: 'السور', icon: BookOpen, description: 'Noms, numéros, versets, types' },
+/* ── Categories ── */
+const CATEGORIES: {
+  id: QuizCategory;
+  label: string;
+  labelAr: string;
+  icon: typeof BookOpen;
+  description: string;
+}[] = [
+  { id: 'sira', label: 'Sira du Prophète ﷺ', labelAr: 'السيرة النبوية', icon: Swords, description: 'Vie du Prophète, batailles, Hijra, événements clés' },
+  { id: 'compagnons', label: 'Compagnons', labelAr: 'الصحابة', icon: UserCheck, description: 'Sahaba, leurs titres, mérites et rôles' },
+  { id: 'revelation', label: 'Révélation & Coran', labelAr: 'الوحي والقرآن', icon: ScrollText, description: 'Compilation, sciences coraniques, écoles juridiques' },
+  { id: 'prophetes', label: 'Prophètes', labelAr: 'الأنبياء', icon: Users, description: '25 Prophètes, titres et récits coraniques' },
+  { id: 'femmes-islam', label: 'Femmes en Islam', labelAr: 'النساء في الإسلام', icon: Sparkles, description: 'Femmes citées dans le Coran et la Sunna' },
+  { id: 'miracles', label: 'Miracles scientifiques', labelAr: 'الإعجاز العلمي', icon: Atom, description: 'Signes scientifiques dans le Coran et la Sunna' },
+  { id: 'piliers', label: 'Piliers & Foi', labelAr: 'أركان الإسلام والإيمان', icon: Shield, description: "5 piliers de l'Islam et 6 piliers de la foi" },
+  { id: 'akhira', label: 'Au-delà', labelAr: 'الآخرة', icon: Clock, description: 'Étapes de la vie après la mort' },
+  { id: 'sourates', label: 'Sourates', labelAr: 'السور', icon: BookOpen, description: '114 sourates — noms, versets, thèmes, types' },
   { id: 'noms-allah', label: "Noms d'Allah", labelAr: 'أسماء الله', icon: Star, description: '99 Noms et leurs significations' },
-  { id: 'prophetes', label: 'Prophètes', labelAr: 'الأنبياء', icon: Users, description: '25 Prophètes et leurs titres' },
+  { id: 'glossaire', label: 'Glossaire', labelAr: 'المصطلحات', icon: BookMarked, description: 'Termes et vocabulaire islamique' },
+  { id: 'invocations', label: 'Invocations', labelAr: 'الأدعية', icon: Heart, description: "Du'as, occasions et références" },
   { id: 'mixte', label: 'Mixte', labelAr: 'مختلط', icon: Zap, description: 'Toutes les catégories mélangées' },
 ];
 
-const QUESTION_COUNT = 10;
+const DIFFICULTIES: { id: Difficulty; label: string; description: string; color: string }[] = [
+  { id: 'facile', label: 'Facile', description: '10 questions · types de base', color: 'var(--color-emerald)' },
+  { id: 'moyen', label: 'Moyen', description: '15 questions · + arabe & détails', color: 'var(--color-gold)' },
+  { id: 'difficile', label: 'Difficile', description: '20 questions · thèmes & références', color: 'var(--color-rose)' },
+];
 
+/* ── Page ── */
 export default function QuizPage() {
-  const [category, setCategory] = useState<Category | null>(null);
+  const [category, setCategory] = useState<QuizCategory | null>(null);
+  const [difficulty, setDifficulty] = useState<Difficulty | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [reviewMode, setReviewMode] = useState(false);
+  const [answers, setAnswers] = useState<(number | null)[]>([]);
 
-  const startQuiz = useCallback((cat: Category) => {
+  const questionCount = difficulty ? QUESTION_COUNTS[difficulty] : 10;
+
+  const startQuiz = useCallback((cat: QuizCategory, diff: Difficulty) => {
     setCategory(cat);
-    setQuestions(generateQuestions(cat, QUESTION_COUNT));
-    setCurrentIdx(0); setSelected(null); setScore(0); setAnswered(false); setFinished(false);
+    setDifficulty(diff);
+    const count = QUESTION_COUNTS[diff];
+    setQuestions(generateQuestions(cat, count, diff));
+    setCurrentIdx(0);
+    setSelected(null);
+    setScore(0);
+    setAnswered(false);
+    setFinished(false);
+    setShowExplanation(false);
+    setReviewMode(false);
+    setAnswers([]);
   }, []);
 
   const handleAnswer = useCallback((optionIdx: number) => {
     if (answered) return;
     setSelected(optionIdx);
     setAnswered(true);
+    setShowExplanation(true);
+    setAnswers(prev => [...prev, optionIdx]);
     if (optionIdx === questions[currentIdx].correctIndex) setScore(prev => prev + 1);
   }, [answered, questions, currentIdx]);
 
   const nextQuestion = useCallback(() => {
-    if (currentIdx + 1 >= questions.length) setFinished(true);
-    else { setCurrentIdx(prev => prev + 1); setSelected(null); setAnswered(false); }
+    if (currentIdx + 1 >= questions.length) {
+      setFinished(true);
+    } else {
+      setCurrentIdx(prev => prev + 1);
+      setSelected(null);
+      setAnswered(false);
+      setShowExplanation(false);
+    }
   }, [currentIdx, questions.length]);
 
-  const reset = useCallback(() => { setCategory(null); setQuestions([]); setFinished(false); }, []);
+  const reset = useCallback(() => {
+    setCategory(null);
+    setDifficulty(null);
+    setQuestions([]);
+    setFinished(false);
+    setReviewMode(false);
+  }, []);
 
-  const scorePercent = useMemo(() => Math.round((score / QUESTION_COUNT) * 100), [score]);
+  const scorePercent = useMemo(() => Math.round((score / Math.max(questions.length, 1)) * 100), [score, questions.length]);
 
-  // ── Category selection ──
+  const categoryBreakdown = useMemo(() => {
+    if (!questions.length || !answers.length) return [];
+    const map = new Map<string, { total: number; correct: number }>();
+    questions.forEach((q, i) => {
+      const cat = q.category;
+      if (!map.has(cat)) map.set(cat, { total: 0, correct: 0 });
+      const entry = map.get(cat)!;
+      entry.total++;
+      if (answers[i] === q.correctIndex) entry.correct++;
+    });
+    return Array.from(map.entries())
+      .map(([cat, { total, correct }]) => {
+        const info = CATEGORIES.find(c => c.id === cat);
+        return { id: cat, label: info?.label ?? cat, correct, total, percent: Math.round((correct / total) * 100) };
+      })
+      .sort((a, b) => b.percent - a.percent);
+  }, [questions, answers]);
+
+  // ─── Step 1: Category selection ───
   if (!category) {
     return (
       <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
@@ -200,19 +141,19 @@ export default function QuizPage() {
               <h1 className="font-outfit font-bold" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', letterSpacing: '-0.03em', marginBottom: '1rem' }}>
                 Quiz islamique.
               </h1>
-              <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '32rem', margin: '0 auto' }}>
-                Testez vos connaissances sur le Coran, les Noms d&apos;Allah et les Prophètes.
+              <p className="text-muted" style={{ fontSize: '1.0625rem', maxWidth: '36rem', margin: '0 auto' }}>
+                Testez vos connaissances sur la Sira, les Compagnons, la révélation, les miracles scientifiques, les Prophètes et bien plus.
               </p>
             </div>
           </ScrollReveal>
 
-          <div className="grid-features">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="quiz-grid">
             {CATEGORIES.map((cat, i) => {
               const Icon = cat.icon;
               return (
                 <ScrollReveal key={cat.id} delay={i * 60}>
                   <button
-                    onClick={() => startQuiz(cat.id)}
+                    onClick={() => setCategory(cat.id)}
                     className="group surah-card"
                     style={{ display: 'block', width: '100%', padding: 'clamp(1.25rem, 2.5vw, 2rem)', cursor: 'pointer', textAlign: 'left', border: 'none' }}
                   >
@@ -234,7 +175,7 @@ export default function QuizPage() {
                       display: 'inline-flex', alignItems: 'center', gap: '4px',
                       fontSize: '0.8125rem', fontWeight: 500, transition: 'color 0.2s',
                     }}>
-                      Commencer <ChevronRight size={14} />
+                      Choisir <ChevronRight size={14} />
                     </span>
                   </button>
                 </ScrollReveal>
@@ -246,7 +187,148 @@ export default function QuizPage() {
     );
   }
 
-  // ── Results ──
+  // ─── Step 2: Difficulty selection ───
+  if (!difficulty) {
+    const catInfo = CATEGORIES.find(c => c.id === category);
+    return (
+      <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+        <div style={{ ...center, maxWidth: '500px' }}>
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+              <p className="font-amiri text-gold" style={{ fontSize: '1.5rem', marginBottom: '0.75rem', opacity: 0.5 }}>
+                {catInfo?.labelAr}
+              </p>
+              <h2 className="font-outfit font-bold" style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>
+                {catInfo?.label}
+              </h2>
+              <p className="text-muted" style={{ fontSize: '0.9375rem' }}>
+                Choisissez votre niveau de difficulté.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+            {DIFFICULTIES.map((diff, i) => (
+              <ScrollReveal key={diff.id} delay={i * 60}>
+                <button
+                  onClick={() => startQuiz(category, diff.id)}
+                  className="surah-card"
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    width: '100%', padding: '1.25rem 1.5rem', cursor: 'pointer',
+                    textAlign: 'left', border: 'none',
+                  }}
+                >
+                  <div>
+                    <p className="font-outfit font-semibold" style={{ fontSize: '1rem', marginBottom: '0.25rem' }}>
+                      <span style={{ color: diff.color, marginRight: '8px' }}>●</span>
+                      {diff.label}
+                    </p>
+                    <p className="text-muted" style={{ fontSize: '0.8125rem' }}>{diff.description}</p>
+                  </div>
+                  <ChevronRight size={16} className="text-muted" />
+                </button>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <button
+            onClick={() => { setCategory(null); }}
+            className="text-muted"
+            style={{
+              display: 'flex', alignItems: 'center', gap: '6px', margin: '0 auto',
+              fontSize: '0.8125rem', background: 'none', border: 'none', cursor: 'pointer',
+            }}
+          >
+            <ChevronLeft size={14} /> Retour aux catégories
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── Review mode ───
+  if (reviewMode) {
+    return (
+      <div style={{ paddingTop: 'clamp(3rem, 6vw, 5rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
+        <div style={{ ...center, maxWidth: '650px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+            <h2 className="font-outfit font-bold" style={{ fontSize: '1.5rem' }}>
+              Révision — {score}/{questions.length}
+            </h2>
+            <button onClick={reset} className="btn-secondary" style={{ fontSize: '0.8125rem', padding: '6px 14px' }}>
+              Catégories
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {questions.map((q, qIdx) => {
+              const userAnswer = answers[qIdx];
+              const isCorrect = userAnswer === q.correctIndex;
+              return (
+                <div
+                  key={qIdx}
+                  className="surah-card"
+                  style={{
+                    padding: '1.25rem',
+                    borderColor: isCorrect ? 'rgba(52, 211, 153, 0.3)' : 'rgba(251, 113, 133, 0.3)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+                    <span style={{
+                      width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '0.75rem', fontWeight: 700,
+                      background: isCorrect ? 'rgba(52, 211, 153, 0.15)' : 'rgba(251, 113, 133, 0.15)',
+                      color: isCorrect ? 'var(--color-emerald)' : 'var(--color-rose)',
+                    }}>
+                      {isCorrect ? <Check size={12} /> : <X size={12} />}
+                    </span>
+                    <p className="font-outfit font-semibold" style={{ fontSize: '0.9375rem', lineHeight: 1.5 }}>
+                      {q.question}
+                    </p>
+                  </div>
+
+                  {/* Show user answer if wrong */}
+                  {!isCorrect && userAnswer !== null && userAnswer !== undefined && (
+                    <p style={{ fontSize: '0.8125rem', color: 'var(--color-rose)', marginBottom: '0.25rem' }}>
+                      Votre réponse : {q.options[userAnswer]}
+                    </p>
+                  )}
+                  <p style={{ fontSize: '0.8125rem', color: 'var(--color-emerald)', marginBottom: '0.75rem' }}>
+                    Réponse correcte : {q.options[q.correctIndex]}
+                  </p>
+
+                  <div style={{
+                    padding: '0.75rem',
+                    borderRadius: '8px',
+                    background: 'rgba(201, 168, 76, 0.04)',
+                    border: '1px solid rgba(201, 168, 76, 0.1)',
+                  }}>
+                    <p className="text-muted" style={{ fontSize: '0.8125rem', lineHeight: 1.6 }}>
+                      <Info size={12} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'middle', color: 'var(--color-gold)' }} />
+                      {q.explanation}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '2rem' }}>
+            <button onClick={() => startQuiz(category, difficulty)} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <RotateCcw size={16} /> Rejouer
+            </button>
+            <button onClick={reset} className="btn-secondary">
+              Catégories
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── Results ───
   if (finished) {
     const message = scorePercent >= 80
       ? 'Excellent ! Masha Allah !'
@@ -254,19 +336,24 @@ export default function QuizPage() {
         ? 'Bien joué ! Continuez à apprendre.'
         : 'Continuez vos efforts, la connaissance est un chemin.';
 
+    const diffInfo = DIFFICULTIES.find(d => d.id === difficulty);
+
     return (
       <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
-        <div style={{ ...center, maxWidth: '500px', textAlign: 'center' }}>
+        <div style={{ ...center, maxWidth: '550px', textAlign: 'center' }}>
           <ScrollReveal>
             <div className="surah-card" style={{ padding: 'clamp(2rem, 4vw, 3rem)' }}>
               <p className="font-amiri text-gold" style={{ fontSize: '3rem', marginBottom: '1rem' }}>
                 {scorePercent >= 80 ? '🏆' : scorePercent >= 50 ? '👍' : '📖'}
               </p>
               <h2 className="font-outfit font-bold" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                {score} / {QUESTION_COUNT}
+                {score} / {questions.length}
               </h2>
-              <p className="text-muted" style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>
+              <p className="text-muted" style={{ fontSize: '1.0625rem', marginBottom: '0.25rem' }}>
                 {scorePercent}% de bonnes réponses
+              </p>
+              <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>
+                <span style={{ color: diffInfo?.color }}>●</span> {diffInfo?.label}
               </p>
               <p style={{ fontSize: '0.9375rem', color: 'var(--color-foreground)', opacity: 0.8, marginBottom: '1.5rem' }}>
                 {message}
@@ -284,12 +371,61 @@ export default function QuizPage() {
                 }} />
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-                <button onClick={() => startQuiz(category)} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <RotateCcw size={16} /> Rejouer
-                </button>
-                <button onClick={reset} className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  Catégories
+              {/* Category breakdown */}
+              {categoryBreakdown.length > 1 && (
+                <div style={{ marginBottom: '1.5rem', textAlign: 'left' }}>
+                  <p className="font-outfit font-semibold" style={{ fontSize: '0.8125rem', marginBottom: '0.75rem', textAlign: 'center', opacity: 0.7 }}>
+                    Par catégorie
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {categoryBreakdown.map(cat => (
+                      <div key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span className="text-muted" style={{ fontSize: '0.75rem', width: '90px', flexShrink: 0, textAlign: 'right' }}>
+                          {cat.label}
+                        </span>
+                        <div style={{
+                          flex: 1, height: '6px', borderRadius: '3px',
+                          background: 'var(--color-surface-elevated)', overflow: 'hidden',
+                        }}>
+                          <div style={{
+                            width: `${cat.percent}%`, height: '100%', borderRadius: '3px',
+                            background: cat.percent >= 80 ? 'var(--color-emerald)' : cat.percent >= 50 ? 'var(--color-gold)' : 'var(--color-rose)',
+                            transition: 'width 0.5s ease',
+                          }} />
+                        </div>
+                        <span style={{
+                          fontSize: '0.75rem', fontWeight: 600, width: '42px', flexShrink: 0,
+                          color: cat.percent >= 80 ? 'var(--color-emerald)' : cat.percent >= 50 ? 'var(--color-gold)' : 'var(--color-rose)',
+                        }}>
+                          {cat.correct}/{cat.total}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                  <button onClick={() => startQuiz(category, difficulty)} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <RotateCcw size={16} /> Rejouer
+                  </button>
+                  <button onClick={reset} className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    Catégories
+                  </button>
+                </div>
+                <button
+                  onClick={() => setReviewMode(true)}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    padding: '10px 20px', fontSize: '0.875rem', fontWeight: 600,
+                    borderRadius: '10px', cursor: 'pointer',
+                    border: '1px solid rgba(201, 168, 76, 0.2)',
+                    background: 'rgba(201, 168, 76, 0.06)',
+                    color: 'var(--color-gold)',
+                  }}
+                >
+                  <Eye size={16} /> Réviser les réponses
                 </button>
               </div>
             </div>
@@ -299,7 +435,7 @@ export default function QuizPage() {
     );
   }
 
-  // ── Question ──
+  // ─── Question ───
   const q = questions[currentIdx];
   if (!q) return null;
 
@@ -309,7 +445,7 @@ export default function QuizPage() {
         {/* Progress */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
           <span className="text-muted" style={{ fontSize: '0.8125rem' }}>
-            Question {currentIdx + 1} / {QUESTION_COUNT}
+            Question {currentIdx + 1} / {questions.length}
           </span>
           <span className="font-outfit font-semibold" style={{ fontSize: '0.8125rem', color: 'var(--color-gold)' }}>
             Score : {score}
@@ -320,7 +456,7 @@ export default function QuizPage() {
           background: 'var(--color-surface-elevated)', marginBottom: '2rem', overflow: 'hidden',
         }}>
           <div style={{
-            width: `${((currentIdx + 1) / QUESTION_COUNT) * 100}%`,
+            width: `${((currentIdx + 1) / questions.length) * 100}%`,
             height: '100%', borderRadius: '2px', background: 'var(--color-gold)', transition: 'width 0.3s ease',
           }} />
         </div>
@@ -380,13 +516,29 @@ export default function QuizPage() {
           })}
         </div>
 
+        {/* Explanation */}
+        {answered && showExplanation && (
+          <div style={{
+            marginTop: '1rem', padding: '1rem 1.25rem', borderRadius: '12px',
+            background: 'rgba(201, 168, 76, 0.04)',
+            border: '1px solid rgba(201, 168, 76, 0.15)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+              <Info size={16} style={{ color: 'var(--color-gold)', flexShrink: 0, marginTop: '2px' }} />
+              <p className="text-muted" style={{ fontSize: '0.8625rem', lineHeight: 1.7 }}>
+                {q.explanation}
+              </p>
+            </div>
+          </div>
+        )}
+
         {answered && (
           <button
             onClick={nextQuestion}
             className="btn-primary"
             style={{ width: '100%', marginTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
           >
-            {currentIdx + 1 >= QUESTION_COUNT ? (
+            {currentIdx + 1 >= questions.length ? (
               <><Trophy size={16} /> Voir les résultats</>
             ) : (
               <>Question suivante <ChevronRight size={16} /></>

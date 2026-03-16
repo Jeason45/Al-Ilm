@@ -1,6 +1,6 @@
 'use client';
 
-export type CoranTab = 'sourates' | 'apprendre' | 'histoire';
+export type CoranTab = 'lecture' | 'etude' | 'revelation';
 
 interface CoranTabsProps {
   activeTab: CoranTab;
@@ -8,9 +8,9 @@ interface CoranTabsProps {
 }
 
 const tabs: { id: CoranTab; label: string }[] = [
-  { id: 'sourates', label: 'Sourates' },
-  { id: 'apprendre', label: 'Apprendre' },
-  { id: 'histoire', label: 'Histoire' },
+  { id: 'lecture', label: 'Lecture' },
+  { id: 'etude', label: 'Étude' },
+  { id: 'revelation', label: 'Révélation' },
 ];
 
 export function CoranTabs({ activeTab, onTabChange }: CoranTabsProps) {

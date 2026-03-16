@@ -4,6 +4,17 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      { source: '/annexes', destination: '/apprendre', permanent: true },
+      { source: '/annexes/:path*', destination: '/apprendre/:path*', permanent: true },
+      { source: '/horaires', destination: '/pratique/priere', permanent: true },
+      // Pages moved from annexes to pratique
+      { source: '/apprendre/guide-pratique', destination: '/pratique/guide', permanent: true },
+      { source: '/apprendre/ramadan', destination: '/pratique/ramadan', permanent: true },
+      { source: '/apprendre/zakat', destination: '/pratique/zakat', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

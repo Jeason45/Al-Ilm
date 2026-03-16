@@ -41,7 +41,7 @@ export const prophetes: Prophete[] = [
     nomArabe: "إِبْرَاهِيمُ",
     titre: "L'ami intime d'Allah (Khalilullah)",
     sourates: ["Al-Baqara", "Al-An'am", "Ibrahim", "Al-Hijr", "Maryam", "Al-Anbiya", "Al-Hajj", "Ash-Shu'ara", "As-Saffat", "Az-Zukhruf", "Adh-Dhariyat", "Al-Mumtahana"],
-    histoire: "Ibrahim est l'un des plus grands prophètes de l'Islam, surnommé Khalilullah (l'ami intime d'Allah). Dès son jeune âge, il rejeta l'idolâtrie de son père Azar et de son peuple, brisa leurs idoles et fut jeté dans un brasier dont Allah le sauva miraculeusement. Il fut soumis à de nombreuses épreuves, dont l'ordre de sacrifier son fils Ismail, auxquelles il obéit avec une soumission totale. Avec son fils Ismail, il éleva les fondations de la Kaaba à La Mecque, établissant ainsi le centre du monothéisme."
+    histoire: "Ibrahim est l'un des plus grands prophètes de l'Islam, surnommé Khalilullah (l'ami intime d'Allah). Dès son jeune âge, il rejeta l'idolâtrie de son père Azar — dont certains exégètes considèrent qu'il pourrait être son oncle paternel, le Coran utilisant le terme « ab » qui peut désigner le père ou un ascendant — et de son peuple. Il brisa leurs idoles (Coran, 21:58) et fut jeté dans un brasier dont Allah le sauva miraculeusement. Il fut soumis à de nombreuses épreuves, dont l'ordre de sacrifier son fils Ismail, auxquelles il obéit avec une soumission totale. Avec son fils Ismail, il éleva les fondations de la Kaaba à La Mecque, établissant ainsi le centre du monothéisme."
   },
   {
     nom: "Lut (Lot)",
@@ -55,7 +55,7 @@ export const prophetes: Prophete[] = [
     nomArabe: "إِسْمَاعِيلُ",
     titre: "Le sacrifié et père des Arabes",
     sourates: ["Al-Baqara", "Al-An'am", "Ibrahim", "Maryam", "Al-Anbiya", "As-Saffat", "Sad"],
-    histoire: "Ismail est le fils aîné d'Ibrahim et de Hajar. Encore nourrisson, il fut laissé avec sa mère dans le désert aride de La Mecque par ordre divin, où jaillit la source de Zamzam sous ses pieds. Le Coran le décrit comme fidèle à sa promesse et patient lors de l'épreuve du sacrifice, quand son père Ibrahim reçut l'ordre en rêve de le sacrifier. Allah le racheta par un bélier et il participa avec son père à la construction de la Kaaba. Il est considéré comme l'ancêtre des Arabes et du Prophète Muhammad."
+    histoire: "Ismail est le fils aîné d'Ibrahim et de Hajar. Encore nourrisson, il fut laissé avec sa mère dans le désert aride de La Mecque par ordre divin. Selon le hadith rapporté par Al-Bukhari, c'est en cherchant de l'eau entre Safa et Marwa que Hajar vit la source de Zamzam jaillir à proximité de son fils. Le Coran le décrit comme fidèle à sa promesse et patient lors de l'épreuve du sacrifice, quand son père Ibrahim reçut l'ordre en rêve de le sacrifier. Allah le racheta par un bélier et il participa avec son père à la construction de la Kaaba. Il est considéré comme l'ancêtre des Arabes et du Prophète Muhammad."
   },
   {
     nom: "Ishaq (Isaac)",
@@ -76,7 +76,7 @@ export const prophetes: Prophete[] = [
     nomArabe: "يُوسُفُ",
     titre: "Le véridique (As-Siddiq)",
     sourates: ["Yusuf", "Al-An'am", "Al-Mu'min"],
-    histoire: "L'histoire de Yusuf est qualifiée par le Coran de « plus beau des récits ». Doté d'une beauté exceptionnelle et du don d'interpréter les rêves, il fut jeté dans un puits par ses frères jaloux, puis vendu comme esclave en Égypte. Emprisonné injustement après avoir résisté à la séduction de la femme du ministre, il interpréta les rêves du roi et devint ministre des finances d'Égypte. Il retrouva ses frères, leur pardonna et fit venir toute sa famille en Égypte, montrant que la patience et la confiance en Allah mènent toujours au succès."
+    histoire: "L'histoire de Yusuf est qualifiée par le Coran de « plus beau des récits ». Doté d'une beauté exceptionnelle et du don d'interpréter les rêves, il fut jeté dans un puits par ses frères jaloux, puis vendu comme esclave en Égypte. Emprisonné injustement après avoir résisté à la séduction de la femme du ministre, il interpréta les rêves du roi et fut placé à la tête des réserves du pays (Coran, 12:55). Il retrouva ses frères, leur pardonna et fit venir toute sa famille en Égypte, montrant que la patience et la confiance en Allah mènent toujours au succès."
   },
   {
     nom: "Ayyub (Job)",
@@ -104,7 +104,7 @@ export const prophetes: Prophete[] = [
     nomArabe: "هَارُونُ",
     titre: "Le ministre et frère de Musa",
     sourates: ["Al-Baqara", "An-Nisa", "Al-A'raf", "Yunus", "Maryam", "Ta-Ha", "Al-Mu'minun", "Ash-Shu'ara", "As-Saffat"],
-    histoire: "Harun est le frère aîné de Musa et fut désigné par Allah comme son assistant et porte-parole dans sa mission auprès de Pharaon. Musa demanda à Allah de lui adjoindre Harun car celui-ci était plus éloquent. Il partagea avec son frère le fardeau de la prophétie et la responsabilité de guider les Bani Isra'il. Durant l'absence de Musa au mont Sinaï, il tenta en vain d'empêcher son peuple d'adorer le veau d'or."
+    histoire: "Harun est le frère de Musa et fut désigné par Allah comme son assistant et porte-parole dans sa mission auprès de Pharaon. Musa demanda à Allah de lui adjoindre Harun car celui-ci était plus éloquent. Il partagea avec son frère le fardeau de la prophétie et la responsabilité de guider les Bani Isra'il. Durant l'absence de Musa au mont Sinaï, il tenta en vain d'empêcher son peuple d'adorer le veau d'or."
   },
   {
     nom: "Dhul-Kifl",
@@ -118,21 +118,21 @@ export const prophetes: Prophete[] = [
     nomArabe: "دَاوُودُ",
     titre: "Le roi prophète et chanteur des Psaumes",
     sourates: ["Al-Baqara", "An-Nisa", "Al-Ma'ida", "Al-An'am", "Al-Isra", "Al-Anbiya", "An-Naml", "Saba", "Sad"],
-    histoire: "Dawud fut à la fois roi et prophète, combinant le pouvoir temporel et la guidance spirituelle. Jeune berger, il tua le géant Jalut (Goliath) avec sa fronde et devint ensuite roi d'Israël. Allah lui accorda le Zabur (Psaumes) et une voix si belle que les montagnes et les oiseaux le glorifiaient avec lui. Il était connu pour son jeûne (un jour sur deux) et sa justice exemplaire. Allah lui enseigna l'art de fabriquer des cottes de mailles et rendit le fer malléable entre ses mains."
+    histoire: "Dawud fut à la fois roi et prophète, combinant le pouvoir temporel et la guidance spirituelle. Le Coran mentionne qu'il tua Jalut (Goliath) par la permission d'Allah (Coran, 2:251) — le détail de la fronde provient de la tradition biblique, non du Coran. Il devint ensuite roi d'Israël. Allah lui accorda le Zabur (Psaumes) et une voix si belle que les montagnes et les oiseaux le glorifiaient avec lui. Il était connu pour son jeûne (un jour sur deux) et sa justice exemplaire. Allah lui enseigna l'art de fabriquer des cottes de mailles et rendit le fer malléable entre ses mains."
   },
   {
     nom: "Sulayman (Salomon)",
     nomArabe: "سُلَيْمَانُ",
     titre: "Le roi sage qui commandait aux djinns",
     sourates: ["Al-Baqara", "An-Nisa", "Al-An'am", "Al-Anbiya", "An-Naml", "Saba", "Sad"],
-    histoire: "Sulayman, fils de Dawud, hérita du royaume de son père et reçut d'Allah un pouvoir sans précédent. Il pouvait communiquer avec les animaux, commander aux djinns et aux vents, et comprendre le langage des fourmis et des oiseaux. Son histoire avec la reine de Saba (Bilqis), qu'il invita au monothéisme, est l'un des récits les plus détaillés du Coran. Malgré son immense pouvoir et sa richesse incomparable, il resta humble et reconnaissant envers Allah."
+    histoire: "Sulayman, fils de Dawud, hérita du royaume de son père et reçut d'Allah un pouvoir sans précédent. Il pouvait communiquer avec les animaux, commander aux djinns et aux vents, et comprendre le langage des fourmis et des oiseaux. Son histoire avec la reine de Saba — connue dans la tradition sous le nom de Bilqis, bien que ce nom ne figure pas dans le Coran — qu'il invita au monothéisme, est l'un des récits les plus détaillés du Coran. Malgré son immense pouvoir et sa richesse incomparable, il resta humble et reconnaissant envers Allah."
   },
   {
     nom: "Ilyas (Élie)",
     nomArabe: "إِلْيَاسُ",
     titre: "Le défenseur du monothéisme",
     sourates: ["Al-An'am", "As-Saffat"],
-    histoire: "Ilyas fut envoyé aux Bani Isra'il pour les ramener au monothéisme alors qu'ils adoraient l'idole Ba'l. Il les confronta avec courage en leur demandant : « Ne craignez-vous pas Allah ? » Le Coran le mentionne parmi les messagers et le décrit comme faisant partie des vertueux. Il combattit l'idolâtrie avec détermination mais son peuple le rejeta largement. Allah le salue dans le Coran en disant : « Paix sur Ilyas. »"
+    histoire: "Ilyas fut envoyé aux Bani Isra'il pour les ramener au monothéisme alors qu'ils adoraient l'idole Ba'l. Le Coran rapporte qu'il leur dit : « Ne craignez-vous pas (Allah) ? Invoquerez-vous Ba'l et délaisserez-vous le Meilleur des créateurs ? » (Coran, 37:124-125). Le Coran le mentionne parmi les messagers et le décrit comme faisant partie des vertueux. Il combattit l'idolâtrie avec détermination mais son peuple le rejeta largement. Allah le salue dans le Coran en disant : « Paix sur Ilyas. »"
   },
   {
     nom: "Al-Yasa (Élisée)",
@@ -174,6 +174,6 @@ export const prophetes: Prophete[] = [
     nomArabe: "مُحَمَّدٌ",
     titre: "Le sceau des prophètes (Khatam an-Nabiyyin)",
     sourates: ["Al-Imran", "Al-Ahzab", "Muhammad", "Al-Fath", "Al-Qalam", "At-Tawba", "Al-Anbiya"],
-    histoire: "Muhammad est le dernier prophète et messager d'Allah, envoyé comme miséricorde pour l'humanité entière. Né à La Mecque en 570, il reçut la première révélation du Coran à l'âge de 40 ans dans la grotte de Hira par l'intermédiaire de l'ange Jibril. Il prêcha l'Islam pendant 23 ans, d'abord en secret puis publiquement, subissant persécutions et épreuves avant d'émigrer à Médine où il établit la première communauté musulmane. Son message universel parachève et complète les enseignements de tous les prophètes précédents, et le Coran est le miracle vivant qui lui fut accordé."
+    histoire: "Muhammad est le dernier prophète et messager d'Allah, envoyé comme miséricorde pour l'humanité entière. Né à La Mecque vers 570 de l'ère chrétienne, il reçut la première révélation du Coran à l'âge de 40 ans dans la grotte de Hira par l'intermédiaire de l'ange Jibril. Il prêcha l'Islam pendant 23 ans, d'abord en secret puis publiquement, subissant persécutions et épreuves avant d'émigrer à Médine où il établit la première communauté musulmane. Son message universel parachève et complète les enseignements de tous les prophètes précédents, et le Coran est le miracle vivant qui lui fut accordé."
   }
 ];

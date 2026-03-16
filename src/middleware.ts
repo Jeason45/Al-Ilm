@@ -11,6 +11,11 @@ export async function middleware(req: NextRequest) {
   const isProtected = protectedRoutes.some((route) => pathname.startsWith(route));
   const isAdmin = adminRoutes.some((route) => pathname.startsWith(route));
 
+  // Admin editors: dev-only, skip auth
+  if (pathname.startsWith('/admin/') && process.env.NODE_ENV === 'development') {
+    return NextResponse.next();
+  }
+
   if (isProtected || isAdmin) {
     const token = await getToken({ req });
 

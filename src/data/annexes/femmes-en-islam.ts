@@ -17,7 +17,7 @@ export const femmesEnIslam: FemmeEnIslam[] = [
     nom: "Khadija bint Khuwaylid",
     titre: "La première croyante et mère des croyants",
     sourate: "Référencée indirectement dans Ad-Duha (93), Al-Inshirah (94)",
-    histoire: "Khadija fut la première épouse du Prophète Muhammad et la première personne à embrasser l'Islam. Femme d'affaires prospère et respectée à La Mecque, elle proposa le mariage au Prophète impressionnée par son honnêteté. Lorsque Muhammad reçut la première révélation et revint tremblant de la grotte de Hira, c'est Khadija qui le rassura : « Allah ne t'abandonnera jamais. » Elle consacra toute sa fortune au service de l'Islam et soutint le Prophète durant les années les plus difficiles de la mission. Le Prophète l'a décrite comme la meilleure femme de son époque."
+    histoire: "Khadija fut la première épouse du Prophète Muhammad ﷺ et la première personne à embrasser l'Islam. Femme d'affaires prospère et respectée à La Mecque, elle proposa le mariage au Prophète impressionnée par son honnêteté. Lorsque Muhammad ﷺ reçut la première révélation et revint tremblant de la grotte de Hira, c'est Khadija qui le rassura : « Par Allah, Allah ne t'abandonnera jamais. » (Bukhari). Elle consacra toute sa fortune au service de l'Islam et soutint le Prophète durant les années les plus difficiles de la mission. Le Prophète ﷺ l'a décrite comme la meilleure femme de son époque (Bukhari & Muslim)."
   },
   {
     nom: "Aisha bint Abi Bakr",
@@ -29,7 +29,7 @@ export const femmesEnIslam: FemmeEnIslam[] = [
     nom: "Fatima bint Muhammad",
     titre: "La maîtresse des femmes du Paradis",
     sourate: "Référencée dans Al-Ahzab (33), Al-Kawthar (108)",
-    histoire: "Fatima est la fille bien-aimée du Prophète Muhammad et de Khadija, épouse d'Ali ibn Abi Talib et mère de Hassan et Hussein. Le Prophète l'a décrite comme la maîtresse des femmes du Paradis et disait qu'elle faisait partie de lui. Elle ressemblait le plus au Prophète dans sa démarche et son comportement. Malgré une vie marquée par la simplicité et les épreuves matérielles, elle ne se plaignit jamais et resta un modèle de piété et de dévotion. Elle fut la première de la famille du Prophète à le rejoindre après sa mort."
+    histoire: "Fatima est la fille bien-aimée du Prophète Muhammad ﷺ et de Khadija, épouse d'Ali ibn Abi Talib et mère de Hassan et Hussein. Le Prophète ﷺ l'a décrite comme la maîtresse des femmes du Paradis (Bukhari) et disait qu'elle faisait partie de lui (Bukhari & Muslim). Elle ressemblait le plus au Prophète dans sa démarche et son comportement (Abu Dawud). Malgré une vie marquée par la simplicité et les épreuves matérielles, elle ne se plaignit jamais et resta un modèle de piété et de dévotion. Elle fut la première de la famille du Prophète à le rejoindre après sa mort."
   },
   {
     nom: "Hawa (Ève)",
@@ -47,7 +47,7 @@ export const femmesEnIslam: FemmeEnIslam[] = [
     nom: "Hajar",
     titre: "La mère de la persévérance",
     sourate: "Référencée dans Ibrahim (14), Al-Baqara (2:158)",
-    histoire: "Hajar est l'épouse d'Ibrahim et la mère d'Ismail. Par ordre divin, Ibrahim la laissa avec son nourrisson dans la vallée aride et inhabitée de La Mecque. Quand l'eau vint à manquer, elle courut sept fois entre les collines de Safa et Marwa à la recherche d'eau, un acte de foi immortalisé dans le rite du Sa'i du pèlerinage. Allah fit jaillir la source de Zamzam sous les pieds du bébé Ismail. Son courage et sa confiance en Allah en font un modèle éternel de persévérance pour tous les musulmans."
+    histoire: "Hajar est l'épouse d'Ibrahim et la mère d'Ismail. Par ordre divin, Ibrahim la laissa avec son nourrisson dans la vallée aride et inhabitée de La Mecque. Quand l'eau vint à manquer, elle courut sept fois entre les collines de Safa et Marwa à la recherche d'eau, un acte de foi immortalisé dans le rite du Sa'i du pèlerinage. Selon le long hadith rapporté par Al-Bukhari, Allah fit alors jaillir la source de Zamzam à proximité de son fils. Son courage et sa confiance en Allah en font un modèle éternel de persévérance pour tous les musulmans."
   },
   {
     nom: "Zulaykha (femme de l'Aziz)",
@@ -56,10 +56,10 @@ export const femmesEnIslam: FemmeEnIslam[] = [
     histoire: "Zulaykha est l'épouse du ministre d'Égypte (Al-Aziz) qui acheta Yusuf comme esclave. Séduite par la beauté exceptionnelle de Yusuf, elle tenta de le séduire mais il résista par crainte d'Allah. Quand Yusuf refusa ses avances, elle l'accusa faussement et il fut emprisonné. Cependant, la vérité finit par éclater et elle reconnut publiquement son tort en disant : « C'est moi qui avais tenté de le séduire, et il est du nombre des véridiques. » Son histoire illustre la tentation et la nécessité de la sincérité."
   },
   {
-    nom: "Reine de Saba (Bilqis)",
+    nom: "Reine de Saba",
     titre: "La reine sage qui embrassa le monothéisme",
     sourate: "An-Naml (27)",
-    histoire: "La Reine de Saba régnait sur un royaume puissant et prospère au Yémen. Quand Sulayman l'invita au monothéisme par une lettre portée par la huppe, elle fit preuve de sagesse en consultant son conseil avant de répondre. Elle envoya d'abord des cadeaux que Sulayman refusa, puis se rendit en personne à sa cour. Impressionnée par les prodiges divins dont bénéficiait Sulayman, notamment le transport instantané de son trône, elle se soumit à Allah en disant : « Seigneur, je me suis fait du tort à moi-même. Je me soumets avec Sulayman à Allah, Seigneur des mondes. »"
+    histoire: "La Reine de Saba — connue dans la tradition sous le nom de Bilqis, bien que ce nom ne figure pas dans le Coran — régnait sur un royaume puissant et prospère au Yémen. Quand Sulayman l'invita au monothéisme par une lettre portée par la huppe, elle fit preuve de sagesse en consultant son conseil avant de répondre. Elle envoya d'abord des cadeaux que Sulayman refusa, puis se rendit en personne à sa cour. Impressionnée par les prodiges divins dont bénéficiait Sulayman, notamment le transport instantané de son trône, elle se soumit à Allah en disant : « Seigneur, je me suis fait du tort à moi-même. Je me soumets avec Sulayman à Allah, Seigneur des mondes. »"
   },
   {
     nom: "Mère de Musa",

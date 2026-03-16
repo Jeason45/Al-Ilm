@@ -11,7 +11,7 @@ export const compagnons: Compagnon[] = [
     nom: "Umar ibn al-Khattab",
     nomArabe: "عُمَرُ بْنُ الْخَطَّابِ",
     titre: "Al-Faruq (Celui qui distingue le vrai du faux), deuxième calife",
-    histoire: "Umar était initialement un farouche opposant à l'Islam avant sa conversion qui renforça considérablement la communauté musulmane. Le Prophète a dit que si un prophète devait venir après lui, ce serait Umar, en raison de son discernement exceptionnel. Plusieurs de ses opinions furent confirmées par des révélations coraniques. Devenu deuxième calife, il administra un empire s'étendant de la Perse à l'Égypte avec une justice légendaire, vivant dans une simplicité extrême malgré l'immense richesse de l'État."
+    histoire: "Umar était initialement un farouche opposant à l'Islam avant sa conversion qui renforça considérablement la communauté musulmane. Le Prophète ﷺ a dit : « S'il devait y avoir un prophète après moi, ce serait Umar. » (Tirmidhi, jugé hasan par Al-Albani). Plusieurs de ses opinions furent confirmées par des révélations coraniques. Devenu deuxième calife, il administra un empire s'étendant de la Perse à l'Égypte avec une justice légendaire, vivant dans une simplicité extrême malgré l'immense richesse de l'État."
   },
   {
     nom: "Uthman ibn Affan",
@@ -53,7 +53,7 @@ export const compagnons: Compagnon[] = [
     nom: "Abu Dharr al-Ghifari",
     nomArabe: "أَبُو ذَرٍّ الْغِفَارِيُّ",
     titre: "Le plus véridique après Abu Bakr",
-    histoire: "Abu Dharr fut l'un des premiers convertis à l'Islam et est reconnu pour sa véracité absolue. Le Prophète a dit de lui : « La terre n'a pas porté et le ciel n'a pas couvert homme plus véridique qu'Abu Dharr. » Il était connu pour son ascétisme extrême et sa défense acharnée des pauvres contre l'accumulation excessive de richesses. Il refusait tout luxe et vivait dans la plus grande simplicité, rappelant constamment les droits des démunis. Il est un modèle de justice sociale et de détachement des biens de ce monde."
+    histoire: "Abu Dharr fut l'un des premiers convertis à l'Islam et est reconnu pour sa véracité absolue. Le Prophète ﷺ a dit de lui : « La terre n'a pas porté et le ciel n'a pas couvert homme plus véridique qu'Abu Dharr. » (Tirmidhi et Ibn Majah ; jugé hasan par certains savants, bien que sa chaîne soit discutée). Il était connu pour son ascétisme extrême et sa défense acharnée des pauvres contre l'accumulation excessive de richesses. Il refusait tout luxe et vivait dans la plus grande simplicité, rappelant constamment les droits des démunis. Il est un modèle de justice sociale et de détachement des biens de ce monde."
   },
   {
     nom: "Khalid ibn al-Walid",

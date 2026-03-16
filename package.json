@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3005 --turbopack",
+    "dev": "next dev --port 3008 --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,6 +13,8 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@tailwindcss/postcss": "^4.2.1",
+    "@theatre/core": "^0.7.2",
+    "@theatre/r3f": "^0.7.2",
     "@types/node": "^25.3.1",
     "@types/react": "^19.2.14",
     "@types/three": "^0.183.1",
@@ -35,6 +37,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.4",
+    "@theatre/studio": "^0.7.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.3",

@@ -441,6 +441,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 1024px) {
   .grid-features { grid-template-columns: repeat(2, 1fr); }
+  .quiz-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .grid-invocations { grid-template-columns: repeat(3, 1fr); }
 }
 
@@ -458,6 +459,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 480px) {
   .grid-surahs { grid-template-columns: 1fr; }
+  .quiz-grid { grid-template-columns: 1fr !important; }
   .grid-features { grid-template-columns: 1fr; }
   .grid-invocations { grid-template-columns: repeat(2, 1fr); }
   .grid-preview { grid-template-columns: 1fr; }

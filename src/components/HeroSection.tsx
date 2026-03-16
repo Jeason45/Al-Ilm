@@ -89,7 +89,7 @@ export function HeroSection() {
           </Link>
           {[
             { href: '/apprendre', label: 'Apprendre' },
-            { href: '/annexes', label: 'Les annexes' },
+            { href: '/pratique', label: 'Pratique' },
           ].map((link) => (
             <Link
               key={link.href}

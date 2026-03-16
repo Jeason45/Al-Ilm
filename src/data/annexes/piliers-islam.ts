@@ -68,7 +68,7 @@ export const piliersIslam: PilierIslam[] = [
     ],
     details: [
       "Le jeûne commence à l'aube (Fajr) et se termine au coucher du soleil (Maghrib). L'intention doit être formulée chaque nuit avant le Fajr.",
-      "Sont exemptés : les enfants, les malades (temporaire : rattrapage ; chronique : fidya), les voyageurs (rattrapage), les femmes enceintes ou allaitantes si elles craignent pour leur santé, les personnes âgées incapables de jeûner (fidya).",
+      "Sont exemptés : les enfants, les malades (temporaire : rattrapage ; chronique : fidya), les voyageurs (rattrapage), les personnes âgées incapables de jeûner (fidya). Pour les femmes enceintes ou allaitantes, les écoles divergent : certaines (hanafite) exigent uniquement le rattrapage, d'autres (shaféite, hanbalite) ajoutent la fidya si l'exemption concerne la crainte pour l'enfant. Il convient de consulter un savant selon son école.",
       "Le Ramadan est aussi le mois de la révélation du Coran, de la multiplication des récompenses, de la Nuit du Destin (Laylat al-Qadr) qui est meilleure que mille mois.",
       "Le jeûne n'est pas qu'une abstention de nourriture : le Prophète ﷺ a dit que celui qui ne délaisse pas le mensonge et sa pratique, Allah n'a nul besoin qu'il délaisse sa nourriture (Bukhari). C'est une école de patience, de maîtrise de soi et de piété."
     ]
@@ -88,7 +88,7 @@ export const piliersIslam: PilierIslam[] = [
       "Le Hajj se déroule du 8 au 12 Dhul Hijja (12e mois du calendrier hégirien). Les rites principaux sont : l'Ihram (état de sacralisation), le Tawaf (circumambulation autour de la Ka'ba), le Sa'i (parcours entre Safa et Marwa), la station à Arafat, la lapidation des stèles à Mina, et le sacrifice.",
       "La station à Arafat (9 Dhul Hijja) est le pilier essentiel du Hajj. Le Prophète ﷺ a dit : « Le Hajj, c'est Arafat. » C'est le jour où Allah libère le plus de gens du Feu.",
       "La Omra (petit pèlerinage) peut être accomplie à tout moment de l'année. Elle comprend l'Ihram, le Tawaf et le Sa'i. Le Prophète ﷺ a dit : « Une Omra jusqu'à l'autre est une expiation pour les péchés commis entre les deux. » (Bukhari & Muslim)",
-      "Le Hajj commémore les actes d'Ibrahim (Abraham) et de sa famille : la construction de la Ka'ba avec son fils Ismaïl, le sacrifice, et le parcours de Hajar entre Safa et Marwa à la recherche d'eau pour son fils."
+      "Le Hajj commémore les actes d'Ibrahim (Abraham) et de sa famille : la construction de la Ka'ba avec son fils Ismaïl, le sacrifice, et le parcours de Hajar entre Safa et Marwa à la recherche d'eau — épisode détaillé dans un long hadith de Sahih Al-Bukhari."
     ]
   }
 ];

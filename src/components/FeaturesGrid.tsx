@@ -40,14 +40,14 @@ const features = [
     title: "Noms d'Allah",
     arabic: 'أسماء الله',
     description: "Les attributs divins et leur signification profonde.",
-    href: '/annexes/noms-allah',
+    href: '/apprendre/noms-allah',
   },
   {
     number: '25',
     title: 'Prophètes',
     arabic: 'الأنبياء',
     description: "De Adam à Muhammad ﷺ — histoires et enseignements.",
-    href: '/annexes/prophetes',
+    href: '/apprendre/prophetes',
   },
 ];
 

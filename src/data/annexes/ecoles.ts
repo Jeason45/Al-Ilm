@@ -77,7 +77,7 @@ export const ecolesJuridiques: EcoleJuridique[] = [
     fondateurArabe: "أَحْمَدُ بْنُ حَنْبَلٍ",
     epoque: "780-855 (164-241 H)",
     lieu: "Bagdad, Irak",
-    methodologie: "L'école hanbalite se distingue par sa stricte adhérence aux textes du Coran et de la Sunna. Ahmad ibn Hanbal privilégiait un hadith faible (da'if) au raisonnement analogique (qiyas), et ne recourait à ce dernier qu'en ultime nécessité. Il a compilé le Musnad, l'un des plus vastes recueils de hadiths, contenant plus de 28 000 traditions.",
+    methodologie: "L'école hanbalite se distingue par sa stricte adhérence aux textes du Coran et de la Sunna. Selon la position classique rapportée par Ibn Taymiyya et d'autres, Ahmad ibn Hanbal préférait un hadith faible (da'if) au raisonnement analogique (qiyas) — bien que certains savants hanbalites nuancent cette formulation en précisant qu'il s'agissait de hadiths dont la faiblesse n'était pas sévère, et seulement en l'absence de texte plus probant. Il ne recourait au qiyas qu'en ultime nécessité. Il a compilé le Musnad, l'un des plus vastes recueils de hadiths, contenant plus de 28 000 traditions.",
     geographie: "Arabie saoudite, Qatar, certaines régions du Golfe persique, minorités en Syrie, Palestine et Irak",
     ouvragesRef: [
       "Al-Musnad de l'Imam Ahmad",
@@ -89,7 +89,7 @@ export const ecolesJuridiques: EcoleJuridique[] = [
       "Adhérence stricte aux textes (Coran et Sunna) avec un usage minimal du qiyas",
       "Préférence d'un hadith faible au raisonnement analogique",
       "Ahmad ibn Hanbal a subi l'épreuve de la Mihna (inquisition) et refusa de dire que le Coran est créé",
-      "Influence majeure sur le mouvement salafi et le renouveau islamique",
+      "Influence historique majeure sur les mouvements de réforme et le renouveau islamique, notamment via Ibn Taymiyya et Ibn al-Qayyim",
       "École officielle de l'Arabie saoudite"
     ]
   }

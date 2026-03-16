@@ -16,7 +16,7 @@ export function CTASection() {
               Prêt à apprendre ?
             </h2>
             <p className="text-[17px] text-muted max-w-md mx-auto mb-10">
-              114 sourates, 10 annexes, des centaines de versets clés — tout est accessible, gratuitement.
+              114 sourates, des centaines de versets clés et d&apos;outils pratiques — tout est accessible, gratuitement.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/coran" className="btn-primary">
@@ -25,8 +25,8 @@ export function CTASection() {
               <Link href="/apprendre" className="btn-secondary">
                 Commencer l&apos;exploration
               </Link>
-              <Link href="/annexes" className="btn-secondary">
-                Parcourir les annexes
+              <Link href="/pratique" className="btn-secondary">
+                Outils pratiques
               </Link>
             </div>
           </div>

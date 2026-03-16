@@ -50,7 +50,7 @@ export default async function SuratePage({ params }: PageProps) {
       {/* Back link */}
       <div style={center}>
         <Link
-          href="/apprendre"
+          href="/coran"
           className="back-link"
         >
           <span className="back-link-icon">

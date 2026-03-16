@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SITE_NAME, SITE_NAME_AR, NAV_LINKS, ANNEXES_LINKS } from '@/lib/constants';
+import { SITE_NAME, SITE_NAME_AR, NAV_LINKS, APPRENDRE_LINKS } from '@/lib/constants';
 
 const center: React.CSSProperties = {
   width: '100%',
@@ -39,9 +39,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-muted" style={{ fontSize: '13px', fontWeight: 500, textTransform: 'uppercase' as const, letterSpacing: '0.05em', marginBottom: '1.25rem' }}>Annexes</h4>
+            <h4 className="text-muted" style={{ fontSize: '13px', fontWeight: 500, textTransform: 'uppercase' as const, letterSpacing: '0.05em', marginBottom: '1.25rem' }}>Apprendre</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column' as const, gap: '0.75rem' }}>
-              {ANNEXES_LINKS.slice(0, 6).map((link) => (
+              {APPRENDRE_LINKS.slice(0, 6).map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-muted hover:text-foreground transition-colors duration-200" style={{ fontSize: '14px', textDecoration: 'none' }}>
                     {link.label}

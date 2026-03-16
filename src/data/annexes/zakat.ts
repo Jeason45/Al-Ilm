@@ -57,3 +57,51 @@ export const zakatInfo = {
   nisabOr: 85,
   nisabArgent: 595
 };
+
+/* ── Zakat al-Fitr ── */
+export const zakatFitrInfo = {
+  definition: "La Zakat al-Fitr (ou Sadaqat al-Fitr) est une aumône obligatoire que chaque musulman doit verser avant la prière de l'Aïd al-Fitr, à la fin du mois de Ramadan. Elle purifie le jeûneur de ses manquements et permet aux pauvres de se réjouir le jour de l'Aïd.",
+  hadith: "Le Prophète ﷺ a prescrit la Zakat al-Fitr : un sa' de dattes ou un sa' de orge, pour chaque musulman, homme ou femme, libre ou esclave. (Rapporté par al-Bukhari et Muslim, d'après Ibn 'Umar)",
+  quand: "Elle doit être versée avant la prière de l'Aïd al-Fitr. Il est permis de la donner un ou deux jours avant l'Aïd. Versée après la prière, elle compte comme simple sadaqa.",
+  pourQui: "Elle est due pour chaque membre du foyer : le chef de famille la verse pour lui-même, son épouse, ses enfants (même nourrissons) et toute personne à sa charge.",
+  mesure: {
+    description: "La quantité prescrite est d'un sa' de nourriture de base par personne. Un sa' correspond à environ 2,5 à 3 kg selon les écoles.",
+    hanafi: "Les Hanafites estiment qu'un demi-sa' de blé suffit (~2,1 kg), ou un sa' complet pour les dattes, l'orge et les raisins secs.",
+    majorite: "La majorité des savants (Malikites, Shafiites, Hanbalites) prescrivent un sa' complet (~2,5 à 3 kg) de la nourriture de base du pays.",
+    monetaire: "Le versement en argent est accepté par l'école hanafite et par de nombreux savants contemporains, car il est souvent plus utile aux pauvres.",
+  },
+  montantDefautEur: 7, // estimation basse (Grande Mosquée de Paris)
+  montantHautEur: 9,   // estimation haute (CFCM / associations)
+};
+
+/* ── Fidya ── */
+export const fidyaInfo = {
+  definition: "La Fidya est une compensation alimentaire que doit verser la personne qui ne peut pas jeûner le Ramadan de manière définitive (maladie chronique incurable, vieillesse extrême). Elle remplace le jeûne pour ceux qui sont dans l'incapacité permanente de le rattraper.",
+  verset: "« Et pour ceux qui ne pourraient le supporter qu'avec grande difficulté, il y a une compensation : nourrir un pauvre. » (Al-Baqara, 2:184)",
+  quiEstConcerne: [
+    "Les personnes âgées qui ne peuvent plus jeûner",
+    "Les malades chroniques dont la guérison n'est pas espérée",
+    "Les femmes enceintes ou allaitantes qui craignent pour leur enfant (selon certains savants)",
+  ],
+  mesure: "Un mudd de nourriture par jour manqué (~750 g, soit l'équivalent d'un repas). Les savants contemporains estiment cela à environ 5 à 10 € par jour selon le coût de la vie local.",
+  montantDefautEur: 7, // par jour manqué
+  note: "La Fidya n'est valable que si la personne est définitivement incapable de rattraper. Si la guérison est possible, elle doit rattraper les jours manqués, pas payer la Fidya.",
+};
+
+/* ── Kaffarah ── */
+export const kaffarahInfo = {
+  definition: "La Kaffarah (expiation) est une pénalité imposée à celui qui rompt volontairement et sans excuse valable un jour de jeûne du Ramadan. C'est une sanction beaucoup plus lourde que la Fidya, reflétant la gravité de l'acte.",
+  hadith: "Un homme vint voir le Prophète ﷺ et dit : « Je suis perdu ! J'ai eu un rapport avec ma femme pendant le Ramadan. » Le Prophète ﷺ lui prescrit par ordre : affranchir un esclave, puis jeûner 60 jours consécutifs, puis nourrir 60 pauvres. (Rapporté par al-Bukhari et Muslim, d'après Abu Hurayra)",
+  options: [
+    { ordre: 1, action: "Affranchir un esclave", note: "Non applicable aujourd'hui" },
+    { ordre: 2, action: "Jeûner 60 jours consécutifs", note: "Si on rompt un jour (sauf excuse valable), on recommence les 60 jours" },
+    { ordre: 3, action: "Nourrir 60 pauvres", note: "Un repas complet par pauvre, soit l'équivalent d'un mudd (~750 g) de nourriture de base" },
+  ],
+  quand: [
+    "Rupture volontaire du jeûne par rapport sexuel (consensus des savants)",
+    "Rupture volontaire du jeûne par la nourriture ou la boisson (selon les Hanafites et certains Malikites)",
+  ],
+  montantParRepasEur: 9,
+  nombrePauvres: 60,
+  note: "La Kaffarah s'applique par jour volontairement rompu. En plus de la Kaffarah, le jour doit être rattrapé.",
+};

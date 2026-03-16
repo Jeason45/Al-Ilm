@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { UserMenu } from './UserMenu';
 import { NAV_LINKS, SITE_NAME, SITE_NAME_AR } from '@/lib/constants';
@@ -80,6 +80,19 @@ export function Header() {
                   </Link>
                 );
               })}
+              <Link
+                href="/recherche"
+                className="transition-colors duration-200 hover:text-white"
+                aria-label="Recherche"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: isScrolled ? 'var(--color-muted)' : 'rgba(255,255,255,0.75)',
+                }}
+              >
+                <Search style={{ width: '16px', height: '16px' }} />
+              </Link>
               <ThemeToggle />
               <UserMenu />
             </nav>
@@ -124,6 +137,17 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/recherche"
+            onClick={() => setIsMobileOpen(false)}
+            className={cn(
+              'font-outfit font-medium tracking-tight transition-colors',
+              pathname === '/recherche' ? 'text-foreground' : 'text-muted hover:text-foreground'
+            )}
+            style={{ fontSize: '1.5rem', textDecoration: 'none' }}
+          >
+            Recherche
+          </Link>
         </nav>
       </div>
     </>

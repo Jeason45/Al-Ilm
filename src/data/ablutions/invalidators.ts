@@ -58,9 +58,9 @@ export const wuduInvalidators: WuduInvalidator[] = [
     id: 'inv-eating-camel',
     title: 'Manger de la viande de chameau',
     titleAr: 'أكل لحم الإبل',
-    description: 'Manger de la viande de chameau annule le wudu selon le hadith rapporté par Muslim.',
+    description: 'Manger de la viande de chameau annule le wudu selon le hadith rapporté par Muslim : « Un homme demanda au Prophète ﷺ : Dois-je faire le wudu après avoir mangé de la viande de chameau ? Il dit : Oui. »',
     consensus: 'dispute',
-    madhabNote: 'L\'école hanbalite l\'annule obligatoirement. Les autres écoles ne le considèrent pas comme annulatoire, mais certains savants hanafites le recommandent par précaution.',
+    madhabNote: 'L\'école hanbalite considère que cela annule obligatoirement le wudu, conformément au hadith de Jabir ibn Samura (Muslim). Les écoles hanafite, malikite et shafi\'ite ne considèrent pas que cela annule le wudu, car elles estiment que ce hadith est abrogé ou qu\'il s\'agit d\'une recommandation (istihbab) et non d\'une obligation. Ibn Taymiyya (hanbalite) a renforcé l\'avis de l\'obligation.',
   },
   {
     id: 'inv-touching-woman',

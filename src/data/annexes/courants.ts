@@ -18,7 +18,7 @@ export const courantsIslam: CourantIslam[] = [
     sousCourants: [
       "Ash'arisme (théologie rationaliste modérée — Al-Ash'ari)",
       "Maturidisme (théologie rationaliste — Al-Maturidi)",
-      "Atharisme (théologie textualiste — Ahmad ibn Hanbal, Ibn Taymiyya)"
+      "Atharisme (théologie textualiste — Ahmad ibn Hanbal, Ibn Taymiyya) : affirme les attributs divins tels que révélés, sans ta'wil (interprétation allégorique) ni tashbih (assimilation aux créatures)"
     ]
   },
   {
@@ -75,7 +75,7 @@ export const courantsIslam: CourantIslam[] = [
     croyances: [
       "Retour strict au Coran et à la Sunna selon la compréhension des Salaf (pieux prédécesseurs)",
       "Rejet des innovations religieuses (bid'a) et des pratiques jugées non-fondées dans les textes",
-      "Affirmation littérale des attributs divins sans interprétation allégorique (tafwid ou ithbat)",
+      "Affirmation des attributs divins mentionnés dans les textes : soit par l'ithbat (affirmation du sens apparent sans assimilation aux créatures — tanzih), soit par le tafwid (délégation du sens exact à Allah) — deux positions distinctes qui coexistent au sein de ce courant",
       "Insistance sur le tawhid (unicité d'Allah) dans toutes ses dimensions",
       "Pluralité interne : courant quiétiste (majoritaire), courant activiste, courant jihadiste (minoritaire et contesté)"
     ],

@@ -8,7 +8,7 @@ import { ApprendreTab } from '@/components/coran/ApprendreTab';
 import { HistoireTab } from '@/components/coran/HistoireTab';
 
 export default function CoranPage() {
-  const [activeTab, setActiveTab] = useState<CoranTab>('sourates');
+  const [activeTab, setActiveTab] = useState<CoranTab>('lecture');
 
   return (
     <div style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(3rem, 6vw, 6rem)', width: '100%' }}>
@@ -27,9 +27,9 @@ export default function CoranPage() {
           </div>
         </ScrollReveal>
 
-        {activeTab === 'sourates' && <SouratesTab />}
-        {activeTab === 'apprendre' && <ApprendreTab />}
-        {activeTab === 'histoire' && <HistoireTab />}
+        {activeTab === 'lecture' && <SouratesTab />}
+        {activeTab === 'etude' && <ApprendreTab />}
+        {activeTab === 'revelation' && <HistoireTab />}
       </div>
     </div>
   );

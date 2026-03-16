@@ -82,7 +82,7 @@ export function buildSearchIndex(): SearchableItem[] {
       title: `${n.nom} — ${n.signification}`,
       subtitle: `Nom d'Allah n°${n.numero}`,
       detail: n.explication.slice(0, 120) + '…',
-      href: '/annexes/noms-allah',
+      href: '/apprendre/noms-allah',
       arabic: n.arabe,
       searchText: `${n.nom} ${n.arabe} ${n.signification} ${n.explication}`,
     });
@@ -95,7 +95,7 @@ export function buildSearchIndex(): SearchableItem[] {
       title: p.nom,
       subtitle: p.titre,
       detail: p.histoire.slice(0, 120) + '…',
-      href: '/annexes/prophetes',
+      href: '/apprendre/prophetes',
       arabic: p.nomArabe,
       searchText: `${p.nom} ${p.nomArabe} ${p.titre} ${p.histoire}`,
     });
@@ -107,7 +107,7 @@ export function buildSearchIndex(): SearchableItem[] {
       category: 'glossaire',
       title: `${g.terme} (${g.arabe})`,
       subtitle: g.definition.slice(0, 100) + '…',
-      href: '/annexes/glossaire',
+      href: '/apprendre/glossaire',
       arabic: g.arabe,
       searchText: `${g.terme} ${g.arabe} ${g.definition}`,
     });
@@ -120,7 +120,7 @@ export function buildSearchIndex(): SearchableItem[] {
       title: inv.titre,
       subtitle: inv.reference,
       detail: inv.traduction.slice(0, 120) + '…',
-      href: '/annexes/invocations',
+      href: '/apprendre/invocations',
       arabic: inv.arabe.slice(0, 80),
       searchText: `${inv.titre} ${inv.traduction} ${inv.arabe} ${inv.occasion} ${inv.reference}`,
     });
