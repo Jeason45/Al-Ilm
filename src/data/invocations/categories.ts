@@ -28,6 +28,19 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: 'deuil', slug: 'deuil', titre: 'Deuil & condoléances', titreArabe: 'أذكار العزاء', description: 'Invocations pour le défunt, les condoléances et le cimetière.', icon: 'Flower2' },
   { id: 'coranique', slug: 'coranique', titre: 'Invocations coraniques', titreArabe: 'الدعاء من القرآن', description: 'Les plus belles invocations tirées directement du Coran.', icon: 'BookOpen' },
   { id: 'istikhara', slug: 'istikhara', titre: 'Prière de consultation', titreArabe: 'صلاة الاستخارة', description: 'La prière et l\'invocation de consultation (Istikhara).', icon: 'Compass' },
+  { id: 'qunut', slug: 'qunut', titre: 'Du\'a al-Qunut', titreArabe: 'دعاء القنوت', description: 'Invocations du Qunut récitées dans le Witr et lors des calamités.', icon: 'Hand' },
+  { id: 'toilettes', slug: 'toilettes', titre: 'Toilettes', titreArabe: 'أذكار الخلاء', description: 'Invocations en entrant et en sortant des toilettes.', icon: 'DoorOpen' },
+  { id: 'maison', slug: 'maison', titre: 'Maison', titreArabe: 'أذكار المنزل', description: 'Invocations en entrant et en sortant de la maison.', icon: 'Home' },
+  { id: 'eternuement', slug: 'eternuement', titre: 'Éternuement', titreArabe: 'أذكار العطاس', description: 'Ce qu\'on dit en éternuant et comment y répondre.', icon: 'Wind' },
+  { id: 'colere', slug: 'colere', titre: 'Colère', titreArabe: 'أذكار الغضب', description: 'Invocations et conseils prophétiques pour maîtriser la colère.', icon: 'Flame' },
+  { id: 'reves', slug: 'reves', titre: 'Rêves', titreArabe: 'أذكار الرؤيا', description: 'Conduite à tenir face aux bons et mauvais rêves.', icon: 'Eye' },
+  { id: 'assemblee', slug: 'assemblee', titre: 'Assemblée', titreArabe: 'أذكار المجلس', description: 'Invocations pour les réunions et l\'expiation de l\'assemblée.', icon: 'UsersRound' },
+  { id: 'jeune', slug: 'jeune', titre: 'Jeûne & Ramadan', titreArabe: 'أذكار الصيام', description: 'Invocations liées au jeûne, à la rupture et à Ramadan.', icon: 'MoonStar' },
+  { id: 'hajj', slug: 'hajj', titre: 'Hajj & Omra', titreArabe: 'أذكار الحج والعمرة', description: 'Invocations du pèlerinage : talbiya, tawaf, sa\'i, Arafat.', icon: 'Mountain' },
+  { id: 'nouveau-ne', slug: 'nouveau-ne', titre: 'Nouveau-né', titreArabe: 'أذكار المولود', description: 'Invocations pour le nouveau-né, le tahnik et la \'aqiqa.', icon: 'Baby' },
+  { id: 'dette', slug: 'dette', titre: 'Dette & subsistance', titreArabe: 'أذكار الدين والرزق', description: 'Invocations pour le remboursement des dettes et la subsistance.', icon: 'Wallet' },
+  { id: 'oppression', slug: 'oppression', titre: 'Oppression & épreuves', titreArabe: 'أذكار الظلم والبلاء', description: 'Invocations face à l\'injustice, l\'ennemi et les épreuves.', icon: 'ShieldBan' },
+  { id: 'eid', slug: 'eid', titre: 'Fêtes (Eid)', titreArabe: 'أذكار العيد', description: 'Takbirat et invocations des fêtes de l\'Eid al-Fitr et l\'Eid al-Adha.', icon: 'PartyPopper' },
 ];
 
 export function getCategoryBySlug(slug: string): CategoryMeta | undefined {

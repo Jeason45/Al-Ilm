@@ -16,6 +16,19 @@ import {
   BookOpen,
   Compass,
   HandHeart,
+  Hand,
+  DoorOpen,
+  Home,
+  Wind,
+  Flame,
+  Eye,
+  UsersRound,
+  MoonStar,
+  Mountain,
+  Baby,
+  Wallet,
+  ShieldBan,
+  PartyPopper,
 } from 'lucide-react';
 import type { InvocationCategory } from '@/data/types';
 
@@ -40,6 +53,19 @@ const CATEGORY_STYLES: Record<string, { color: string; bg: string }> = {
   deuil:         { color: '#9CA3AF', bg: 'rgba(156,163,175,0.14)' },
   coranique:     { color: '#D4B96A', bg: 'rgba(212,185,106,0.14)' },
   istikhara:     { color: '#22D3EE', bg: 'rgba(34,211,238,0.14)' },
+  qunut:         { color: '#A3E635', bg: 'rgba(163,230,53,0.14)' },
+  toilettes:     { color: '#78716C', bg: 'rgba(120,113,108,0.14)' },
+  maison:        { color: '#F97316', bg: 'rgba(249,115,22,0.14)' },
+  eternuement:   { color: '#67E8F9', bg: 'rgba(103,232,249,0.14)' },
+  colere:        { color: '#EF4444', bg: 'rgba(239,68,68,0.14)' },
+  reves:         { color: '#E879F9', bg: 'rgba(232,121,249,0.14)' },
+  assemblee:     { color: '#2DD4BF', bg: 'rgba(45,212,191,0.14)' },
+  jeune:         { color: '#FCD34D', bg: 'rgba(252,211,77,0.14)' },
+  hajj:          { color: '#A78BFA', bg: 'rgba(167,139,250,0.14)' },
+  'nouveau-ne':  { color: '#FDA4AF', bg: 'rgba(253,164,175,0.14)' },
+  dette:         { color: '#86EFAC', bg: 'rgba(134,239,172,0.14)' },
+  oppression:    { color: '#F87171', bg: 'rgba(248,113,113,0.14)' },
+  eid:           { color: '#FDE047', bg: 'rgba(253,224,71,0.14)' },
 };
 
 export function getCategoryStyle(id: string) {
@@ -100,6 +126,19 @@ const ICON_MAP: Record<string, React.ComponentType<{ size: number; color: string
   deuil: Flower2,
   coranique: BookOpen,
   istikhara: Compass,
+  qunut: Hand,
+  toilettes: DoorOpen,
+  maison: Home,
+  eternuement: Wind,
+  colere: Flame,
+  reves: Eye,
+  assemblee: UsersRound,
+  jeune: MoonStar,
+  hajj: Mountain,
+  'nouveau-ne': Baby,
+  dette: Wallet,
+  oppression: ShieldBan,
+  eid: PartyPopper,
 };
 
 /* ── Composant principal ── */

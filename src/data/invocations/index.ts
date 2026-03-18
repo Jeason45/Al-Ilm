@@ -19,6 +19,19 @@ import { vetementsInvocations } from './vetements';
 import { deuilInvocations } from './deuil';
 import { coraniqueInvocations } from './coranique';
 import { istikharaInvocations } from './istikhara';
+import { qunutInvocations } from './qunut';
+import { toilettesInvocations } from './toilettes';
+import { maisonInvocations } from './maison';
+import { eternuementInvocations } from './eternuement';
+import { colereInvocations } from './colere';
+import { revesInvocations } from './reves';
+import { assembleeInvocations } from './assemblee';
+import { jeuneInvocations } from './jeune';
+import { hajjInvocations } from './hajj';
+import { nouveauNeInvocations } from './nouveau-ne';
+import { detteInvocations } from './dette';
+import { oppressionInvocations } from './oppression';
+import { eidInvocations } from './eid';
 
 const ALL_INVOCATIONS_MAP: Record<InvocationCategory, InvocationItem[]> = {
   matin: matinInvocations,
@@ -39,6 +52,19 @@ const ALL_INVOCATIONS_MAP: Record<InvocationCategory, InvocationItem[]> = {
   deuil: deuilInvocations,
   coranique: coraniqueInvocations,
   istikhara: istikharaInvocations,
+  qunut: qunutInvocations,
+  toilettes: toilettesInvocations,
+  maison: maisonInvocations,
+  eternuement: eternuementInvocations,
+  colere: colereInvocations,
+  reves: revesInvocations,
+  assemblee: assembleeInvocations,
+  jeune: jeuneInvocations,
+  hajj: hajjInvocations,
+  'nouveau-ne': nouveauNeInvocations,
+  dette: detteInvocations,
+  oppression: oppressionInvocations,
+  eid: eidInvocations,
 };
 
 export const ALL_INVOCATIONS: InvocationItem[] = Object.values(ALL_INVOCATIONS_MAP).flat();

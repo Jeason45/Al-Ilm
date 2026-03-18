@@ -172,7 +172,9 @@ export interface SiraEvenement {
 
 export type InvocationCategory = 'matin' | 'soir' | 'apres-priere' | 'sommeil' | 'reveil'
   | 'repas' | 'voyage' | 'mosquee' | 'pluie' | 'stress' | 'maladie' | 'protection'
-  | 'general' | 'mariage' | 'vetements' | 'deuil' | 'coranique' | 'istikhara';
+  | 'general' | 'mariage' | 'vetements' | 'deuil' | 'coranique' | 'istikhara'
+  | 'qunut' | 'toilettes' | 'maison' | 'eternuement' | 'colere' | 'reves'
+  | 'assemblee' | 'jeune' | 'hajj' | 'nouveau-ne' | 'dette' | 'oppression' | 'eid';
 
 export interface InvocationItem {
   id: string;
