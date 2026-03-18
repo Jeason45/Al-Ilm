@@ -1,18 +1,20 @@
 'use client';
 
-import type { PrayerId } from '@/data/prayer-guide/types';
-import { allPrayers } from '@/data/prayer-guide/prayers';
+import type { PrayerId, PrayerDefinition } from '@/data/prayer-guide/types';
+import { allPrayers as defaultPrayers } from '@/data/prayer-guide/prayers';
 import { classifications } from '@/data/prayer-guide/classifications';
 
 interface PrayerSelectorProps {
   activePrayer: PrayerId;
   onSelect: (id: PrayerId) => void;
+  prayers?: PrayerDefinition[];
 }
 
-export function PrayerSelector({ activePrayer, onSelect }: PrayerSelectorProps) {
+export function PrayerSelector({ activePrayer, onSelect, prayers }: PrayerSelectorProps) {
+  const prayerList = prayers ?? defaultPrayers;
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-      {allPrayers.map((prayer) => {
+      {prayerList.map((prayer) => {
         const isActive = prayer.id === activePrayer;
         const meta = classifications[prayer.ruling];
         return (

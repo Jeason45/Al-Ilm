@@ -2,10 +2,18 @@
 
 import { useState } from 'react';
 import type { AblutionTypeId, AblutionStep } from '@/data/ablutions/types';
-import { getAblutionById } from '@/data/ablutions';
-import { ablutionErrors } from '@/data/ablutions/common-errors';
-import { ablutionSpecialCases } from '@/data/ablutions/special-cases';
+import type { MadhabId } from '@/data/prayer-guide/types';
+import {
+  getAblutionByMadhab,
+  getAblutionsByMadhab,
+  getInvalidatorsByMadhab,
+  getNonInvalidatorsByMadhab,
+  getSpecialCasesByMadhab,
+  getErrorsByMadhab,
+} from '@/data/ablutions';
+import { wuduDuas } from '@/data/ablutions';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { MadhabSelector } from './MadhabSelector';
 import { AblutionSelector } from './AblutionSelector';
 import { PrayerCarousel } from './PrayerCarousel';
 import type { CarouselStep } from './PrayerCarousel';
@@ -17,9 +25,20 @@ import { ClassificationBadge } from './ClassificationBadge';
 import { ChevronDown } from 'lucide-react';
 
 export function AblutionsTab() {
+  const [activeMadhab, setActiveMadhab] = useState<MadhabId>('hanafi');
   const [activeAblutionId, setActiveAblutionId] = useState<AblutionTypeId>('wudu');
 
-  const ablution = getAblutionById(activeAblutionId);
+  const ablutions = getAblutionsByMadhab(activeMadhab);
+  const ablution = getAblutionByMadhab(activeMadhab, activeAblutionId);
+  const invalidators = getInvalidatorsByMadhab(activeMadhab);
+  const nonInvalidators = getNonInvalidatorsByMadhab(activeMadhab);
+  const specialCases = getSpecialCasesByMadhab(activeMadhab);
+  const errors = getErrorsByMadhab(activeMadhab);
+
+  const handleMadhabChange = (madhab: MadhabId) => {
+    setActiveMadhab(madhab);
+    setActiveAblutionId('wudu');
+  };
 
   const handleAblutionChange = (id: AblutionTypeId) => {
     setActiveAblutionId(id);
@@ -44,10 +63,21 @@ export function AblutionsTab() {
 
   return (
     <div>
+      {/* Madhab selector */}
+      <ScrollReveal delay={40}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <MadhabSelector activeMadhab={activeMadhab} onSelect={handleMadhabChange} />
+        </div>
+      </ScrollReveal>
+
       {/* Ablution selector */}
       <ScrollReveal delay={80}>
         <div style={{ marginBottom: '2rem' }}>
-          <AblutionSelector activeAblution={activeAblutionId} onSelect={handleAblutionChange} />
+          <AblutionSelector
+            activeAblution={activeAblutionId}
+            onSelect={handleAblutionChange}
+            ablutions={ablutions}
+          />
         </div>
       </ScrollReveal>
 
@@ -79,7 +109,7 @@ export function AblutionsTab() {
       {isWudu && hasCarouselSteps && (
         <ScrollReveal delay={160}>
           <PrayerCarousel
-            key={activeAblutionId}
+            key={`${activeMadhab}-${activeAblutionId}`}
             steps={carouselSteps}
           />
         </ScrollReveal>
@@ -93,10 +123,13 @@ export function AblutionsTab() {
       )}
 
       {/* Wudu-specific sections */}
-      {activeAblutionId === 'wudu' && (
+      {isWudu && (
         <>
           <ScrollReveal delay={240}>
-            <WuduInvalidatorsSection />
+            <WuduInvalidatorsSection
+              invalidators={invalidators}
+              nonInvalidators={nonInvalidators}
+            />
           </ScrollReveal>
           <ScrollReveal delay={260}>
             <WuduDuaSection />
@@ -107,13 +140,13 @@ export function AblutionsTab() {
       {/* Common errors (wudu only) */}
       {isWudu && (
         <ScrollReveal delay={280}>
-          <CommonErrorsCard errors={ablutionErrors} title="Erreurs courantes du wudu" />
+          <CommonErrorsCard errors={errors} title="Erreurs courantes du wudu" />
         </ScrollReveal>
       )}
 
       {/* Special cases */}
       <ScrollReveal delay={300}>
-        <SpecialCasesSection cases={ablutionSpecialCases} title="Cas particuliers" />
+        <SpecialCasesSection cases={specialCases} title="Cas particuliers" />
       </ScrollReveal>
     </div>
   );

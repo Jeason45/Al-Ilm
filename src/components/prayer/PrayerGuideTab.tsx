@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import type { PrayerId } from '@/data/prayer-guide/types';
-import { getPrayerById } from '@/data/prayer-guide/prayers';
+import type { PrayerId, MadhabId } from '@/data/prayer-guide/types';
+import { getPrayerByMadhab, getPrayersByMadhab } from '@/data/prayer-guide/prayers';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { MadhabSelector } from './MadhabSelector';
 import { PrayerSelector } from './PrayerSelector';
 import { PrayerCarousel } from './PrayerCarousel';
 import type { CarouselStep } from './PrayerCarousel';
@@ -12,9 +13,11 @@ import { CommonErrorsCard } from './CommonErrorsCard';
 import { SpecialCasesSection } from './SpecialCasesSection';
 
 export function PrayerGuideTab() {
+  const [activeMadhab, setActiveMadhab] = useState<MadhabId>('hanafi');
   const [activePrayerId, setActivePrayerId] = useState<PrayerId>('fajr');
 
-  const prayer = getPrayerById(activePrayerId);
+  const prayers = getPrayersByMadhab(activeMadhab);
+  const prayer = getPrayerByMadhab(activeMadhab, activePrayerId);
 
   const { carouselSteps, rakaatBoundaries } = useMemo(() => {
     if (!prayer) return { carouselSteps: [] as CarouselStep[], rakaatBoundaries: [] as number[] };
@@ -42,6 +45,10 @@ export function PrayerGuideTab() {
     return { carouselSteps: steps, rakaatBoundaries: boundaries };
   }, [prayer]);
 
+  const handleMadhabChange = (id: MadhabId) => {
+    setActiveMadhab(id);
+  };
+
   const handlePrayerChange = (id: PrayerId) => {
     setActivePrayerId(id);
   };
@@ -50,10 +57,20 @@ export function PrayerGuideTab() {
 
   return (
     <div>
+      {/* Madhab selector */}
+      <ScrollReveal delay={40}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <p style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textAlign: 'center', marginBottom: '8px' }}>
+            École juridique
+          </p>
+          <MadhabSelector activeMadhab={activeMadhab} onSelect={handleMadhabChange} />
+        </div>
+      </ScrollReveal>
+
       {/* Prayer selector */}
       <ScrollReveal delay={80}>
         <div style={{ marginBottom: '2rem' }}>
-          <PrayerSelector activePrayer={activePrayerId} onSelect={handlePrayerChange} />
+          <PrayerSelector activePrayer={activePrayerId} onSelect={handlePrayerChange} prayers={prayers} />
         </div>
       </ScrollReveal>
 
@@ -83,7 +100,7 @@ export function PrayerGuideTab() {
       {/* Prayer carousel */}
       <ScrollReveal delay={160}>
         <PrayerCarousel
-          key={activePrayerId}
+          key={`${activeMadhab}-${activePrayerId}`}
           steps={carouselSteps}
           rakaatBoundaries={rakaatBoundaries}
         />

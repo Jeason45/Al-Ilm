@@ -1,11 +1,12 @@
 'use client';
 
-import type { AblutionTypeId } from '@/data/ablutions/types';
+import type { AblutionTypeId, AblutionDefinition } from '@/data/ablutions/types';
 import { allAblutions } from '@/data/ablutions';
 
 interface AblutionSelectorProps {
   activeAblution: AblutionTypeId;
   onSelect: (id: AblutionTypeId) => void;
+  ablutions?: AblutionDefinition[];
 }
 
 const ABLUTION_COLORS: Record<AblutionTypeId, string> = {
@@ -15,10 +16,11 @@ const ABLUTION_COLORS: Record<AblutionTypeId, string> = {
   'tayammum': 'var(--color-amber)',
 };
 
-export function AblutionSelector({ activeAblution, onSelect }: AblutionSelectorProps) {
+export function AblutionSelector({ activeAblution, onSelect, ablutions }: AblutionSelectorProps) {
+  const items = ablutions ?? allAblutions;
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center' }}>
-      {allAblutions.map((ablution) => {
+      {items.map((ablution) => {
         const isActive = ablution.id === activeAblution;
         const color = ABLUTION_COLORS[ablution.id];
         return (

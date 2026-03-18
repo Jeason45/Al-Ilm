@@ -51,6 +51,8 @@ export interface Rakaa {
   steps: PrayerStep[];
 }
 
+export type MadhabId = 'hanafi' | 'maliki' | 'shafii' | 'hanbali';
+
 export type PrayerId = 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha' | 'witr' | 'sunnah-rawatib' | 'tarawih';
 
 export interface PrayerDefinition {
